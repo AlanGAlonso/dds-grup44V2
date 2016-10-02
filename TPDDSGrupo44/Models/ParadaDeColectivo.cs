@@ -21,7 +21,7 @@ namespace TPDDSGrupo44.Models
         public new string pais { get; set; }
         public new string entreCalles { get; set; }
         public new string nombreDePOI { get; set; }
-        public new List<PalabrasClaves> palabrasClave { get; set; }
+        public new List<PalabraClave> palabrasClave { get; set; }
  
 
 
@@ -31,7 +31,7 @@ namespace TPDDSGrupo44.Models
 
         ////////////////Constructor generico////////////////
         public ParadaDeColectivo(DbGeography unaCoordenada, string calle, int numeroAltura, int codigoPostal,
-           string localidad, string barrio, string provincia, string pais, string entreCalles, List<PalabrasClaves> palabrasClave,
+           string localidad, string barrio, string provincia, string pais, string entreCalles, List<PalabraClave> palabrasClave,
            string nombreDePOI)
         {
             this.coordenada = unaCoordenada;
@@ -118,7 +118,7 @@ namespace TPDDSGrupo44.Models
 
 
         public void actualizar(string calle, int numeroAltura, int codigoPostal, string localidad, string barrio, string provincia, string pais,
-            string entreCalles, List<PalabrasClaves> palabrasClave, string nombreDePOI)
+            string entreCalles, List<PalabraClave> palabrasClave, string nombreDePOI)
         {
             this.calle = calle;
             this.numeroAltura = numeroAltura;

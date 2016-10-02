@@ -24,7 +24,7 @@ namespace TPDDSGrupo44.Models
         public new string pais { get; set; }
         public new string entreCalles { get; set; }
         public new string nombreDePOI { get; set; }
-        public virtual new List<PalabrasClaves> palabrasClave { get; set; }
+        public virtual new List<PalabraClave> palabrasClave { get; set; }
         public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
         public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
 
@@ -49,7 +49,7 @@ namespace TPDDSGrupo44.Models
 
         public LocalComercial(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, 
-           List<PalabrasClaves> palabrasClave, string nombreDePOI, List<HorarioAbierto> horarioAbierto, 
+           List<PalabraClave> palabrasClave, string nombreDePOI, List<HorarioAbierto> horarioAbierto, 
            List<HorarioAbierto> horarioFeriados,
            Rubro rubro)
         {
@@ -74,7 +74,7 @@ namespace TPDDSGrupo44.Models
 
 
         //E4 - JM - Constructor para actualización asincrónica
-        public LocalComercial (string nombre, List<PalabrasClaves> palabras)
+        public LocalComercial (string nombre, List<PalabraClave> palabras)
         {
             nombreDePOI = nombre;
             palabrasClave = palabras;

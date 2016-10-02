@@ -20,7 +20,13 @@ namespace TPDDSGrupo44.Models
                 string[] items = line.Split(';');
                 string nombre = items[0];
 
-                List<string> palabrasClave = items[1].Split(' ').ToList();
+                List<string> palabrasClaveFront = items[1].Split(' ').ToList();
+                List<PalabraClave> palabrasClave = new List<PalabraClave>();
+                foreach (string p in palabrasClaveFront)
+                {
+                    palabrasClave.Add(new PalabraClave(p));
+                }
+
 
                 using (var db = new BuscAR())
                 {

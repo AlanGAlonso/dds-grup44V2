@@ -21,7 +21,7 @@ namespace TPDDSGrupo44.Models
         public string pais { get; set; }
         public string entreCalles { get; set; }
         public string nombreDePOI { get; set; }
-        public virtual List<PalabrasClaves> palabrasClave { get; set; }
+        public virtual List<PalabraClave> palabrasClave { get; set; }
         public virtual List<HorarioAbierto> horarioAbierto { get; set; }
         public virtual List<HorarioAbierto> horarioFeriado { get; set; }
 
@@ -32,7 +32,7 @@ namespace TPDDSGrupo44.Models
 
         ////////////////Constructor generico////////////////
         public PuntoDeInteres(DbGeography unaCoordenada, string calle, int numeroAltura,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<PalabrasClaves> palabrasClave,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<PalabraClave> palabrasClave,
            string nombreDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados)
         {
             this.coordenada = unaCoordenada;

@@ -146,7 +146,9 @@ new LocalComercial
                 pais = "Argentina",
                 entreCalles = "Av Escalda y Av General Paz",
                 coordenada = DbGeography.FromText("POINT(-34.6862397 -58.4606666)"),
-                palabrasClave = new List<string> { "Sede Comunal 8","CGP"},
+                palabrasClave = new List<PalabraClave> {
+                    new PalabraClave("Sede Comunal 8"),
+                    new PalabraClave("CGP") },
                 zonaDelimitadaPorLaComuna = 50,
                 servicios = new List<ServicioCGP>()
                 {
@@ -257,7 +259,9 @@ new CGP
     provincia = "Ciudad Autónoma de Buenos Aires",
     pais = "Argentina",
     entreCalles = "Mercedes y Av Chivilcoy",
-    palabrasClave = new List<string> { "Sede Comunal 10", "CGP" },
+    palabrasClave = new List<PalabraClave> {
+        new PalabraClave("Sede Comunal 10"),
+        new PalabraClave("CGP") },
     coordenada = DbGeography.FromText("POINT(-34.6318411 -58.4857468)"),
     zonaDelimitadaPorLaComuna = 10,
     servicios = new List<ServicioCGP>()

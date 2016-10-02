@@ -20,7 +20,7 @@ namespace TPDDSGrupo44.Models
         public new string pais { get; set; }
         public new string entreCalles { get; set; }
         public new string nombreDePOI { get; set; }
-        public virtual new List<PalabrasClaves> palabrasClave { get; set; }
+        public virtual new List<PalabraClave> palabrasClave { get; set; }
         public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
         public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
         public virtual List<ServicioBanco> servicios { get; set; }
@@ -52,7 +52,7 @@ namespace TPDDSGrupo44.Models
         ////////////////Constructor generico////////////////
         public Banco(DbGeography unaCoordenada, string calle, int numeroAltura, int piso,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, 
-           List<PalabrasClaves> palabrasClave,string nombreDePOI, List<HorarioAbierto> horarioAbierto, 
+           List<PalabraClave> palabrasClave,string nombreDePOI, List<HorarioAbierto> horarioAbierto, 
            List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
 
           {
@@ -127,7 +127,7 @@ namespace TPDDSGrupo44.Models
         }
 
         public void actualizar(string calle, int numeroAltura, int piso,int codigoPostal, string localidad, string barrio, 
-            string provincia, string pais, string entreCalles, string nombreDePOI, List<PalabrasClaves> palabrasClave,
+            string provincia, string pais, string entreCalles, string nombreDePOI, List<PalabraClave> palabrasClave,
             List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
         {
             this.calle = calle;

@@ -215,17 +215,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\POIsController.cs" />
     <Compile Include="Controllers\RolController.cs" />
-    <Compile Include="Controllers\TerminalController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610021535164_InitialCreate.cs" />
-    <Compile Include="Migrations\201610021535164_InitialCreate.Designer.cs">
-      <DependentUpon>201610021535164_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610021540306_InitialCreate1.cs" />
-    <Compile Include="Migrations\201610021540306_InitialCreate1.Designer.cs">
-      <DependentUpon>201610021540306_InitialCreate1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
@@ -246,6 +237,7 @@
     <Compile Include="Models\GetJsonBanks.cs" />
     <Compile Include="Models\LocalComercial.cs" />
     <Compile Include="Models\LogAction.cs" />
+    <Compile Include="Models\PalabrasClaves.cs" />
     <Compile Include="Models\ParadaDeColectivo.cs" />
     <Compile Include="Models\ProcesoMultiple.cs" />
     <Compile Include="Models\POI.cs" />
@@ -253,7 +245,6 @@
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Rubro.cs" />
     <Compile Include="Models\Servicio.cs" />
-    <Compile Include="Models\Terminal.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\UsuarioTramite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -334,14 +325,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610021535164_InitialCreate.resx">
-      <DependentUpon>201610021535164_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610021540306_InitialCreate1.resx">
-      <DependentUpon>201610021540306_InitialCreate1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
