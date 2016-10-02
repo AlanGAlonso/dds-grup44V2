@@ -2,21 +2,19 @@
 
 @{
     ViewBag.Title = "CreateParada";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CreateParada</h2>
+<h2>ABMPOI</h2>
 
-@*@using (Html.BeginForm())
-    {*@
+
 @Html.AntiForgeryToken()
 
+
 <div class="form-horizontal">
-    <h4>Parada</h4>
+    <h4>ParadaDeColectivo</h4>
     <hr />
     @using (Html.BeginForm("CreateParada", "Admin", FormMethod.Post))
     {
-
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.coordenada.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -35,6 +33,7 @@
             </div>
         </div>
 
+
         <div class="form-group">
             @Html.LabelFor(model => model.calle, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -43,27 +42,12 @@
             </div>
         </div>
 
+
         <div class="form-group">
             @Html.LabelFor(model => model.numeroAltura, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.numeroAltura, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.numeroAltura, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.piso, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.piso, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.piso, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.unidad, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.unidad, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.unidad, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -124,13 +108,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.tipoDePOI, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.tipoDePOI, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.tipoDePOI, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
             @Html.LabelFor(model => model.palabrasClave, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input class="form-control" name="palabrasClave">
@@ -142,13 +119,11 @@
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
-  
     }
+</div>
+
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

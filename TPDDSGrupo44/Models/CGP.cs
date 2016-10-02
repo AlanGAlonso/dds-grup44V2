@@ -134,6 +134,7 @@ namespace TPDDSGrupo44.Models
         }
 
 
+
         // -------------------- ABM CGP --------------------------
         public void agregarCGP(CGP cgp)
         {
@@ -156,6 +157,30 @@ namespace TPDDSGrupo44.Models
             }
 
 
+        }
+
+        public void actualizar(string calle, int numeroAltura, int piso, int unidad,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
+           string nombreDePOI, int numeroDeComuna, List<ServicioCGP> servicios, int zonaDelimitadaPorLaComuna,
+           List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado)
+        {
+            this.calle = calle;
+            this.numeroAltura = numeroAltura;
+            this.piso = piso;
+            this.unidad = unidad;
+            this.codigoPostal = codigoPostal;
+            this.localidad = localidad;
+            this.barrio = barrio;
+            this.provincia = provincia;
+            this.pais = pais;
+            this.entreCalles = entreCalles;
+            this.palabrasClave = palabrasClave;
+            this.nombreDePOI = nombreDePOI;
+            this.numeroDeComuna = numeroDeComuna;
+            this.horarioAbierto = horarioAbierto;
+            this.horarioFeriado = horarioFeriado;
+            this.servicios = servicios;
+            this.zonaDelimitadaPorLaComuna = zonaDelimitadaPorLaComuna;
         }
 
     }

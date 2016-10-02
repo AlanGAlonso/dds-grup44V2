@@ -38,16 +38,10 @@
             @Html.DisplayNameFor(model => model.provincia)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.pais)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.entreCalles)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.palabrasClave)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tipoDePOI)
+            @Html.DisplayNameFor(model => model.nombreDePOI)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.numeroDeComuna)
@@ -58,56 +52,51 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+    @foreach (var item in Model)
+    {
+        <tr>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.calle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.numeroAltura)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.piso)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.unidad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.codigoPostal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.localidad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.barrio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.provincia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.pais)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.entreCalles)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.palabrasClave)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tipoDePOI)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.numeroDeComuna)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.zonaDelimitadaPorLaComuna)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "EditCGP", new { id=item.id }) |
-            @Html.ActionLink("Borrar", "DeleteCGP", new { id=item.id })
-        </td>
-    </tr>
-}
+            <td>
+                @Html.DisplayFor(modelItem => item.calle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.numeroAltura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.piso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.unidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.codigoPostal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.localidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.barrio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.provincia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.entreCalles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombreDePOI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.numeroDeComuna)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.zonaDelimitadaPorLaComuna)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "EditCGP", new { id = item.id }) |
+                @Html.ActionLink("Borrar", "DeleteCGP", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>

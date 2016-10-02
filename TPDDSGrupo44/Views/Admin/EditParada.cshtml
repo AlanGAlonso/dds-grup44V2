@@ -10,7 +10,7 @@
 @using (Html.BeginForm("EditParada", "Admin", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>ParadaDeColectivo</h4>
         <hr />
@@ -18,10 +18,18 @@
         @Html.HiddenFor(model => model.id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.coordenada, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.coordenada.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.coordenada, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.coordenada, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.coordenada.Latitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.coordenada.Latitude, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.coordenada.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.coordenada.Longitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.coordenada.Longitude, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -41,21 +49,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.piso, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.piso, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.piso, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.unidad, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.unidad, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.unidad, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.codigoPostal, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -114,10 +107,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.tipoDePOI, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.palabrasClave, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.tipoDePOI, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.tipoDePOI, "", new { @class = "text-danger" })
+                <input class="form-control" name="palabrasClave">
             </div>
         </div>
 
@@ -127,6 +119,7 @@
             </div>
         </div>
     </div>
+}
 }
 
 <div>

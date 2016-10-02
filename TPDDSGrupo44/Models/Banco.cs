@@ -53,8 +53,8 @@ namespace TPDDSGrupo44.Models
         }
         ////////////////Constructor generico////////////////
         public Banco(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, string palabraClave,
-           string tipoDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
+           string nombreDePOI,string tipoDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
 
           {
             this.coordenada = unaCoordenada;
@@ -68,7 +68,8 @@ namespace TPDDSGrupo44.Models
             this.provincia = provincia;
             this.pais = pais;
             this.entreCalles = entreCalles;
-            this.nombreDePOI = palabraClave;
+            this.palabrasClave = palabrasClave;
+            this.nombreDePOI = nombreDePOI;
             this.tipoDePOI = tipoDePOI;
             this.horarioAbierto = horarioAbierto;
             this.horarioFeriado = horarioFeriado;
@@ -124,6 +125,29 @@ namespace TPDDSGrupo44.Models
                 db.Bancos.Remove(banco);
                 db.SaveChanges();
             }
+
+
+        }
+
+        public void actualizar(string calle, int numeroAltura, int piso, int unidad,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, string nombreDePOI,
+           List<string> palabrasClave, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
+        {
+            this.calle = calle;
+            this.numeroAltura = numeroAltura;
+            this.piso = piso;
+            this.unidad = unidad;
+            this.codigoPostal = codigoPostal;
+            this.localidad = localidad;
+            this.barrio = barrio;
+            this.provincia = provincia;
+            this.pais = pais;
+            this.entreCalles = entreCalles;
+            this.nombreDePOI = nombreDePOI;
+            this.palabrasClave = palabrasClave;
+            this.horarioAbierto = horarioAbierto;
+            this.horarioFeriado = horarioFeriado;
+            this.servicios = servicios;
         }
 
 
