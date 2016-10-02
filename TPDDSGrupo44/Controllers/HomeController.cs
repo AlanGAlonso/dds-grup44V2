@@ -42,7 +42,7 @@ namespace TPDDSGrupo44.Controllers
                     if (int.TryParse(palabraBusqueda, out linea) && linea > 0)
                     {
 
-                        List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Where(b => b.buscarPalabra(palabraBusqueda)).ToList();
+                        List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower() == palabraBusqueda.ToLower()).Count() != 0).ToList();
                         foreach (ParadaDeColectivo punto in resultadosBusqueda)
                         {
 
@@ -89,7 +89,7 @@ namespace TPDDSGrupo44.Controllers
                         // Si la palabra ingresada no era parada ni rubro, la busco como local
                     }
 
-                    List<LocalComercial> resultadosBusquedaLocales = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Include("rubro").Where(b => b.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    List<LocalComercial> resultadosBusquedaLocales = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Include("rubro").Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower() == palabraBusqueda.ToLower()).Count() != 0).ToList();
                     if (resultadosBusquedaLocales.Count() > 0)
                     {
                         foreach (LocalComercial punto in resultadosBusquedaLocales)
@@ -110,7 +110,7 @@ namespace TPDDSGrupo44.Controllers
                         }
                     }
 
-                    List<Banco> resultadosBusquedaBancos = db.Bancos.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(b => b.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    List<Banco> resultadosBusquedaBancos = db.Bancos.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower() == palabraBusqueda.ToLower()).Count() != 0).ToList();
 
                     GetJsonBanks buscadorDeBancosJSON = new GetJsonBanks();
                     List<Banco> resultadoBusquedaJSONBancos = buscadorDeBancosJSON.getJsonData().FindAll(b => b.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower()));
@@ -138,7 +138,7 @@ namespace TPDDSGrupo44.Controllers
 
 
 
-                    List<CGP> resultadosBusquedaCGP = db.CGPs.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(b => b.buscarPalabra(palabraBusqueda)).ToList();
+                    List<CGP> resultadosBusquedaCGP = db.CGPs.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower() == palabraBusqueda.ToLower()).Count() != 0).ToList();
 
                  /*   GetJsonCGP buscadorDeCGPJSON = new GetJsonCGP();
                     List<Banco> resultadoBusquedaJSONCGP = buscadorDeCGPJSON.getJsonData().FindAll(b => b.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower()));
@@ -172,14 +172,12 @@ namespace TPDDSGrupo44.Controllers
                     {
                         ViewBag.Search = "error";
                         ViewBag.SearchText = "Disculpa, pero no encontramos ningún punto con esa palabra clave.";
-
+                        
                     }
-                    else
-                    {
                         Busqueda busqueda = new Busqueda(palabraBusqueda, resultados, DateTime.Today, dispositivoTactil, contador.Elapsed);
                         db.Busquedas.Add(busqueda);
                         db.SaveChanges();
-                    }
+                    
 
                     if (contador.Elapsed.Seconds > 60)
                     {

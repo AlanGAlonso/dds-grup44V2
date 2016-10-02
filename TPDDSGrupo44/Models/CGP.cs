@@ -21,7 +21,7 @@ namespace TPDDSGrupo44.Models
         public new string provincia { get; set; }
         public new string pais { get; set; }
         public new string entreCalles { get; set; }
-        public new List<PalabraClave> palabrasClave { get; set; }
+        public virtual new List<PalabraClave> palabrasClave { get; set; }
         public new string nombreDePOI { get; set; }
         public int numeroDeComuna { get; set; }
         public virtual new List<HorarioAbierto> horarioAbierto { get; set; }

@@ -1,8 +1,11 @@
-﻿namespace TPDDSGrupo44.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TPDDSGrupo44.Models
 {
     public class PalabraClave
     {
         ////////////////Atributos////////////////
+        [Key]
         public int Id { get; set; }
         public string palabraClave { get; set; }
 
