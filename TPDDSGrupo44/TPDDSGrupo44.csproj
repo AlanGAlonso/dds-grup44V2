@@ -219,6 +219,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610021535164_InitialCreate.cs" />
+    <Compile Include="Migrations\201610021535164_InitialCreate.Designer.cs">
+      <DependentUpon>201610021535164_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610021540306_InitialCreate1.cs" />
+    <Compile Include="Migrations\201610021540306_InitialCreate1.Designer.cs">
+      <DependentUpon>201610021540306_InitialCreate1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
     <Compile Include="Models\ActualizacionLocalComercial.cs" />
@@ -230,7 +238,7 @@
     <Compile Include="Models\Busqueda.cs" />
     <Compile Include="Models\CGP.cs" />
     <Compile Include="Models\FuncionalidadUsuario.cs" />
-    <Compile Include="Models\EnvioDeMails.cs" />
+    <Compile Include="Helpers\EnvioDeMails.cs" />
     <Compile Include="Models\GetJsonCGP.cs" />
     <Compile Include="Models\JsonBank.cs" />
     <Compile Include="Models\DispositivoTactil.cs" />
@@ -326,6 +334,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610021535164_InitialCreate.resx">
+      <DependentUpon>201610021535164_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610021540306_InitialCreate1.resx">
+      <DependentUpon>201610021540306_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

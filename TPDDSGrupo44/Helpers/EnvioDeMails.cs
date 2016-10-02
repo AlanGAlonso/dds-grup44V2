@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Mail;
 
-namespace TPDDSGrupo44.Models
+namespace TPDDSGrupo44.Helpers
 {
     public class EnvioDeMails
     {
@@ -22,11 +22,11 @@ namespace TPDDSGrupo44.Models
                 switch (tipoDeMail)
                 {
                     case 0:
-                        mail.Subject = "Notificacion de busqueda";
-                        mail.Body = "Se Notifica al Administrador en caso que una búsqueda demore más de X segundos";
+                        mail.Subject = "WARNING: Búsqueda lenta";
+                        mail.Body = "Alguien realizó una búsqueda que tomó "+ cantSegDemora.Seconds + " segundos";
                         break;
                     case 1:
-                        mail.Subject = "Fallo la aplicacion";
+                        mail.Subject = "ERROR: Fallo la aplicacion";
                         mail.Body = "Se Notifica al Administrador que hubo un error. Revisar LOGS";
                         break;
                 }

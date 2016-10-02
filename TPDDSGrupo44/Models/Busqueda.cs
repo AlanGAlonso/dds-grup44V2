@@ -12,7 +12,7 @@ namespace TPDDSGrupo44.Models
         public int cantidadDeResultados { get; set; }
         public DateTime fecha { get; set; }
         public virtual DispositivoTactil terminal { get; set; }
-        public int duracionDeBusqueda { get; set; }
+        public TimeSpan duracionDeBusqueda { get; set; }
 
         ////////////////Constructor vacio////////////////
         public Busqueda () { }
@@ -20,12 +20,13 @@ namespace TPDDSGrupo44.Models
 
 
 
-        public Busqueda(string texto, int resultados, DateTime fechaBusqueda, DispositivoTactil terminalBusqueda)
+        public Busqueda(string texto, int resultados, DateTime fechaBusqueda, DispositivoTactil terminalBusqueda, TimeSpan duracion)
         {
             textoBuscado = texto;
             cantidadDeResultados = resultados;
             fecha = fechaBusqueda;
             terminal = terminalBusqueda;
+            duracionDeBusqueda = duracion;
         }
     }
 }

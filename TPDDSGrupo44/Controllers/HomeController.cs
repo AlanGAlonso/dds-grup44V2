@@ -6,6 +6,8 @@ using System.Globalization;
 using TPDDSGrupo44.Models;
 using System.Data.Entity.Spatial;
 using TPDDSGrupo44.ViewModels;
+using System.Diagnostics;
+using TPDDSGrupo44.Helpers;
 
 namespace TPDDSGrupo44.Controllers
 {
@@ -20,7 +22,8 @@ namespace TPDDSGrupo44.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection search)
         {
-
+            Stopwatch contador = new Stopwatch();
+            contador.Start();
             ViewBag.Message = "Buscá puntos de interés, descubrí cuáles están cerca.";
 
 
@@ -164,6 +167,8 @@ namespace TPDDSGrupo44.Controllers
                         }
                     }
 
+                    contador.Stop();
+
                     int resultados = modeloVista.bancosEncontrados.Count() + modeloVista.bancosEncontradosCerca.Count() + modeloVista.cgpsEncontrados.Count() + modeloVista.localesEncontrados.Count() + modeloVista.localesEncontradosCerca.Count() + modeloVista.paradasEncontradas.Count() + modeloVista.paradasEncontradasCerca.Count();
                     if (resultados == 0)
                     {
@@ -173,9 +178,15 @@ namespace TPDDSGrupo44.Controllers
                     }
                     else
                     {
-                        Busqueda busqueda = new Busqueda(palabraBusqueda, resultados, DateTime.Today, dispositivoTactil);
+                        Busqueda busqueda = new Busqueda(palabraBusqueda, resultados, DateTime.Today, dispositivoTactil, contador.Elapsed);
                         db.Busquedas.Add(busqueda);
                         db.SaveChanges();
+                    }
+
+                    if (contador.Elapsed.Seconds > 60)
+                    {
+                        EnvioDeMails mailer = new EnvioDeMails();
+                        mailer.enviarMail(contador.Elapsed, 0);
                     }
 
                     return View(modeloVista);
@@ -184,6 +195,8 @@ namespace TPDDSGrupo44.Controllers
             }
             catch
             {
+                EnvioDeMails mailer = new EnvioDeMails();
+                mailer.enviarMail(contador.Elapsed, 1);
                 return View();
             }
         }
