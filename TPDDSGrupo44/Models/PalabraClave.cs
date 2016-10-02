@@ -14,5 +14,6 @@
         public PalabraClave(string palabra) {
             palabraClave = palabra;
         }
+
     }
 }

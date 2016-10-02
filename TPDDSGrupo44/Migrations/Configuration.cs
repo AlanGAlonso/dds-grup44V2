@@ -49,7 +49,7 @@ new DispositivoTactil
                 pais = "Argentina",
                 entreCalles = "Saraza y Dellepiane Sur",
                 coordenada = DbGeography.FromText("POINT(-34.659690 -58.468764)"),
-         
+
             },
 new ParadaDeColectivo
 {
@@ -62,7 +62,7 @@ new ParadaDeColectivo
     pais = "Argentina",
     entreCalles = "Av Derqui y Dellepiane Norte",
     coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)"),
- 
+
 });
 
             context.SaveChanges();
@@ -107,29 +107,6 @@ new LocalComercial
 
 
 
-            // servicios CGP Lugano
-            ServicioCGP servicio1 = new ServicioCGP("Rentas");
-            servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
-            servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
-            servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
-            servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
-            servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
-            servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            List<ServicioCGP> servicios1 = new List<ServicioCGP>();
-            servicios1.Add(servicio1);
-
-            //servicios CGP Floresta
-            ServicioCGP servicio2 = new ServicioCGP("Registro Civil");
-            servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
-            servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
-            servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
-            servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
-            servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 10, 16));
-            servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            List<ServicioCGP> servicios2 = new List<ServicioCGP>();
-            servicios2.Add(servicio2);
 
             //CGPs
             context.CGPs.AddOrUpdate(
@@ -154,6 +131,7 @@ new LocalComercial
                 {
                      new ServicioCGP()
                     {
+                         nombre = "Registro CUIL",
                          horarioAbierto = new List<HorarioAbierto>()
                                          {
                              new HorarioAbierto()
@@ -268,6 +246,7 @@ new CGP
                 {
                      new ServicioCGP()
                     {
+                         nombre = "Casamiento",
                          horarioAbierto = new List<HorarioAbierto>()
                                          {
                              new HorarioAbierto()
@@ -320,28 +299,7 @@ new CGP
             context.SaveChanges();
 
 
-            // Horarios Banco Provincia
-            ServicioBanco servicio3 = new ServicioBanco("Depósitos");
-            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
-            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
-            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
-            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
-            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
-            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            List<ServicioBanco> servicios3 = new List<ServicioBanco>();
-            servicios3.Add(servicio3);
 
-            horarios = new List<HorarioAbierto>();
-            horarios.Add(new HorarioAbierto(System.DayOfWeek.Monday, 10, 15));
-            horarios.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 10, 15));
-            horarios.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 10, 15));
-            horarios.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 10, 15));
-            horarios.Add(new HorarioAbierto(System.DayOfWeek.Friday, 10, 15));
-            horarios.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
-            horarios.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-
-            // Horarios Banco Francés
 
             //Bancos
             context.Bancos.AddOrUpdate(
@@ -350,7 +308,59 @@ new CGP
             {
                 nombreDePOI = "Banco Provincia",
                 coordenada = DbGeography.FromText("POINT( 34.660979  58.469821)"),
-                servicios = servicios3,
+                servicios = new List<ServicioBanco>()
+                {
+                     new ServicioBanco()
+                    {
+                         nombre = "Extracción",
+                         horarioAbierto = new List<HorarioAbierto>()
+                                         {
+                             new HorarioAbierto()
+                            {
+                                 dia = System.DayOfWeek.Monday,
+                                horarioInicio = 8,
+                                horarioFin = 18
+                                             },
+                             new HorarioAbierto()
+                            {
+                                 dia = System.DayOfWeek.Tuesday,
+                                horarioInicio = 8,
+                                horarioFin = 18
+                                             },
+                             new HorarioAbierto()
+                            {
+                                 dia = System.DayOfWeek.Wednesday,
+                                horarioInicio = 8,
+                                horarioFin = 18
+                                             },
+                             new HorarioAbierto()
+                            {
+                                 dia = System.DayOfWeek.Thursday,
+                                horarioInicio = 8,
+                                horarioFin = 18
+                                             },
+                             new HorarioAbierto()
+                            {
+                                 dia = System.DayOfWeek.Friday,
+                                horarioInicio = 8,
+                                horarioFin = 18
+                                             },
+                             new HorarioAbierto()
+                            {
+                                 dia = System.DayOfWeek.Saturday,
+                                horarioInicio = 10,
+                                horarioFin = 16
+                                             },
+                             new HorarioAbierto()
+                            {
+                                 dia = System.DayOfWeek.Sunday,
+                                horarioInicio = 0,
+                                horarioFin = 0
+                                             }
+                                         }
+                                              }
+
+                                    },
                 horarioAbierto = horarios
             },
             new Banco
@@ -361,6 +371,7 @@ new CGP
                 {
                      new ServicioBanco()
                     {
+                         nombre = "Depósito",
                          horarioAbierto = new List<HorarioAbierto>()
                                          {
                              new HorarioAbierto()

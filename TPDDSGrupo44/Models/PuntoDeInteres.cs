@@ -59,7 +59,20 @@ namespace TPDDSGrupo44.Models
             this.coordenada = unaCordenada;
         }
 
-       ////////////////Funcion manhattan////////////////
+
+        public bool buscarPalabra(string palabra)
+        {
+            foreach(PalabraClave p in palabrasClave)
+            {
+                if (p.palabraClave.ToLower() == palabra.ToLower())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        ////////////////Funcion manhattan////////////////
         private static double functionManhattan(DbGeography coordenadaDeDispositivoTactil, DbGeography coordenada)
         {
             double lat1InDegrees = (double)coordenadaDeDispositivoTactil.Latitude;

@@ -42,7 +42,7 @@ namespace TPDDSGrupo44.Controllers
                     if (int.TryParse(palabraBusqueda, out linea) && linea > 0)
                     {
 
-                        List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Where(b => b.nombreDePOI == palabraBusqueda).ToList();
+                        List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Where(b => b.buscarPalabra(palabraBusqueda)).ToList();
                         foreach (ParadaDeColectivo punto in resultadosBusqueda)
                         {
 
@@ -138,7 +138,7 @@ namespace TPDDSGrupo44.Controllers
 
 
 
-                    List<CGP> resultadosBusquedaCGP = db.CGPs.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(b => b.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    List<CGP> resultadosBusquedaCGP = db.CGPs.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(b => b.buscarPalabra(palabraBusqueda)).ToList();
 
                  /*   GetJsonCGP buscadorDeCGPJSON = new GetJsonCGP();
                     List<Banco> resultadoBusquedaJSONCGP = buscadorDeCGPJSON.getJsonData().FindAll(b => b.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower()));

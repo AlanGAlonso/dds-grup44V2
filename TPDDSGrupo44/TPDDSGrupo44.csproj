@@ -213,10 +213,13 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\POIsController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610021815356_InitialCreate.cs" />
+    <Compile Include="Migrations\201610021815356_InitialCreate.Designer.cs">
+      <DependentUpon>201610021815356_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
@@ -237,10 +240,9 @@
     <Compile Include="Models\GetJsonBanks.cs" />
     <Compile Include="Models\LocalComercial.cs" />
     <Compile Include="Models\LogAction.cs" />
-    <Compile Include="Models\PalabrasClaves.cs" />
+    <Compile Include="Models\PalabraClave.cs" />
     <Compile Include="Models\ParadaDeColectivo.cs" />
     <Compile Include="Models\ProcesoMultiple.cs" />
-    <Compile Include="Models\POI.cs" />
     <Compile Include="Models\PuntoDeInteres.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Rubro.cs" />
@@ -315,6 +317,9 @@
     <Content Include="Views\Admin\DeleteBanco.cshtml" />
     <Content Include="Views\Admin\CreateLocal.cshtml" />
     <Content Include="Views\Admin\CreateCGP.cshtml" />
+    <Content Include="Views\Admin\EditBanco.cshtml" />
+    <Content Include="Views\Admin\EditCGP.cshtml" />
+    <Content Include="Views\Admin\EditParada.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -325,6 +330,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610021815356_InitialCreate.resx">
+      <DependentUpon>201610021815356_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
