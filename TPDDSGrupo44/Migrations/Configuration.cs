@@ -48,7 +48,8 @@ new DispositivoTactil
                 provincia = "Ciudad Autónoma de Buenos Aires",
                 pais = "Argentina",
                 entreCalles = "Saraza y Dellepiane Sur",
-                coordenada = DbGeography.FromText("POINT(-34.659690 -58.468764)")
+                coordenada = DbGeography.FromText("POINT(-34.659690 -58.468764)"),
+         
             },
 new ParadaDeColectivo
 {
@@ -60,10 +61,12 @@ new ParadaDeColectivo
     provincia = "Ciudad Autónoma de Buenos Aires",
     pais = "Argentina",
     entreCalles = "Av Derqui y Dellepiane Norte",
-    coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)")
+    coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)"),
+ 
 });
 
             context.SaveChanges();
+
 
 
             //Horarios de locales
@@ -99,6 +102,9 @@ new LocalComercial
 });
 
             context.SaveChanges();
+
+
+
 
 
             // servicios CGP Lugano
@@ -140,6 +146,7 @@ new LocalComercial
                 pais = "Argentina",
                 entreCalles = "Av Escalda y Av General Paz",
                 coordenada = DbGeography.FromText("POINT(-34.6862397 -58.4606666)"),
+                palabrasClave = new List<string> { "Sede Comunal 8","CGP"},
                 zonaDelimitadaPorLaComuna = 50,
                 servicios = new List<ServicioCGP>()
                 {
@@ -250,6 +257,7 @@ new CGP
     provincia = "Ciudad Autónoma de Buenos Aires",
     pais = "Argentina",
     entreCalles = "Mercedes y Av Chivilcoy",
+    palabrasClave = new List<string> { "Sede Comunal 10", "CGP" },
     coordenada = DbGeography.FromText("POINT(-34.6318411 -58.4857468)"),
     zonaDelimitadaPorLaComuna = 10,
     servicios = new List<ServicioCGP>()

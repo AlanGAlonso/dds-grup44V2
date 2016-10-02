@@ -76,8 +76,8 @@ namespace TPDDSGrupo44.Controllers
 
 
                 ParadaDeColectivo parada = new ParadaDeColectivo(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
-                    0, 0, Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], collection["provincia"],
-                    collection["pais"], collection["entreCalles"], palabrasClave, collection["nombreDePOI"], "ParadaDeColectivo");
+                    Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], collection["provincia"],
+                    collection["pais"], collection["entreCalles"], palabrasClave, collection["nombreDePOI"]);
 
                 parada.agregarParada(parada);
 
@@ -210,10 +210,11 @@ namespace TPDDSGrupo44.Controllers
                 List<ServicioBanco> servicios = new List<ServicioBanco>();
 
 
+
                 Banco banco = new Banco(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
-                      Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
-                      collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
-                      palabrasClave, collection["nombreDePOI"], "Banco", horariosAbierto, horariosFeriado, servicios);
+                      Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["codigoPostal"]), collection["localidad"],
+                      collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
+                      palabrasClave, collection["nombreDePOI"], horariosAbierto, horariosFeriado, servicios);
 
                 banco.agregarBanco(banco);
 
@@ -293,10 +294,10 @@ namespace TPDDSGrupo44.Controllers
 
                     List<ServicioBanco> servicios = new List<ServicioBanco>();
 
-                    banco.actualizar(collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
-                      Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
-                      collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
-                      collection["nombreDePOI"], palabrasClave, horariosAbierto, horariosFeriado, servicios);
+                    banco.actualizar(collection["calle"], Convert.ToInt32(collection["numeroAltura"]), Convert.ToInt32(collection["piso"]),
+                      Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], collection["provincia"],
+                      collection["pais"], collection["entreCalles"], collection["nombreDePOI"], palabrasClave, horariosAbierto, horariosFeriado, servicios);
+
 
 
                     db.SaveChanges();

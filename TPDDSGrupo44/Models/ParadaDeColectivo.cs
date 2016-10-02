@@ -14,17 +14,15 @@ namespace TPDDSGrupo44.Models
         public new DbGeography coordenada { get; set; }
         public new string calle { get; set; }
         public new int numeroAltura { get; set; }
-        public new int piso { get; set; }
-        public new int unidad { get; set; }
         public new int codigoPostal { get; set; }
         public new string localidad { get; set; }
         public new string barrio { get; set; }
         public new string provincia { get; set; }
         public new string pais { get; set; }
         public new string entreCalles { get; set; }
-        public new List<string> palabrasClave { get; set; }
         public new string nombreDePOI { get; set; }
-        public new string tipoDePOI { get; set; }
+        public new List<PalabrasClaves> palabrasClave { get; set; }
+ 
 
 
 
@@ -32,15 +30,13 @@ namespace TPDDSGrupo44.Models
         public ParadaDeColectivo() { }
 
         ////////////////Constructor generico////////////////
-        public ParadaDeColectivo(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
-           string nombreDePOI,string tipoDePOI)
+        public ParadaDeColectivo(DbGeography unaCoordenada, string calle, int numeroAltura, int codigoPostal,
+           string localidad, string barrio, string provincia, string pais, string entreCalles, List<PalabrasClaves> palabrasClave,
+           string nombreDePOI)
         {
             this.coordenada = unaCoordenada;
             this.calle = calle;
             this.numeroAltura = numeroAltura;
-            this.piso = piso;
-            this.unidad = unidad;
             this.codigoPostal = codigoPostal;
             this.localidad = localidad;
             this.barrio = barrio;
@@ -49,7 +45,6 @@ namespace TPDDSGrupo44.Models
             this.entreCalles = entreCalles;
             this.palabrasClave = palabrasClave;
             this.nombreDePOI = nombreDePOI;
-            this.tipoDePOI = tipoDePOI;
         }
 
 
@@ -123,7 +118,7 @@ namespace TPDDSGrupo44.Models
 
 
         public void actualizar(string calle, int numeroAltura, int codigoPostal, string localidad, string barrio, string provincia, string pais,
-            string entreCalles, List<string> palabrasClave, string nombreDePOI)
+            string entreCalles, List<PalabrasClaves> palabrasClave, string nombreDePOI)
         {
             this.calle = calle;
             this.numeroAltura = numeroAltura;

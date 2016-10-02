@@ -27,12 +27,12 @@ namespace TPDDSGrupo44.Models
         public new string provincia { get; set; }
         public new string pais { get; set; }
         public new string entreCalles { get; set; }
-        public new List<string> palabrasClave { get; set; }
+        public new List<PalabrasClaves> palabrasClave { get; set; }
         public new string nombreDePOI { get; set; }
-        public new string tipoDePOI { get; set; }
+        public int numeroDeComuna { get; set; }
         public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
         public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
-        public int numeroDeComuna { get; set; }
+
         public virtual List<ServicioCGP> servicios { get; set; }
         public int zonaDelimitadaPorLaComuna { get; set; }
 
@@ -81,7 +81,7 @@ namespace TPDDSGrupo44.Models
 
         ////////////////Constructor generico////////////////
         public CGP(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<PalabrasClaves> palabrasClave,
            string nombreDePOI,string tipoDePOI, int numeroDeComuna, List<ServicioCGP> servicios, int zonaDelimitadaPorLaComuna,
            List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado)
         {
@@ -98,7 +98,6 @@ namespace TPDDSGrupo44.Models
             this.entreCalles = entreCalles;
             this.palabrasClave = palabrasClave;
             this.nombreDePOI = nombreDePOI;
-            this.tipoDePOI = tipoDePOI;
             this.numeroDeComuna = numeroDeComuna;
             this.horarioAbierto = horarioAbierto;
             this.horarioFeriado = horarioFeriado;
@@ -160,7 +159,7 @@ namespace TPDDSGrupo44.Models
         }
 
         public void actualizar(string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<PalabrasClaves> palabrasClave,
            string nombreDePOI, int numeroDeComuna, List<ServicioCGP> servicios, int zonaDelimitadaPorLaComuna,
            List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado)
         {

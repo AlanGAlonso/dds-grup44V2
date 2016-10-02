@@ -24,8 +24,7 @@ namespace TPDDSGrupo44.Models
         public new string pais { get; set; }
         public new string entreCalles { get; set; }
         public new string nombreDePOI { get; set; }
-        public virtual new List<string> palabrasClave { get; set; }
-        public new string tipoDePOI { get; set; }
+        public virtual new List<PalabrasClaves> palabrasClave { get; set; }
         public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
         public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
 
@@ -49,8 +48,9 @@ namespace TPDDSGrupo44.Models
         }
 
         public LocalComercial(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
-           string nombreDePOI, string tipoDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, 
+           List<PalabrasClaves> palabrasClave, string nombreDePOI, List<HorarioAbierto> horarioAbierto, 
+           List<HorarioAbierto> horarioFeriados,
            Rubro rubro)
         {
             this.coordenada = unaCoordenada;
@@ -66,7 +66,6 @@ namespace TPDDSGrupo44.Models
             this.entreCalles = entreCalles;
             this.palabrasClave = palabrasClave;
             this.nombreDePOI = nombreDePOI;
-            this.tipoDePOI = tipoDePOI;
             this.horarioAbierto = horarioAbierto;
             this.horarioFeriado = horarioFeriados;
             this.rubro = rubro;
@@ -75,7 +74,7 @@ namespace TPDDSGrupo44.Models
 
 
         //E4 - JM - Constructor para actualización asincrónica
-        public LocalComercial (string nombre, List<string> palabras)
+        public LocalComercial (string nombre, List<PalabrasClaves> palabras)
         {
             nombreDePOI = nombre;
             palabrasClave = palabras;

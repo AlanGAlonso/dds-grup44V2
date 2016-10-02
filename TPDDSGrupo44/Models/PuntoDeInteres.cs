@@ -14,17 +14,14 @@ namespace TPDDSGrupo44.Models
         public DbGeography coordenada { get; set; }
         public string calle { get; set; }
         public int numeroAltura { get; set; }
-        public int piso { get; set; }
-        public int unidad { get; set; }
         public int codigoPostal { get; set; }
         public string localidad { get; set; }
         public string barrio { get; set; }
         public string provincia { get; set; }
         public string pais { get; set; }
         public string entreCalles { get; set; }
-        public virtual List<string> palabrasClave { get; set; }
         public string nombreDePOI { get; set; }
-        public string tipoDePOI { get; set; }
+        public virtual List<PalabrasClaves> palabrasClave { get; set; }
         public virtual List<HorarioAbierto> horarioAbierto { get; set; }
         public virtual List<HorarioAbierto> horarioFeriado { get; set; }
 
@@ -34,15 +31,13 @@ namespace TPDDSGrupo44.Models
         }
 
         ////////////////Constructor generico////////////////
-        public PuntoDeInteres(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
-           string nombreDePOI,string tipoDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados)
+        public PuntoDeInteres(DbGeography unaCoordenada, string calle, int numeroAltura,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<PalabrasClaves> palabrasClave,
+           string nombreDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados)
         {
             this.coordenada = unaCoordenada;
             this.calle = calle;
             this.numeroAltura = numeroAltura;
-            this.piso = piso;
-            this.unidad = unidad;
             this.codigoPostal = codigoPostal;
             this.localidad = localidad;
             this.barrio = barrio;
@@ -50,7 +45,6 @@ namespace TPDDSGrupo44.Models
             this.pais = pais;
             this.entreCalles = entreCalles;
             this.palabrasClave = palabrasClave;
-            this.tipoDePOI = tipoDePOI;
             this.horarioAbierto = horarioAbierto;
             this.horarioFeriado = horarioFeriados;
         }
