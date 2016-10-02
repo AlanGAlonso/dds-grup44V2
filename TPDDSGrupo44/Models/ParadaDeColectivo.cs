@@ -27,12 +27,13 @@ namespace TPDDSGrupo44.Models
 
 
         ////////////////Constructor vacio////////////////
-        public ParadaDeColectivo() { }
+        public ParadaDeColectivo() :base () { }
 
         ////////////////Constructor generico////////////////
         public ParadaDeColectivo(DbGeography unaCoordenada, string calle, int numeroAltura, int codigoPostal,
            string localidad, string barrio, string provincia, string pais, string entreCalles, List<PalabraClave> palabrasClave,
            string nombreDePOI)
+            : base(nombreDePOI, unaCoordenada)
         {
             this.coordenada = unaCoordenada;
             this.calle = calle;

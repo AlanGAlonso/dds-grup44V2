@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity.Spatial;
 using System.Net;
-using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
 namespace TPDDSGrupo44.Models

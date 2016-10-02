@@ -7,12 +7,6 @@ namespace TPDDSGrupo44.Models
 {
     public class CGP : PuntoDeInteres
     {
-        //private int comuna;
-        //private string director;
-        //private string domicilio;
-        //private List<string> servicios1;
-        //private string telefono;
-        //private string zonas;
 
         ////////////////Atributos////////////////
         public new int id { get; set; }
@@ -41,19 +35,7 @@ namespace TPDDSGrupo44.Models
             servicios = new List<ServicioCGP>();
         }
 
-        //public CGP() : base(){}
 
-        /*  ////////////////Constructor Viejo(Usado en controlador////////////////
-          public CGP(string nombre, DbGeography unaCoordenada, int zona)
-          : base (nombre, unaCoordenada)
-          {
-              nombreDePOI = nombre;
-              coordenada = unaCoordenada;
-              zonaDelimitadaPorLaComuna = zona;
-              servicios = new List<ServicioCGP>();
-          }*/
-
-/*  Ver bien 
        ////////////////Constructor JSON (usado para generar cgp a partir del JSON que tiene poca data)////////////////
         public CGP(int comuna, string zonas, string director, string domicilio, string telefono, List<string> serviciosJSON) : base()
         {
@@ -68,22 +50,14 @@ namespace TPDDSGrupo44.Models
             }
         }
 
-        public CGP(int comuna, string director, string domicilio, List<string> servicios1, string telefono, string zonas)
-        {
-            this.comuna = comuna;
-            this.director = director;
-            this.domicilio = domicilio;
-            this.servicios1 = servicios1;
-            this.telefono = telefono;
-            this.zonas = zonas;
-        }
-        */
 
         ////////////////Constructor generico////////////////
         public CGP(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<PalabraClave> palabrasClave,
            string nombreDePOI,string tipoDePOI, int numeroDeComuna, List<ServicioCGP> servicios, int zonaDelimitadaPorLaComuna,
            List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado)
+            : base(unaCoordenada, calle, numeroAltura, piso, codigoPostal, localidad, barrio, provincia, pais, entreCalles,
+                  palabrasClave, nombreDePOI, horarioAbierto, horarioFeriado, 0)
         {
             this.coordenada = unaCoordenada;
             this.calle = calle;
@@ -126,7 +100,7 @@ namespace TPDDSGrupo44.Models
 
         }
 
-        ////////////////Cálculo de Cercanía genérico - distancia menor a 5 cuadras////////////////
+        ////////////////Cálculo de Cercanía////////////////
         public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
         {
             return (functionManhattan(coordenada, coordenadaDeDispositivoTactil) / 100) < zonaDelimitadaPorLaComuna;

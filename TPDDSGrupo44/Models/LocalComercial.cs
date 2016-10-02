@@ -28,18 +28,18 @@ namespace TPDDSGrupo44.Models
         public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
         public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
 
-        //public new List<String> tags { get; set; }
+
         public virtual Rubro rubro { get; set; }
 
 
 
 
         ////////////////Constructor vacio////////////////
-        public LocalComercial() { }
+        public LocalComercial():base () { }
 
 
         ////////////////Constructor Viejo(Usado en controlador////////////////
-        public LocalComercial(string nombre, DbGeography unaCoordenada, Rubro rubro)
+        public LocalComercial(string nombre, DbGeography unaCoordenada, Rubro rubro) 
         : base(nombre, unaCoordenada)
         {
             this.rubro = rubro;
@@ -52,6 +52,8 @@ namespace TPDDSGrupo44.Models
            List<PalabraClave> palabrasClave, string nombreDePOI, List<HorarioAbierto> horarioAbierto, 
            List<HorarioAbierto> horarioFeriados,
            Rubro rubro)
+            : base(unaCoordenada, calle, numeroAltura, piso, codigoPostal, localidad, barrio, provincia, pais, entreCalles,
+                  palabrasClave, nombreDePOI, horarioAbierto, horarioFeriados, 0)
         {
             this.coordenada = unaCoordenada;
             this.calle = calle;
@@ -74,7 +76,7 @@ namespace TPDDSGrupo44.Models
 
 
         //E4 - JM - Constructor para actualización asincrónica
-        public LocalComercial (string nombre, List<PalabraClave> palabras)
+        public LocalComercial (string nombre, List<PalabraClave> palabras) : base ()
         {
             nombreDePOI = nombre;
             palabrasClave = palabras;

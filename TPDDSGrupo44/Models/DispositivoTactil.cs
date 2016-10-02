@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using TPDDSGrupo44.Models;
-using System.Linq;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Spatial;
 
 namespace TPDDSGrupo44

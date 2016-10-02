@@ -12,10 +12,10 @@ namespace TPDDSGrupo44.Models
         public new DbGeography coordenada { get; set; }
         public new string calle { get; set; }
         public new int numeroAltura { get; set; }
-        public new int piso { get; set; }
         public new int codigoPostal { get; set; }
         public new string localidad { get; set; }
         public new string barrio { get; set; }
+        public new int piso { get; set; }
         public new string provincia { get; set; }
         public new string pais { get; set; }
         public new string entreCalles { get; set; }
@@ -26,7 +26,7 @@ namespace TPDDSGrupo44.Models
         public virtual List<ServicioBanco> servicios { get; set; }
 
         ////////////////Constructor vacio///////////////
-        public Banco()
+        public Banco() : base ()
         {
             servicios = new List<ServicioBanco>();
         }
@@ -53,7 +53,9 @@ namespace TPDDSGrupo44.Models
         public Banco(DbGeography unaCoordenada, string calle, int numeroAltura, int piso,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, 
            List<PalabraClave> palabrasClave,string nombreDePOI, List<HorarioAbierto> horarioAbierto, 
-           List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
+           List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios) 
+            : base (unaCoordenada,calle, numeroAltura, piso, codigoPostal, localidad, barrio, provincia, pais, entreCalles,
+                  palabrasClave, nombreDePOI, horarioAbierto, horarioFeriado, 0)
 
           {
             this.coordenada = unaCoordenada;

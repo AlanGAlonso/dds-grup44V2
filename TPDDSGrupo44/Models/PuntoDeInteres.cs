@@ -17,6 +17,8 @@ namespace TPDDSGrupo44.Models
         public int codigoPostal { get; set; }
         public string localidad { get; set; }
         public string barrio { get; set; }
+        public int piso { get; set; }
+        public int unidad { get; set; }
         public string provincia { get; set; }
         public string pais { get; set; }
         public string entreCalles { get; set; }
@@ -31,9 +33,9 @@ namespace TPDDSGrupo44.Models
         }
 
         ////////////////Constructor generico////////////////
-        public PuntoDeInteres(DbGeography unaCoordenada, string calle, int numeroAltura,
+        public PuntoDeInteres(DbGeography unaCoordenada, string calle, int numeroAltura,int piso,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<PalabraClave> palabrasClave,
-           string nombreDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados)
+           string nombreDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados, int unidad)
         {
             this.coordenada = unaCoordenada;
             this.calle = calle;
@@ -42,6 +44,7 @@ namespace TPDDSGrupo44.Models
             this.localidad = localidad;
             this.barrio = barrio;
             this.provincia = provincia;
+            this.piso = piso;
             this.pais = pais;
             this.entreCalles = entreCalles;
             this.palabrasClave = palabrasClave;

@@ -2,9 +2,7 @@
 using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Globalization;
 using TPDDSGrupo44.Models;
-using System.Data.Entity.Spatial;
 using TPDDSGrupo44.ViewModels;
 using System.Diagnostics;
 using TPDDSGrupo44.Helpers;
