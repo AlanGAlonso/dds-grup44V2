@@ -1,0 +1,27 @@
+﻿@model IEnumerable<TPDDSGrupo44.Models.Busqueda>
+
+@{
+    ViewBag.Title = "Búsquedas por Día";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Búsquedas por Día</h2>
+
+<p>Todas las búsquedas</p>
+<table class="table">
+
+
+    @foreach (var group in Model.GroupBy(item => item.fecha)) {
+
+    <tr>
+        <td>
+            @Html.Encode(group.Key)
+        </td>
+        <td>
+            @group.Count()
+        </td>
+    </tr>
+
+    }
+
+</table>

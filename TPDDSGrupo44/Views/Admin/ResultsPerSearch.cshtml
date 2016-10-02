@@ -1,0 +1,28 @@
+﻿@model IEnumerable<TPDDSGrupo44.Models.Busqueda>
+
+@{
+    ViewBag.Title = "Resultados Por Búsqueda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Resultados Por Búsqueda</h2>
+
+<table class="table">
+
+
+    @foreach (var group in Model.GroupBy(item => item.terminal))
+    {
+
+        <tr>
+            <td>
+                @Html.Encode(group.Key.nombre)
+            </td>
+            <td>
+                @group.Sum(i => i.cantidadDeResultados)
+            </td>
+        </tr>
+
+    }
+
+</table>
+

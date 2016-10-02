@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/scripts/jquery-3.1.0.js")
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYAVxWoAsXMvJ6zBUiwHjZc9q0q2-XG5g&language=es" async defer></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Slabo+13px|Roboto' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+    <header>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("BuscAR", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Encuentra puntos", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Horarios", "Availability", "Home")</li>
+                        <li>@Html.ActionLink("Busquedas Realizadas", "Index", "Admin")</li>
+                        <li>@Html.ActionLink("ABM Parada", "ABMParada", "Admin")</li>
+                        <li>@Html.ActionLink("ABM Banco", "ABMBanco", "Admin")</li>
+                        <li>@Html.ActionLink("ABM CGP", "ABMCGP", "Admin")</li>
+
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    <footer >
+        <div >
+            @* <main class="container body-content">*@
+            
+            @*<hr />*@
+            <p class="foot">&copy; @DateTime.Now.Year - Grupo 44 DDS - UTN FRBA</p>
+            @*</main>*@
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,137 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-family: Roboto;
+    color: #333;
+    font-size:  13pt;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size:  17pt;
+}
+
+.foot{
+	color: white;
+	background: #222;
+	border-top: 1px solid #000;
+    padding: 20px 10%;
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    margin: 0 !important;
+}
+
+.nav {
+    text-transform: uppercase;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    transition: 0.5s;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea, button {
+    max-width: 280px;
+    font-family: roboto;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 15pt;
+    border: 1px solid #eee;
+    outline: 0;
+    margin: 5px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border: 1px solid #AAFF00;
+    box-shadow: 0 0 10px #AAFF00;
+}
+
+button {
+    text-transform: uppercase;
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+}
+
+button.call-to-action {
+    background-color:#AAFF00;
+    color:#333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Slabo 13px';
+}
+
+.result {
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.ok {
+    border: 1px solid #ddd;
+}
+
+.error {
+    border: 1px solid #FFAA00;
+    padding: 15px;
+    background-color: #FFE0A3;
+}
+
+.result h2{
+    padding: 15px;
+    margin: 0; 
+    border-bottom: 1px solid #ddd;
+    background-color: #eee;
+}
+
+.result h2:first-of-type {
+    border-radius: 5px 5px 0 0;
+}
+
+.poi {
+    padding: 5px 15px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+}
+
+.poi.selected {
+    background-color: #CCE1E8;
+}
+
+.poi:last-of-type {
+    border-bottom: 0;
+}
+
+
+.poi h3 {
+    margin: 0;
+    padding: 10px 0;
+}
+
+/*map*/
+#map {
+    width: 100%; 
+    border-radius: 5px;
+    height: 350px;
+}
+
+main {
+    padding: 20px 10%;
+}
+
+.detalles {
+    display: none;
+}
