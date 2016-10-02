@@ -11,7 +11,7 @@ namespace TPDDSGrupo44.Models
         public string textoBuscado { get; set; }
         public int cantidadDeResultados { get; set; }
         public DateTime fecha { get; set; }
-        public DispositivoTactil terminal { get; set; }
+        public virtual DispositivoTactil terminal { get; set; }
         public int duracionDeBusqueda { get; set; }
 
         ////////////////Constructor vacio////////////////

@@ -34,9 +34,7 @@ namespace TPDDSGrupo44.Controllers
             List<Busqueda> busquedas;
             using (var db = new BuscAR())
             {
-                busquedas = (from b in db.Busquedas
-                             orderby b.Id
-                             select b).ToList();
+                busquedas = db.Busquedas.Include("terminal").ToList();
             }
 
             return busquedas;

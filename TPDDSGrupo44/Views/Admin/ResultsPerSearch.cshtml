@@ -15,13 +15,30 @@
 
         <tr>
             <td>
+                <strong>
                 @Html.Encode(group.Key.nombre)
-            </td>
+                    </strong>
+</td><td></td>
             <td>
                 @group.Sum(i => i.cantidadDeResultados)
             </td>
         </tr>
+        foreach (var group2 in Model.GroupBy(item => new { item.terminal, item.fecha }))
+        {
+            if (group.Key == group2.Key.terminal)
+            {
+            <tr><td></td>
+                <td>
+                    @Html.Encode(group2.Key.fecha)
+                </td>
+                <td>
+                   @group2.Sum(i => i.cantidadDeResultados)
+                </td>
+            </tr>
 
+            }
+
+        }
     }
 
 </table>
