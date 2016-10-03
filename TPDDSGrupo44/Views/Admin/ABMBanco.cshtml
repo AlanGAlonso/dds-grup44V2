@@ -12,7 +12,9 @@
 </p>
 <table class="table">
     <tr>
-
+        <th>
+            @Html.DisplayNameFor(model => model.nombreDePOI)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.calle)
         </th>
@@ -37,19 +39,18 @@
         <th>
             @Html.DisplayNameFor(model => model.entreCalles)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.palabrasClave)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nombreDePOI)
-        </th>
+        <td>
+            @Html.DisplayNameFor(model => model.piso)
+        </td>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-
+            <td>
+                @Html.DisplayFor(modelItem => item.nombreDePOI)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.calle)
             </td>
@@ -75,11 +76,9 @@
                 @Html.DisplayFor(modelItem => item.entreCalles)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.palabrasClave)
+                @Html.DisplayFor(modelItem => item.piso)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombreDePOI)
-            </td>
+
             <td>
                 @Html.ActionLink("Editar", "EditBanco", new { id = item.id }) |
                 @Html.ActionLink("Borrar", "DeleteBanco", new { id = item.id })

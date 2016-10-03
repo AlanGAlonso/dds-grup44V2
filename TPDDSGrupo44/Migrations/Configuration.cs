@@ -48,6 +48,9 @@ new DispositivoTactil
                 provincia = "Ciudad Autónoma de Buenos Aires",
                 pais = "Argentina",
                 entreCalles = "Saraza y Dellepiane Sur",
+                palabrasClave = new List<PalabraClave> {
+                    new PalabraClave("Colectivo"),
+                    new PalabraClave("Bondi") },
                 coordenada = DbGeography.FromText("POINT(-34.659690 -58.468764)"),
 
             },
@@ -61,6 +64,9 @@ new ParadaDeColectivo
     provincia = "Ciudad Autónoma de Buenos Aires",
     pais = "Argentina",
     entreCalles = "Av Derqui y Dellepiane Norte",
+    palabrasClave = new List<PalabraClave> {
+                    new PalabraClave("Colectivo"),
+                    new PalabraClave("Bondi") },
     coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)"),
 
 });
@@ -91,6 +97,9 @@ new ParadaDeColectivo
                 nombreDePOI = "Librería CEIT",
                 coordenada = DbGeography.FromText("POINT(-34.659492 -58.467906)"),
                 rubro = new Rubro("librería escolar", 5),
+                palabrasClave = new List<PalabraClave> {
+                    new PalabraClave("CEIT"),
+                    new PalabraClave("Librería") },
                 horarioAbierto = horarios,
                 //horarioFeriados = feriados
             },
@@ -98,6 +107,9 @@ new LocalComercial
 {
     nombreDePOI = "Kiosco Las Flores",
     coordenada = DbGeography.FromText("POINT(-34.634015 -58.482805)"),
+    palabrasClave = new List<PalabraClave> {
+                    new PalabraClave("Las Flores"),
+                    new PalabraClave("Kiosco") },
     rubro = new Rubro("kiosco de diarios", 5)
 });
 
@@ -308,6 +320,9 @@ new CGP
             {
                 nombreDePOI = "Banco Provincia",
                 coordenada = DbGeography.FromText("POINT( 34.660979  58.469821)"),
+                palabrasClave = new List<PalabraClave> {
+                    new PalabraClave("Banco"),
+                    new PalabraClave("Provincia") },
                 servicios = new List<ServicioBanco>()
                 {
                      new ServicioBanco()
@@ -367,6 +382,9 @@ new CGP
             {
                 nombreDePOI = "Banco Francés",
                 coordenada = DbGeography.FromText("POINT( 34.6579153  58.4791142)"),
+                palabrasClave = new List<PalabraClave> {
+                    new PalabraClave("Banco"),
+                    new PalabraClave("Francés") },
                 servicios = new List<ServicioBanco>()
                 {
                      new ServicioBanco()

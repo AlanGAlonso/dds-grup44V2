@@ -1,0 +1,94 @@
+﻿@model IEnumerable<TPDDSGrupo44.Models.LocalComercial>
+
+@{
+    ViewBag.Title = "ABMLocalComercial";
+ 
+}
+
+<h2>ABMLocalComercial</h2>
+
+<p>
+    @Html.ActionLink("Agregar Local Comercial", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombreDePOI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.calle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.numeroAltura)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.piso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.unidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.codigoPostal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.barrio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.provincia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pais)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.entreCalles)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombreDePOI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.calle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numeroAltura)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.piso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.unidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.codigoPostal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.localidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.barrio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.provincia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pais)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.entreCalles)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditLocalComercial", new { id=item.id }) |
+            @Html.ActionLink("Delete", "DeleteLocalComercial", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

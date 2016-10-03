@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<TPDDSGrupo44.Models.CGP>
 
+
+
 @{
     ViewBag.Title = "ABMCGP";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,7 +14,9 @@
 </p>
 <table class="table">
     <tr>
-
+        <th>
+            @Html.DisplayNameFor(model => model.nombreDePOI)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.calle)
         </th>
@@ -38,10 +42,10 @@
             @Html.DisplayNameFor(model => model.provincia)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.entreCalles)
+            @Html.DisplayNameFor(model => model.pais)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nombreDePOI)
+            @Html.DisplayNameFor(model => model.entreCalles)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.numeroDeComuna)
@@ -55,7 +59,9 @@
     @foreach (var item in Model)
     {
         <tr>
-
+            <td>
+                @Html.DisplayFor(modelItem => item.nombreDePOI)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.calle)
             </td>
@@ -81,10 +87,10 @@
                 @Html.DisplayFor(modelItem => item.provincia)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.entreCalles)
+                @Html.DisplayFor(modelItem => item.pais)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.nombreDePOI)
+                @Html.DisplayFor(modelItem => item.entreCalles)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.numeroDeComuna)

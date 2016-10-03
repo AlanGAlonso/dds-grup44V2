@@ -217,13 +217,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610021851552_InitialCreate.cs" />
-    <Compile Include="Migrations\201610021851552_InitialCreate.Designer.cs">
-      <DependentUpon>201610021851552_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610021855083_InitialCreate1.cs" />
-    <Compile Include="Migrations\201610021855083_InitialCreate1.Designer.cs">
-      <DependentUpon>201610021855083_InitialCreate1.cs</DependentUpon>
+    <Compile Include="Migrations\201610022339429_InitialCreate.cs" />
+    <Compile Include="Migrations\201610022339429_InitialCreate.Designer.cs">
+      <DependentUpon>201610022339429_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
@@ -324,6 +320,7 @@
     <Content Include="Views\Admin\EditBanco.cshtml" />
     <Content Include="Views\Admin\EditCGP.cshtml" />
     <Content Include="Views\Admin\EditParada.cshtml" />
+    <Content Include="Views\Admin\ABMLocalComercial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -336,11 +333,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610021851552_InitialCreate.resx">
-      <DependentUpon>201610021851552_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610021855083_InitialCreate1.resx">
-      <DependentUpon>201610021855083_InitialCreate1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610022339429_InitialCreate.resx">
+      <DependentUpon>201610022339429_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
