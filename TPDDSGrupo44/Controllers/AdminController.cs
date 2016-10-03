@@ -148,17 +148,20 @@ namespace TPDDSGrupo44.Controllers
                     int id = Convert.ToInt16(collection["id"]);
                     parada = db.Paradas.Where(p => p.id == id).Single();
 
-                    DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
+
+                    string coordenadaLatitude = (collection["coordenada.Latitude"]).Replace(",", ".");
+
+                    DbGeography coordenada = DbGeography.FromText("POINT(" + coordenadaLatitude + " " + coordenadaLatitude + ")");
                     List<string> palabrasClaveFront = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
                     List<PalabraClave> palabrasClave = new List<PalabraClave>();
                     foreach (string p in palabrasClaveFront)
                     {
                         palabrasClave.Add(new PalabraClave(p));
                     }
+                     
 
 
-
-                    parada.actualizar(collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
+                    parada.actualizar(coordenada,collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                         Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], collection["provincia"],
                         collection["pais"], collection["entreCalles"], palabrasClave, collection["nombreDePOI"]);
 
@@ -492,6 +495,166 @@ namespace TPDDSGrupo44.Controllers
                 return View();
             }
         }
+
+        // ---------------------------------------------------------------------------------------
+        //                             A B M   L O C A L   C O M E R C I A L
+        //----------------------------------------------------------------------------------------
+
+
+        public ActionResult ABMLocalComercial()
+        {
+            List<LocalComercial> localComercial;
+            using (var db = new BuscAR())
+            {
+                localComercial = (from p in db.Locales
+                       orderby p.nombreDePOI
+                       select p).ToList();
+            }
+
+            return View(localComercial);
+        }
+
+        //public ActionResult CreateLocalComercial()
+        //{
+        //    return View();
+        //}
+
+        //// POST: Default/Create
+        //[HttpPost]
+        //public ActionResult CreateLocalComercial(FormCollection collection)
+        //{
+        //    try
+        //    {
+
+
+        //        DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
+        //        List<string> palabrasClaveFront = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
+
+        //        List<PalabraClave> palabrasClave = new List<PalabraClave>();
+        //        foreach (string p in palabrasClaveFront)
+        //        {
+        //            palabrasClave.Add(new PalabraClave(p));
+        //        }
+
+        //        List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
+
+        //        //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
+        //        //         horariosAbierto.Add(horarios);
+
+        //        List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
+
+        //        List<ServicioBanco> servicios = new List<ServicioBanco>();
+
+
+
+        //        LocalComercial localComercial = new LocalComercial(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
+        //              Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["codigoPostal"]), collection["localidad"],
+        //              collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
+        //              palabrasClave, collection["nombreDePOI"], horariosAbierto, horariosFeriado, servicios);
+
+        //        localComercial.agregarBanco(localComercial);
+
+        //        return RedirectToAction("ABMBanco");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
+
+        //public ActionResult DeleteLocalComercial(int id)
+        //{
+        //    LocalComercial localComercial;
+        //    using (var db = new BuscAR())
+        //    {
+        //        localComercial = db.Locales.Where(p => p.id == id).Single();
+        //    }
+        //    return View(localComercial);
+        //}
+
+        //// POST: Default/Create
+        //[HttpPost]
+        //public ActionResult DeleteLocalComercial(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        LocalComercial localComercial;
+        //        using (var db = new BuscAR())
+        //        {
+        //            localComercial = db.Locales.Where(p => p.id == id).Single();
+        //        }
+
+        //        localComercial.eliminarLocalComercial(id);
+
+        //        return RedirectToAction("ABMLocalComercial");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
+
+
+
+        //public ActionResult EditLocalComercial(int id)
+        //{
+        //    LocalComercial localComercial;
+        //    using (var db = new BuscAR())
+        //    {
+        //        localComercial = db.Locales.Where(p => p.id == id).Single();
+        //    }
+        //    return View(localComercial);
+        //}
+
+        //// POST: Default/Edit
+        //[HttpPost]
+        //public ActionResult EditLocalComercial(FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        LocalComercial localComercial;
+        //        using (var db = new BuscAR())
+        //        {
+        //            int id = Convert.ToInt16(collection["id"]);
+        //            localComercial = db.Locales.Where(p => p.id == id).Single();
+
+
+        //            DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
+        //            List<string> palabrasClaveFront = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
+        //            List<PalabraClave> palabrasClave = new List<PalabraClave>();
+        //            foreach (string p in palabrasClaveFront)
+        //            {
+        //                palabrasClave.Add(new PalabraClave(p));
+        //            }
+
+        //            List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
+
+        //            //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
+        //            //         horariosAbierto.Add(horarios);
+
+        //            List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
+
+        //            List<ServicioBanco> servicios = new List<ServicioBanco>();
+
+        //            localComercial.actualizar(collection["calle"], Convert.ToInt32(collection["numeroAltura"]), Convert.ToInt32(collection["piso"]),
+        //              Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], collection["provincia"],
+        //              collection["pais"], collection["entreCalles"], collection["nombreDePOI"], palabrasClave, horariosAbierto, horariosFeriado, servicios);
+
+
+
+        //            db.SaveChanges();
+        //        }
+
+        //        return RedirectToAction("ABMLocalComercial");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
+
+
+
 
 
     }
