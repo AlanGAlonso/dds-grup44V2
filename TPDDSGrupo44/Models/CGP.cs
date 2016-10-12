@@ -10,7 +10,7 @@ namespace TPDDSGrupo44.Models
 
         ////////////////Atributos////////////////
         public new int id { get; set; }
-        public new DbGeography coordenada { get; set; }
+        public new DbGeography coordenada { get; set; } 
         public new string calle { get; set; }
         public new int numeroAltura { get; set; }
         public new int piso { get; set; }
@@ -31,18 +31,21 @@ namespace TPDDSGrupo44.Models
         public int zonaDelimitadaPorLaComuna { get; set; }
 
         ////////////////Constructor Vacio////////////////
-        public CGP(){
+        public CGP() : base()
+        {
             servicios = new List<ServicioCGP>();
         }
 
 
        ////////////////Constructor JSON (usado para generar cgp a partir del JSON que tiene poca data)////////////////
-        public CGP(int comuna, string zonas, string director, string domicilio, string telefono, List<string> serviciosJSON) : base()
+        public CGP(int comuna, string zonas, string director, string domicilio, string telefono, List<object> serviciosJSON) : base()
         {
+            // no hay casi nada de datos de POI nombre, coordenada.. 
+            zonaDelimitadaPorLaComuna = comuna;
             servicios = new List<ServicioCGP>();
             horarioAbierto = new List<HorarioAbierto>();
             horarioFeriado = new List<HorarioAbierto>();
-
+            // servicio que sea string? y el json objects? :/ 
             foreach (string servicio in serviciosJSON)
             {
                 ServicioCGP serv = new ServicioCGP(servicio);
@@ -50,7 +53,7 @@ namespace TPDDSGrupo44.Models
             }
         }
 
-
+        
         ////////////////Constructor generico////////////////
         public CGP(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<PalabraClave> palabrasClave,
