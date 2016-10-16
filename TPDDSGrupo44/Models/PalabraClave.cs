@@ -18,5 +18,22 @@ namespace TPDDSGrupo44.Models
             palabraClave = palabra;
         }
 
+        //public void eliminarPalabraClave(int id)
+        //{
+        //    using (var db = new BuscAR())
+        //    {
+
+        //        PalabraClave palabras = db.PalabraClaves.Where(p => p.id == id).Single();
+
+        //        db.PalabraClaves.Remove(palabras);
+        //        db.SaveChanges();
+        //    }
+
+
+        
+
+
+
+
     }
 }

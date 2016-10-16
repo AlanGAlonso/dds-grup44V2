@@ -109,12 +109,19 @@ namespace TPDDSGrupo44.Controllers
             try
             {
                 ParadaDeColectivo parada;
+
                 using (var db = new BuscAR())
                 {
-                    parada = db.Paradas.Where(p => p.id == id).Single();
+                    parada = db.Paradas.Include("palabrasClave").Where(p => p.id == id).Single();
+
+                    parada.palabrasClave.RemoveAll(p => p.palabraClave != "");
+                    db.SaveChanges();
                 }
 
-                parada.eliminarParada(id);
+                    if (parada.palabrasClave.Count() < 1)
+                {
+                    parada.eliminarParada(id);
+                }
 
                 return RedirectToAction("ABMParada");
             }
@@ -131,7 +138,7 @@ namespace TPDDSGrupo44.Controllers
             ParadaDeColectivo parada;
             using (var db = new BuscAR())
             {
-                parada = db.Paradas.Where(p => p.id == id).Single();
+                parada = db.Paradas.Include("palabrasClave").Where(p => p.id == id).Single();
             }
             return View(parada);
         }
