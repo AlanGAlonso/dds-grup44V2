@@ -4,15 +4,16 @@ namespace TPDDSGrupo44.Models
 {
     public class Rol
     {
-        string nombre { get; set; }
+        public int id { get; set; }
+        public string nombre { get; set; }
         public List<FuncionalidadUsuario> funcionalidades { get; set; }
 
         public Rol (){ }
 
-        public Rol (string nombreRol)
+        public Rol (string nombreRol, List<FuncionalidadUsuario> funcionalidadesRol)
         {
             nombre = nombreRol;
-            funcionalidades = new List<FuncionalidadUsuario>();
+            funcionalidades = funcionalidadesRol;
         }
 
     }

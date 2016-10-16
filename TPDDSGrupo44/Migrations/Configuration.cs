@@ -4,6 +4,9 @@ namespace TPDDSGrupo44.Migrations
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
     using System.Data.Entity.Spatial;
+    using System.Linq;
+    using System.Security.Cryptography;
+    using System.Text;
 
     internal sealed class Configuration : DbMigrationsConfiguration<TPDDSGrupo44.Models.BuscAR>
     {
@@ -15,7 +18,81 @@ namespace TPDDSGrupo44.Migrations
 
         protected override void Seed(TPDDSGrupo44.Models.BuscAR context)
         {
-            //  This method will be called after migrating to the latest version.
+            // DATOS INSTANCIADOS POR DEFECTO
+
+
+            // FUNCIONALIDADES PARA USUARIOS
+            context.FuncionalidadesUsuarios.AddOrUpdate(f => f.id,
+            new FuncionalidadUsuario
+            {
+                nombre = "Actualizar Local Comercial"
+            },
+            new FuncionalidadUsuario
+            {
+                nombre = "Agregar Acciones"
+            },
+            new FuncionalidadUsuario
+            {
+                nombre = "Proceso Múltiple"
+            },
+            new FuncionalidadUsuario
+            {
+                nombre = "Baja POIs"
+            },
+            new FuncionalidadUsuario
+            {
+                nombre = "Trámite"
+            });
+
+            context.SaveChanges();
+
+
+            //ROLES
+            //recolecto TODAS las funcionalidades de usuario, porque el admin puede hacer TODO
+            List<FuncionalidadUsuario> funcAdmin = context.FuncionalidadesUsuarios.Where(f => f.nombre != "").ToList();
+
+            //busco las funcionalidades para transeuntes (realizar trámites)
+            List<FuncionalidadUsuario> funcTrans = context.FuncionalidadesUsuarios.Where(f => f.nombre == "Trámite").ToList();
+
+            context.Roles.AddOrUpdate(r => r.id,
+            new Rol
+            {
+                nombre = "Transeunte",
+                funcionalidades = funcTrans
+            },
+            new Rol
+            {
+                nombre = "Administrador",
+                funcionalidades = funcAdmin
+            });
+
+            context.SaveChanges();
+
+
+            //USUARIOS
+            var provider = new SHA256CryptoServiceProvider();
+            var encoding = new UnicodeEncoding();
+            byte[] passAdmin = provider.ComputeHash(encoding.GetBytes("1234admin"));
+            byte[] passTrans = provider.ComputeHash(encoding.GetBytes("1234trans"));
+            Rol admin = context.Roles.Where(r => r.nombre == "Administrador").Single();
+
+            context.Usuarios.AddOrUpdate(r => r.id,
+            new Usuario
+            {
+                nombre = "admin",
+                dni = 37025888,
+                contrasenia = passAdmin
+            },
+            new Usuario
+            {
+                nombre = "transeunte",
+                dni = 12605907,
+                contrasenia = passTrans
+            });
+
+            context.SaveChanges();
+
+
 
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego terminales
             context.Terminales.AddOrUpdate(d => d.nombre,
