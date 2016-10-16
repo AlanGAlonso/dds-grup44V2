@@ -11,7 +11,7 @@ namespace TPDDSGrupo44.Models
         public int dni { get; set; }
         public byte[] contrasenia { get; set; }
         public string nombre { get; set; }
-        public Rol rol { get; set; }
+        public virtual Rol rol { get; set; }
 
         public Usuario ()
         {
@@ -43,7 +43,7 @@ namespace TPDDSGrupo44.Models
         public static bool autenticarse(string usuario, string contrasena) {
             using (var db = new BuscAR())
             {
-                Usuario user = db.Usuarios.Where(u => u.nombre == usuario).Single();
+                Usuario user = db.Usuarios.Include("rol").Include("rol.funcionalidades").Where(u => u.nombre == usuario).Single();
                 if (user.Equals(null))
                 {
                     return false;
@@ -52,7 +52,7 @@ namespace TPDDSGrupo44.Models
                 var provider = new SHA256CryptoServiceProvider();
                 var encoding = new UnicodeEncoding();
                 byte[] pass = provider.ComputeHash(encoding.GetBytes(contrasena));
-                if (pass == user.contrasenia)
+                if (pass.SequenceEqual(user.contrasenia))
                 {
                     BaseViewModel.usuario = user;
                     return true;

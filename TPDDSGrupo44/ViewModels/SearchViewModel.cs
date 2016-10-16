@@ -3,7 +3,7 @@ using TPDDSGrupo44.Models;
 
 namespace TPDDSGrupo44.ViewModels
 {
-    public class SearchViewModel
+    public class SearchViewModel : BaseViewModel
     {
         public List<ParadaDeColectivo> paradasEncontradasCerca { get; set; }
         public List<ParadaDeColectivo> paradasEncontradas { get; set; }
@@ -14,7 +14,7 @@ namespace TPDDSGrupo44.ViewModels
         public List<LocalComercial> localesEncontrados { get; set; }
         public List<LocalComercial> localesEncontradosCerca { get; set; }
 
-        public SearchViewModel()
+        public SearchViewModel() : base ()
         {
             paradasEncontradas = new List<ParadaDeColectivo>();
             paradasEncontradasCerca = new List<ParadaDeColectivo>();

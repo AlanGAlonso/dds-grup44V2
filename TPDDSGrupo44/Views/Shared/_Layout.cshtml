@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿    
+<!DOCTYPE html >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -30,13 +31,15 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Encuentra puntos", "Index", "Home")</li>  
-                                              
-                        <li>@Html.ActionLink("Busquedas Realizadas", "Index", "Admin")</li>
-                        <li>@Html.ActionLink("ABM Parada", "ABMParada", "Admin")</li>
-                        <li>@Html.ActionLink("ABM Banco", "ABMBanco", "Admin")</li>
-                        <li>@Html.ActionLink("ABM CGP", "ABMCGP", "Admin")</li>
-                        <li>@Html.ActionLink("ABM Local Comercial", "ABMLocalComercial", "Admin")</li>
-                        
+                        @if(TPDDSGrupo44.ViewModels.BaseViewModel.usuario != null) { 
+                            if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.nombre == "Administrador") {
+                                <li>@Html.ActionLink("Busquedas Realizadas", "Index", "Admin")</li>
+                                <li>@Html.ActionLink("ABM Parada", "ABMParada", "Admin")</li>
+                                <li>@Html.ActionLink("ABM Banco", "ABMBanco", "Admin")</li>
+                                <li>@Html.ActionLink("ABM CGP", "ABMCGP", "Admin")</li>
+                                <li>@Html.ActionLink("ABM Local Comercial", "ABMLocalComercial", "Admin")</li>
+                            }
+                        }
                     </ul>
                 </div>
             </div>

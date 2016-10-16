@@ -6,7 +6,22 @@ namespace TPDDSGrupo44.ViewModels
     public class BaseViewModel
     {
         
-        public Usuario usuario { get; set; }
+        public static Usuario usuario { get; set; }
+        private static BaseViewModel instance;
+
+        public BaseViewModel() { }
+
+        public static BaseViewModel Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new BaseViewModel();
+                }
+                return instance;
+            }
+        }
 
     }
 }

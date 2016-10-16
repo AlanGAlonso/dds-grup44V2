@@ -6,7 +6,7 @@ namespace TPDDSGrupo44.Models
     {
         public int id { get; set; }
         public string nombre { get; set; }
-        public List<FuncionalidadUsuario> funcionalidades { get; set; }
+        public virtual List<FuncionalidadUsuario> funcionalidades { get; set; }
 
         public Rol (){ }
 

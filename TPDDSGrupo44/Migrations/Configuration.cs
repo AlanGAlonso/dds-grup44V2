@@ -22,7 +22,7 @@ namespace TPDDSGrupo44.Migrations
 
 
             // FUNCIONALIDADES PARA USUARIOS
-            context.FuncionalidadesUsuarios.AddOrUpdate(f => f.id,
+            context.FuncionalidadesUsuarios.AddOrUpdate(f => f.nombre,
             new FuncionalidadUsuario
             {
                 nombre = "Actualizar Local Comercial"
@@ -54,7 +54,7 @@ namespace TPDDSGrupo44.Migrations
             //busco las funcionalidades para transeuntes (realizar trámites)
             List<FuncionalidadUsuario> funcTrans = context.FuncionalidadesUsuarios.Where(f => f.nombre == "Trámite").ToList();
 
-            context.Roles.AddOrUpdate(r => r.id,
+            context.Roles.AddOrUpdate(r => r.nombre,
             new Rol
             {
                 nombre = "Transeunte",
@@ -75,19 +75,22 @@ namespace TPDDSGrupo44.Migrations
             byte[] passAdmin = provider.ComputeHash(encoding.GetBytes("1234admin"));
             byte[] passTrans = provider.ComputeHash(encoding.GetBytes("1234trans"));
             Rol admin = context.Roles.Where(r => r.nombre == "Administrador").Single();
+            Rol trans = context.Roles.Where(r => r.nombre == "Transeunte").Single();
 
-            context.Usuarios.AddOrUpdate(r => r.id,
+            context.Usuarios.AddOrUpdate(r => r.nombre,
             new Usuario
             {
                 nombre = "admin",
                 dni = 37025888,
-                contrasenia = passAdmin
+                contrasenia = passAdmin,
+                rol = admin
             },
             new Usuario
             {
                 nombre = "transeunte",
                 dni = 12605907,
-                contrasenia = passTrans
+                contrasenia = passTrans,
+                rol = trans
             });
 
             context.SaveChanges();

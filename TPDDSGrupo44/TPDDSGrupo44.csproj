@@ -228,7 +228,6 @@
     <Compile Include="Models\BuscAR.cs" />
     <Compile Include="Models\Busqueda.cs" />
     <Compile Include="Models\CGP.cs" />
-    <Compile Include="Models\ErrorJson.cs" />
     <Compile Include="Models\FuncionalidadUsuario.cs" />
     <Compile Include="Helpers\EnvioDeMails.cs" />
     <Compile Include="Models\GetJsonCGP.cs" />
@@ -324,7 +323,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\json\" />
-    <Folder Include="Views\BaseViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />
