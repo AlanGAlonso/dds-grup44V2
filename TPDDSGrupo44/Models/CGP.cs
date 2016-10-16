@@ -34,23 +34,22 @@ namespace TPDDSGrupo44.Models
         public CGP() : base()
         {
             servicios = new List<ServicioCGP>();
+            palabrasClave = new List<PalabraClave>();
         }
 
 
        ////////////////Constructor JSON (usado para generar cgp a partir del JSON que tiene poca data)////////////////
-        public CGP(int comuna, string zonas, string director, string domicilio, string telefono, List<object> serviciosJSON) : base()
+        public CGP(int comuna, string domicilio, List<ServicioCGP> serviciosJSON) : base()
         {
             // no hay casi nada de datos de POI nombre, coordenada.. 
-            zonaDelimitadaPorLaComuna = comuna;
+            nombreDePOI = "Sede Comuna " + comuna;
+            palabrasClave = new List<PalabraClave>();
+            palabrasClave.Add(new PalabraClave("CGP"));
+            palabrasClave.Add(new PalabraClave(nombreDePOI));
             servicios = new List<ServicioCGP>();
             horarioAbierto = new List<HorarioAbierto>();
             horarioFeriado = new List<HorarioAbierto>();
-            // servicio que sea string? y el json objects? :/ 
-            foreach (string servicio in serviciosJSON)
-            {
-                ServicioCGP serv = new ServicioCGP(servicio);
-                servicios.Add(serv);
-            }
+            servicios = serviciosJSON;
         }
 
         
@@ -106,6 +105,10 @@ namespace TPDDSGrupo44.Models
         ////////////////Cálculo de Cercanía////////////////
         public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
         {
+            if (coordenada.IsEmpty)
+            {
+                return false;
+            }
             return (functionManhattan(coordenada, coordenadaDeDispositivoTactil) / 100) < zonaDelimitadaPorLaComuna;
         }
 
