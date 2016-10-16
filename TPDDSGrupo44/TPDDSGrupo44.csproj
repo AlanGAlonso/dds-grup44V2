@@ -217,9 +217,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610022339429_InitialCreate.cs" />
-    <Compile Include="Migrations\201610022339429_InitialCreate.Designer.cs">
-      <DependentUpon>201610022339429_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201610161236325_InitialCreate.cs" />
+    <Compile Include="Migrations\201610161236325_InitialCreate.Designer.cs">
+      <DependentUpon>201610161236325_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
@@ -333,8 +333,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610022339429_InitialCreate.resx">
-      <DependentUpon>201610022339429_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610161236325_InitialCreate.resx">
+      <DependentUpon>201610161236325_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

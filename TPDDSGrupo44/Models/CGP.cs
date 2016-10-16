@@ -7,8 +7,7 @@ namespace TPDDSGrupo44.Models
 {
     public class CGP : PuntoDeInteres
     {
-
-        ////////////////Atributos////////////////
+               ////////////////Atributos////////////////
         public new int id { get; set; }
         public new DbGeography coordenada { get; set; } 
         public new string calle { get; set; }
@@ -39,10 +38,9 @@ namespace TPDDSGrupo44.Models
 
 
        ////////////////Constructor JSON (usado para generar cgp a partir del JSON que tiene poca data)////////////////
-        public CGP(int comuna, string domicilio, List<ServicioCGP> serviciosJSON) : base()
+        public CGP(int comuna, List<ServicioCGP> serviciosJSON) : base()
         {
-            // no hay casi nada de datos de POI nombre, coordenada.. 
-            nombreDePOI = "Sede Comuna " + comuna;
+            nombreDePOI = "Sede Comunal " + comuna;
             palabrasClave = new List<PalabraClave>();
             palabrasClave.Add(new PalabraClave("CGP"));
             palabrasClave.Add(new PalabraClave(nombreDePOI));
@@ -50,9 +48,15 @@ namespace TPDDSGrupo44.Models
             horarioAbierto = new List<HorarioAbierto>();
             horarioFeriado = new List<HorarioAbierto>();
             servicios = serviciosJSON;
+
+
         }
 
-        
+
+      
+
+
+
         ////////////////Constructor generico////////////////
         public CGP(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<PalabraClave> palabrasClave,
@@ -81,7 +85,8 @@ namespace TPDDSGrupo44.Models
             this.zonaDelimitadaPorLaComuna = zonaDelimitadaPorLaComuna;
         }
 
-    
+       
+
         ////////////////Funcion manhattan////////////////
         private static double functionManhattan(DbGeography coordenadaDeDispositivoTactil, DbGeography coordenada)
         {
