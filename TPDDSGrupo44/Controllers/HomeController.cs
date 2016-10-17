@@ -6,6 +6,7 @@ using TPDDSGrupo44.Models;
 using TPDDSGrupo44.ViewModels;
 using System.Diagnostics;
 using TPDDSGrupo44.Helpers;
+using TPDDSGrupo44.DataModels;
 
 namespace TPDDSGrupo44.Controllers
 {

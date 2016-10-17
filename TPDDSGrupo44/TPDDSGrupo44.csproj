@@ -218,30 +218,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610171906263_InitialCreate.cs" />
-    <Compile Include="Migrations\201610171906263_InitialCreate.Designer.cs">
-      <DependentUpon>201610171906263_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
     <Compile Include="Models\ActualizacionLocalComercial.cs" />
-    <Compile Include="Models\Administrador.cs" />
     <Compile Include="Models\AgregarAcciones.cs" />
     <Compile Include="Models\BajaPOI.cs" />
     <Compile Include="Models\Banco.cs" />
     <Compile Include="Models\BuscAR.cs" />
-    <Compile Include="Models\Busqueda.cs" />
+    <Compile Include="DataModels\Busqueda.cs" />
     <Compile Include="Models\CGP.cs" />
     <Compile Include="Models\FuncionalidadUsuario.cs" />
     <Compile Include="Helpers\EnvioDeMails.cs" />
     <Compile Include="Models\GetJsonCGP.cs" />
-    <Compile Include="Models\JsonBank.cs" />
+    <Compile Include="DataModels\JsonBank.cs" />
     <Compile Include="Models\DispositivoTactil.cs" />
     <Compile Include="Models\HorarioAbierto.cs" />
     <Compile Include="Models\GetJsonBanks.cs" />
     <Compile Include="Models\LocalComercial.cs" />
-    <Compile Include="Models\LogAction.cs" />
-    <Compile Include="Models\PalabraClave.cs" />
+    <Compile Include="DataModels\LogAction.cs" />
+    <Compile Include="DataModels\PalabraClave.cs" />
     <Compile Include="Models\ParadaDeColectivo.cs" />
     <Compile Include="Models\ProcesoMultiple.cs" />
     <Compile Include="Models\PuntoDeInteres.cs" />
@@ -272,7 +267,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Compile Include="Models\JsonCGP.cs" />
+    <Compile Include="DataModels\JsonCGP.cs" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -333,11 +328,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610171906263_InitialCreate.resx">
-      <DependentUpon>201610171906263_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

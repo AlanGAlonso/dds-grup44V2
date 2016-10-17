@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Web.Script.Serialization;
+using TPDDSGrupo44.DataModels;
 
 namespace TPDDSGrupo44.Models
 

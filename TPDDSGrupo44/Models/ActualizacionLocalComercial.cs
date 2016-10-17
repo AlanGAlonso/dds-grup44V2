@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TPDDSGrupo44.DataModels;
 
 namespace TPDDSGrupo44.Models
 {

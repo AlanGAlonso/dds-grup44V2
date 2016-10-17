@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TPDDSGrupo44.Models
+namespace TPDDSGrupo44.DataModels
 {
     public class PalabraClave
     {

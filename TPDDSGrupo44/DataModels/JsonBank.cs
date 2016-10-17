@@ -2,7 +2,7 @@
 
 
 
-namespace TPDDSGrupo44.Models
+namespace TPDDSGrupo44.DataModels
 {
     public class JsonBank
     {

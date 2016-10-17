@@ -2,6 +2,7 @@
 using System.Data.Entity.Spatial;
 using System.Net;
 using System.Web.Script.Serialization;
+using TPDDSGrupo44.DataModels;
 
 namespace TPDDSGrupo44.Models
 

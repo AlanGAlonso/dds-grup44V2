@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using TPDDSGrupo44.DataModels;
 
 namespace TPDDSGrupo44.Models
 {
@@ -81,6 +82,7 @@ namespace TPDDSGrupo44.Models
             nombreDePOI = nombre;
             palabrasClave = palabras;
         }
+        
 
 
         ////////////////Funcion manhattan////////////

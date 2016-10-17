@@ -1,5 +1,6 @@
 namespace TPDDSGrupo44.Migrations
 {
+    using DataModels;
     using Models;
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
@@ -42,6 +43,22 @@ namespace TPDDSGrupo44.Migrations
             new FuncionalidadUsuario
             {
                 nombre = "Trámite"
+            },
+            new FuncionalidadUsuario
+            {
+                nombre = "Alta POI"
+            },
+            new FuncionalidadUsuario
+            {
+                nombre = "Baja POI"
+            },
+            new FuncionalidadUsuario
+            {
+                nombre = "Editar POI"
+            },
+            new FuncionalidadUsuario
+            {
+                nombre = "Consultar POI"
             });
 
             context.SaveChanges();
@@ -57,7 +74,7 @@ namespace TPDDSGrupo44.Migrations
             context.Roles.AddOrUpdate(r => r.nombre,
             new Rol
             {
-                nombre = "Transeunte",
+                nombre = "Terminal",
                 funcionalidades = funcTrans
             },
             new Rol
@@ -73,9 +90,9 @@ namespace TPDDSGrupo44.Migrations
             var provider = new SHA256CryptoServiceProvider();
             var encoding = new UnicodeEncoding();
             byte[] passAdmin = provider.ComputeHash(encoding.GetBytes("1234admin"));
-            byte[] passTrans = provider.ComputeHash(encoding.GetBytes("1234trans"));
+            byte[] passTrans = provider.ComputeHash(encoding.GetBytes("1234term"));
             Rol admin = context.Roles.Where(r => r.nombre == "Administrador").Single();
-            Rol trans = context.Roles.Where(r => r.nombre == "Transeunte").Single();
+            Rol trans = context.Roles.Where(r => r.nombre == "Terminal").Single();
 
             context.Usuarios.AddOrUpdate(r => r.nombre,
             new Usuario
@@ -87,7 +104,7 @@ namespace TPDDSGrupo44.Migrations
             },
             new Usuario
             {
-                nombre = "transeunte",
+                nombre = "terminal",
                 dni = 12605907,
                 contrasenia = passTrans,
                 rol = trans

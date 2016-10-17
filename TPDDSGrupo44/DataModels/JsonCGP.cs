@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using TPDDSGrupo44.Models;
 
-namespace TPDDSGrupo44.Models
+namespace TPDDSGrupo44.DataModels
 {
     public class JsonCGP
 	{

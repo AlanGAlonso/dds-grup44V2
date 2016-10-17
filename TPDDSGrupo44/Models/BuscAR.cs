@@ -1,5 +1,6 @@
 namespace TPDDSGrupo44.Models
 {
+    using DataModels;
     using System.Data.Entity;
 
     public class BuscAR : DbContext

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TPDDSGrupo44.Models;
 using System.Data.Entity.Spatial;
+using TPDDSGrupo44.DataModels;
 
 namespace TPDDSGrupo44.Controllers
 {
