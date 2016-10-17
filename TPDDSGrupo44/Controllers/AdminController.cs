@@ -156,16 +156,20 @@ namespace TPDDSGrupo44.Controllers
                     parada = db.Paradas.Where(p => p.id == id).Single();
 
 
-                    string coordenadaLatitude = (collection["coordenada.Latitude"]).Replace(",", ".");
-
-                    DbGeography coordenada = DbGeography.FromText("POINT(" + coordenadaLatitude + " " + coordenadaLatitude + ")");
+                    parada.palabrasClave.RemoveAll(p => p.palabraClave != "");
+                    db.SaveChanges();
                     List<string> palabrasClaveFront = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
                     List<PalabraClave> palabrasClave = new List<PalabraClave>();
                     foreach (string p in palabrasClaveFront)
                     {
                         palabrasClave.Add(new PalabraClave(p));
                     }
-                     
+
+
+
+                    string coordenadaLatitude = (collection["coordenada.Latitude"]).Replace(",", ".");
+                    DbGeography coordenada = DbGeography.FromText("POINT(" + coordenadaLatitude + " " + coordenadaLatitude + ")");
+
 
 
                     parada.actualizar(coordenada,collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
