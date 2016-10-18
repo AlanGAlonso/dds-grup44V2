@@ -120,12 +120,7 @@ namespace TPDDSGrupo44.Controllers
                 if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
                 {
                     DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
-                    List<string> palabrasClaveFront = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
-                    List<PalabraClave> palabrasClave = new List<PalabraClave>();
-                    foreach (string p in palabrasClaveFront)
-                    {
-                        palabrasClave.Add(new PalabraClave(p));
-                    }
+                    List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
 
                     ParadaDeColectivo parada = new ParadaDeColectivo(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
@@ -236,12 +231,8 @@ namespace TPDDSGrupo44.Controllers
 
                         parada.palabrasClave.RemoveAll(p => p.palabraClave != "");
                         db.SaveChanges();
-                        List<string> palabrasClaveFront = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
-                        List<PalabraClave> palabrasClave = new List<PalabraClave>();
-                        foreach (string p in palabrasClaveFront)
-                        {
-                            palabrasClave.Add(new PalabraClave(p));
-                        }
+
+                        List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
 
 
@@ -320,12 +311,8 @@ namespace TPDDSGrupo44.Controllers
                 if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
                 {
                     DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
-                    List<string> palabrasClaveFront = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
-                    List<PalabraClave> palabrasClave = new List<PalabraClave>();
-                    foreach (string p in palabrasClaveFront)
-                    {
-                        palabrasClave.Add(new PalabraClave(p));
-                    }
+
+                    List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
                     List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
 
@@ -439,12 +426,8 @@ namespace TPDDSGrupo44.Controllers
 
 
                         DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
-                        List<string> palabrasClaveFront = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
-                        List<PalabraClave> palabrasClave = new List<PalabraClave>();
-                        foreach (string p in palabrasClaveFront)
-                        {
-                            palabrasClave.Add(new PalabraClave(p));
-                        }
+
+                        List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
                         List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
 
@@ -525,12 +508,8 @@ namespace TPDDSGrupo44.Controllers
                 if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
                 {
                     DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
-                    List<string> palabrasClaveFront = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
-                    List<PalabraClave> palabrasClave = new List<PalabraClave>();
-                    foreach (string p in palabrasClaveFront)
-                    {
-                        palabrasClave.Add(new PalabraClave(p));
-                    }
+                    List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
+
                     List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
 
                     //HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
@@ -646,12 +625,9 @@ namespace TPDDSGrupo44.Controllers
 
 
                         DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
-                        List<string> palabrasClaveFront = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
-                        List<PalabraClave> palabrasClave = new List<PalabraClave>();
-                        foreach (string p in palabrasClaveFront)
-                        {
-                            palabrasClave.Add(new PalabraClave(p));
-                        }
+
+                        List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
+
                         List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
 
                         //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
@@ -728,11 +704,7 @@ namespace TPDDSGrupo44.Controllers
         //        DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
         //        List<string> palabrasClaveFront = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
 
-        //        List<PalabraClave> palabrasClave = new List<PalabraClave>();
-        //        foreach (string p in palabrasClaveFront)
-        //        {
-        //            palabrasClave.Add(new PalabraClave(p));
-        //        }
+        //    List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
         //        List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
 
@@ -818,12 +790,7 @@ namespace TPDDSGrupo44.Controllers
 
 
         //            DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
-        //            List<string> palabrasClaveFront = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
-        //            List<PalabraClave> palabrasClave = new List<PalabraClave>();
-        //            foreach (string p in palabrasClaveFront)
-        //            {
-        //                palabrasClave.Add(new PalabraClave(p));
-        //            }
+        //    List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
         //            List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
 
@@ -853,7 +820,18 @@ namespace TPDDSGrupo44.Controllers
 
 
 
-
+        private List<PalabraClave> parsearListaDePalabras(string listaSeparadaConComas)
+        {
+            List<string> palabrasClaveFront = listaSeparadaConComas.Split(new char[] { ',' }).ToList();
+            List<PalabraClave> palabrasClave = new List<PalabraClave>();
+            foreach (string p in palabrasClaveFront)
+            {
+                palabrasClave.Add(new PalabraClave(p));
+            }
+            return palabrasClave;
+        }
 
     }
+
+    
 }
