@@ -61,6 +61,10 @@ namespace TPDDSGrupo44.Migrations
                     new FuncionalidadUsuario
                     {
                         nombre = "Consultar POI"
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Reportes"
                     }
                 }
             },

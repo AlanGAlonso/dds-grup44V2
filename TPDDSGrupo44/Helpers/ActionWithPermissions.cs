@@ -10,8 +10,8 @@ namespace TPDDSGrupo44.Helpers
     {
         public static MvcHtmlString ActionPermissions(this HtmlHelper helper, string visibleText, string action, string controller, string permission)
         {
-            if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario != null) { 
-                if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == permission).ToList().Count() > 0) {
+            if (ViewModels.BaseViewModel.usuario != null) { 
+                if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == permission).ToList().Count() > 0) {
                     var li = new TagBuilder("li");
                     var a = new TagBuilder("a");
                     a.MergeAttribute("href", "/" + controller + "/" + action);

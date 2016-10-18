@@ -1,4 +1,4 @@
-﻿    
+﻿@using TPDDSGrupo44.Helpers    
 <!DOCTYPE html >
 <html>
 <head>
@@ -31,9 +31,11 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Encuentra puntos", "Index", "Home")</li>  
-                        @if(TPDDSGrupo44.ViewModels.BaseViewModel.usuario != null) { 
-                            if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.nombre == "Administrador") {
-                                <li>@Html.ActionLink("Busquedas Realizadas", "Index", "Admin")</li>
+                        @if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario != null)
+                        {
+                            @Html.ActionPermissions("Reportes", "Index", "Admin", "Reportes")
+                            if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI" || f.nombre == "Baja POI" || f.nombre == "Editar POI" || f.nombre == "Consultar POI").ToList().Count() > 0)
+                            {
                                 <li>@Html.ActionLink("ABM de POIs", "ABMHome", "Admin")</li>
                             }
                         } else
