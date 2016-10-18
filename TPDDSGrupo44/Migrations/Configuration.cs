@@ -22,65 +22,58 @@ namespace TPDDSGrupo44.Migrations
             // DATOS INSTANCIADOS POR DEFECTO
 
 
-            // FUNCIONALIDADES PARA USUARIOS
-            context.FuncionalidadesUsuarios.AddOrUpdate(f => f.nombre,
-            new FuncionalidadUsuario
-            {
-                nombre = "Actualizar Local Comercial"
-            },
-            new FuncionalidadUsuario
-            {
-                nombre = "Agregar Acciones"
-            },
-            new FuncionalidadUsuario
-            {
-                nombre = "Proceso Múltiple"
-            },
-            new FuncionalidadUsuario
-            {
-                nombre = "Baja POIs"
-            },
-            new FuncionalidadUsuario
-            {
-                nombre = "Trámite"
-            },
-            new FuncionalidadUsuario
-            {
-                nombre = "Alta POI"
-            },
-            new FuncionalidadUsuario
-            {
-                nombre = "Baja POI"
-            },
-            new FuncionalidadUsuario
-            {
-                nombre = "Editar POI"
-            },
-            new FuncionalidadUsuario
-            {
-                nombre = "Consultar POI"
-            });
-
-            context.SaveChanges();
-
-
             //ROLES
-            //recolecto TODAS las funcionalidades de usuario, porque el admin puede hacer TODO
-            List<FuncionalidadUsuario> funcAdmin = context.FuncionalidadesUsuarios.Where(f => f.nombre != "").ToList();
-
-            //busco las funcionalidades para transeuntes (realizar trámites)
-            List<FuncionalidadUsuario> funcTrans = context.FuncionalidadesUsuarios.Where(f => f.nombre == "Trámite").ToList();
 
             context.Roles.AddOrUpdate(r => r.nombre,
             new Rol
             {
-                nombre = "Terminal",
-                funcionalidades = funcTrans
+                nombre = "Administrador",
+                funcionalidades = new List<FuncionalidadUsuario>()
+                {
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Actualizar Local Comercial Asinc"
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Agregar Acciones Asinc"
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Proceso Múltiple Asinc"
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Baja POIs Asinc"
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Alta POI"
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Baja POI"
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Editar POI"
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Consultar POI"
+                    }
+                }
             },
             new Rol
             {
-                nombre = "Administrador",
-                funcionalidades = funcAdmin
+                nombre = "Terminal",
+                funcionalidades = new List<FuncionalidadUsuario>()
+                {
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Trámite"
+                    }
+                }
             });
 
             context.SaveChanges();

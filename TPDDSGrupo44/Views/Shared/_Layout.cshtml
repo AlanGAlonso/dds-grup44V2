@@ -34,11 +34,11 @@
                         @if(TPDDSGrupo44.ViewModels.BaseViewModel.usuario != null) { 
                             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.nombre == "Administrador") {
                                 <li>@Html.ActionLink("Busquedas Realizadas", "Index", "Admin")</li>
-                                <li>@Html.ActionLink("ABM Parada", "ABMParada", "Admin")</li>
-                                <li>@Html.ActionLink("ABM Banco", "ABMBanco", "Admin")</li>
-                                <li>@Html.ActionLink("ABM CGP", "ABMCGP", "Admin")</li>
-                                <li>@Html.ActionLink("ABM Local Comercial", "ABMLocalComercial", "Admin")</li>
+                                <li>@Html.ActionLink("ABM de POIs", "ABMHome", "Admin")</li>
                             }
+                        } else
+                        {
+                            <li>@Html.ActionLink("Log In", "Index", "User")</li>
                         }
                     </ul>
                 </div>

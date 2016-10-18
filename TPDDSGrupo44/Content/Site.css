@@ -135,3 +135,14 @@ main {
 .detalles {
     display: none;
 }
+
+
+.view-navegation {
+    padding: 5px;
+}
+
+.view-navegation > li {
+    padding: 5px;
+    display: inline-block;
+    list-style-type: none;
+}

@@ -8,7 +8,9 @@ namespace TPDDSGrupo44.Models
         public string nombre { get; set; }
         public virtual List<FuncionalidadUsuario> funcionalidades { get; set; }
 
-        public Rol (){ }
+        public Rol (){
+            funcionalidades = new List<FuncionalidadUsuario>();
+        }
 
         public Rol (string nombreRol, List<FuncionalidadUsuario> funcionalidadesRol)
         {

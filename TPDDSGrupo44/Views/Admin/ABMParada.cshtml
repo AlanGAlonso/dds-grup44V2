@@ -5,11 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ABMParada</h2>
+@using TPDDSGrupo44.Helpers
 
-<p>
-    @Html.ActionLink("Agregar Parada", "CreateParada")
-</p>
+<h2>Consulta de Paradas</h2>
+
+<ul class="view-navegation">
+    @Html.ActionPermissions("Alta de paradas", "CreateParada", "Admin", "Alta POI")
+    @Html.ActionPermissions("Modificación de paradas", "EditParada", "Admin", "Editar POI")
+    @Html.ActionPermissions("Eliminar paradas", "DeleteParada", "Admin", "Baja POI")
+</ul>
 <table class="table">
     <tr>
         <th>

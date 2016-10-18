@@ -6,12 +6,14 @@
     ViewBag.Title = "ABMCGP";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using TPDDSGrupo44.Helpers
+<h2>Consulta de CGPs</h2>
 
-<h2>ABMCGP</h2>
-
-<p>
-    @Html.ActionLink("Agregar CGP", "CreateCGP")
-</p>
+<ul class="view-navegation">
+@Html.ActionPermissions("Alta de CGPs", "CreateCGP", "Admin", "Alta POI")
+@Html.ActionPermissions("Editar CGPs", "EditCGP", "Admin", "Editar POI")
+@Html.ActionPermissions("Borrar CGPs", "DeleteCGP", "Admin", "Baja POI")
+</ul>
 <table class="table">
     <tr>
         <th>

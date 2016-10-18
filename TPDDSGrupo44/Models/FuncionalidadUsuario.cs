@@ -14,10 +14,7 @@ namespace TPDDSGrupo44.Models
         {
             nombre = nombreFuncionalidad;
         }
-
-        public virtual void cargarPOI() { }
-
-        public virtual void realizarTramite() { }
+        
         
     }
 }
