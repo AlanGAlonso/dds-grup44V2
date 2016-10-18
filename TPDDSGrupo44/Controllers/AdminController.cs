@@ -172,8 +172,7 @@ namespace TPDDSGrupo44.Controllers
                     using (var db = new BuscAR())
                     {
                         parada = db.Paradas.Include("palabrasClave").Where(p => p.id == id).Single();
-
-                        parada.palabrasClave.RemoveAll(p => p.palabraClave != "");
+                        parada.palabrasClave.Clear();
                         db.SaveChanges();
                     }
 
@@ -229,12 +228,10 @@ namespace TPDDSGrupo44.Controllers
                         parada = db.Paradas.Where(p => p.id == id).Single();
 
 
-                        parada.palabrasClave.RemoveAll(p => p.palabraClave != "");
+                        parada.palabrasClave.Clear();
                         db.SaveChanges();
 
                         List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
-
-
 
                         string coordenadaLatitude = (collection["coordenada.Latitude"]).Replace(",", ".");
                         DbGeography coordenada = DbGeography.FromText("POINT(" + coordenadaLatitude + " " + coordenadaLatitude + ")");
@@ -315,15 +312,11 @@ namespace TPDDSGrupo44.Controllers
                     List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
                     List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
-
                     //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
                     //         horariosAbierto.Add(horarios);
-
                     List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
 
                     List<ServicioBanco> servicios = new List<ServicioBanco>();
-
-
 
                     Banco banco = new Banco(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                           Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["codigoPostal"]), collection["localidad"],
@@ -374,6 +367,8 @@ namespace TPDDSGrupo44.Controllers
                     using (var db = new BuscAR())
                     {
                         banco = db.Bancos.Where(p => p.id == id).Single();
+                        banco = db.Bancos.Include("palabrasClave").Where(p => p.id == id).Single();
+                        banco.palabrasClave.Clear();
                     }
 
                     banco.eliminarBanco(id);
@@ -400,7 +395,7 @@ namespace TPDDSGrupo44.Controllers
                 Banco banco;
                 using (var db = new BuscAR())
                 {
-                    banco = db.Bancos.Where(p => p.id == id).Single();
+                    banco = db.Bancos.Include("palabrasClave").Where(p => p.id == id).Single();
                 }
                 return View(banco);
             }
@@ -424,10 +419,11 @@ namespace TPDDSGrupo44.Controllers
                         int id = Convert.ToInt16(collection["id"]);
                         banco = db.Bancos.Where(p => p.id == id).Single();
 
+                        banco.palabrasClave.Clear();
+                        db.SaveChanges();
+                        List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
                         DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
-
-                        List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
                         List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
 
@@ -573,6 +569,8 @@ namespace TPDDSGrupo44.Controllers
                     using (var db = new BuscAR())
                     {
                         cgp = db.CGPs.Where(p => p.id == id).Single();
+                        cgp = db.CGPs.Include("palabrasClave").Where(p => p.id == id).Single();
+                        cgp.palabrasClave.Clear();
                     }
 
                     cgp.eliminarCGP(id);
@@ -599,7 +597,7 @@ namespace TPDDSGrupo44.Controllers
                 CGP cgp;
                 using (var db = new BuscAR())
                 {
-                    cgp = db.CGPs.Where(p => p.id == id).Single();
+                    cgp = db.CGPs.Include("palabrasClave").Where(p => p.id == id).Single();
                 }
                 return View(cgp);
             }
@@ -623,6 +621,8 @@ namespace TPDDSGrupo44.Controllers
                         int id = Convert.ToInt16(collection["id"]);
                         cgp = db.CGPs.Where(p => p.id == id).Single();
 
+                        cgp.palabrasClave.Clear();
+                        db.SaveChanges();
 
                         DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
 
@@ -752,6 +752,8 @@ namespace TPDDSGrupo44.Controllers
         //        using (var db = new BuscAR())
         //        {
         //            localComercial = db.Locales.Where(p => p.id == id).Single();
+        //            localComercial = db.Locales.Include("palabrasClave").Where(p => p.id == id).Single();
+        //            localComercial.palabrasClave.Clear();
         //        }
 
         //        localComercial.eliminarLocalComercial(id);
@@ -771,7 +773,7 @@ namespace TPDDSGrupo44.Controllers
         //    LocalComercial localComercial;
         //    using (var db = new BuscAR())
         //    {
-        //        localComercial = db.Locales.Where(p => p.id == id).Single();
+        //        localComercial = db.Locales.Include("palabrasClave").Where(p => p.id == id).Single();
         //    }
         //    return View(localComercial);
         //}
@@ -788,9 +790,13 @@ namespace TPDDSGrupo44.Controllers
         //            int id = Convert.ToInt16(collection["id"]);
         //            localComercial = db.Locales.Where(p => p.id == id).Single();
 
+        //            localComercial.palabrasClave.Clear();
+        //            db.SaveChanges();
+        //            List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
+
 
         //            DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
-        //    List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
+
 
         //            List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
 
