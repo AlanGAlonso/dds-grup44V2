@@ -321,7 +321,6 @@
     <Content Include="Views\Admin\EditParada.cshtml" />
     <Content Include="Views\Admin\ABMLocalComercial.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Admin\ABMHome.cshtml" />
     <Content Include="Views\Shared\NoAccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
