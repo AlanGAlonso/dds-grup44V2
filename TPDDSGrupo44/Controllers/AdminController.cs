@@ -60,19 +60,7 @@ namespace TPDDSGrupo44.Controllers
         }
 
 
-
-
-        public ActionResult ABMHome()
-        {
-            if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI" || f.nombre == "Baja POI" || f.nombre == "Editar POI" || f.nombre == "Consultar POI").ToList().Count() > 0)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("NoAccess", "Shared");
-            }
-        }
+        
         // ---------------------------------------------------------------------------------------
         //                             A B M   P A R A D A
         //----------------------------------------------------------------------------------------
