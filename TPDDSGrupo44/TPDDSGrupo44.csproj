@@ -215,6 +215,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DataModels\ErrorJson.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -233,6 +234,7 @@
     <Compile Include="Models\GetJsonCGP.cs" />
     <Compile Include="DataModels\JsonBank.cs" />
     <Compile Include="Models\DispositivoTactil.cs" />
+    <Compile Include="Models\GetJsonError.cs" />
     <Compile Include="Models\HorarioAbierto.cs" />
     <Compile Include="Models\GetJsonBanks.cs" />
     <Compile Include="Models\LocalComercial.cs" />

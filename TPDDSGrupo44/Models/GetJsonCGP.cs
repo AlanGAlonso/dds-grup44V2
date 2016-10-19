@@ -12,8 +12,7 @@ namespace TPDDSGrupo44.Models
         public List<CGP> getJsonData()
         {
             //string url = "http://trimatek.org/Consultas/centro?zona=" + zona;
-            //try
-            //{
+            
                 string url = "http://trimatek.org/Consultas/centro";
 
                 var jsonString = string.Empty;
@@ -26,25 +25,15 @@ namespace TPDDSGrupo44.Models
                 List<CGP> cgps = new List<CGP>();
                 foreach (JsonCGP cgp in listCGP)
                 {
-                    //CGP nuevoCGP = new CGP(cgp.comuna, cgp.serviciosJSON);
-
-                    //servicio = new Models.Servicio(cgp.servicios.nombre);
-                    //servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.(Enum.GetName(typeof(DayOfWeek), cgp.diaSemana)), cgp.horaDesde, cgp.horaHasta));
-                    //serviciosJSON.Add(servicio);
-                    //cgps.Add(nuevoCGP);
-                }
+                //CGP nuevoCGP = new CGP(cgp.comuna, cgp.serviciosJSON);
+                //servicio = new DataModels.JsonCGP(cgp.serviciosJson.nombre);
+                //servicio = new Models.Servicio(cgp.servicios.nombre);
+                //servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.(Enum.GetName(typeof(DayOfWeek), cgp.diaSemana)), cgp.horaDesde, cgp.horaHasta));
+                //serviciosJSON.Add(servicio);
+                //cgps.Add(nuevoCGP);
+            }
                 return cgps;
-            //}catch {
-            //string url = http://demo3537367.mockable.io/trash/pois_bad;
-            //     var jsonString = string.Empty;
-
-            //    var client = new WebClient();
-            //    jsonString = client.DownloadString(url);
-
-            //    JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
-            //    ErrorJson errorjson = javaScriptSerializer.Deserialize(jsonString, typeof(ErrorJson));
-            //    return errorjson.status_code + errorjson.error;
-            //}
+       
         }
 
     }

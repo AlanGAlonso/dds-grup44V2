@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Spatial;
 using System.Linq;
 using TPDDSGrupo44.DataModels;
+using static TPDDSGrupo44.DataModels.JsonCGP;
 
 namespace TPDDSGrupo44.Models
 {
@@ -40,14 +41,18 @@ namespace TPDDSGrupo44.Models
 
        ////////////////Constructor JSON (usado para generar cgp a partir del JSON que tiene poca data)////////////////
         public CGP(int comuna, List<ServicioCGP> serviciosJSON) : base()
+        //public CGP(int comuna, List<ServiciosJSON> serviciosJSON) : base()
+
         {
+            //JsonCGP jsoncgp = new JsonCGP();
             nombreDePOI = "Sede Comunal " + comuna;
             palabrasClave = new List<PalabraClave>();
             palabrasClave.Add(new PalabraClave("CGP"));
             palabrasClave.Add(new PalabraClave(nombreDePOI));
             servicios = new List<ServicioCGP>();
             horarioAbierto = new List<HorarioAbierto>();
-            horarioFeriado = new List<HorarioAbierto>();
+            //horarioAbierto = jsoncgp.serviciosJson  horaDesde + horaHasta
+            //horarioFeriado = new List<HorarioAbierto>(); --> no contiene el json
             servicios = serviciosJSON;
 
 
