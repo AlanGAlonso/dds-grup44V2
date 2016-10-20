@@ -222,7 +222,8 @@ namespace TPDDSGrupo44.Controllers
                         List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
                         string coordenadaLatitude = (collection["coordenada.Latitude"]).Replace(",", ".");
-                        DbGeography coordenada = DbGeography.FromText("POINT(" + coordenadaLatitude + " " + coordenadaLatitude + ")");
+                        string coordenadaLongitude = (collection["coordenada.Longitude"]).Replace(",", ".");
+                        DbGeography coordenada = DbGeography.FromText("POINT(" + coordenadaLatitude + " " + coordenadaLongitude + ")");
 
 
 
@@ -357,6 +358,8 @@ namespace TPDDSGrupo44.Controllers
                         banco = db.Bancos.Where(p => p.id == id).Single();
                         banco = db.Bancos.Include("palabrasClave").Where(p => p.id == id).Single();
                         banco.palabrasClave.Clear();
+                        db.SaveChanges();
+
                     }
 
                     banco.eliminarBanco(id);
@@ -411,7 +414,9 @@ namespace TPDDSGrupo44.Controllers
                         db.SaveChanges();
                         List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
-                        DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
+                        string coordenadaLatitude = (collection["coordenada.Latitude"]).Replace(",", ".");
+                        string coordenadaLongitude = (collection["coordenada.Longitude"]).Replace(",", ".");
+                        DbGeography coordenada = DbGeography.FromText("POINT(" + coordenadaLatitude + " " + coordenadaLongitude + ")");
 
                         List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
 
@@ -559,6 +564,8 @@ namespace TPDDSGrupo44.Controllers
                         cgp = db.CGPs.Where(p => p.id == id).Single();
                         cgp = db.CGPs.Include("palabrasClave").Where(p => p.id == id).Single();
                         cgp.palabrasClave.Clear();
+                        db.SaveChanges();
+
                     }
 
                     cgp.eliminarCGP(id);
@@ -612,7 +619,9 @@ namespace TPDDSGrupo44.Controllers
                         cgp.palabrasClave.Clear();
                         db.SaveChanges();
 
-                        DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
+                        string coordenadaLatitude = (collection["coordenada.Latitude"]).Replace(",", ".");
+                        string coordenadaLongitude = (collection["coordenada.Longitude"]).Replace(",", ".");
+                        DbGeography coordenada = DbGeography.FromText("POINT(" + coordenadaLatitude + " " + coordenadaLongitude + ")");
 
                         List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
@@ -816,13 +825,20 @@ namespace TPDDSGrupo44.Controllers
 
         private List<PalabraClave> parsearListaDePalabras(string listaSeparadaConComas)
         {
-            List<string> palabrasClaveFront = listaSeparadaConComas.Split(new char[] { ',' }).ToList();
-            List<PalabraClave> palabrasClave = new List<PalabraClave>();
-            foreach (string p in palabrasClaveFront)
+            if (listaSeparadaConComas != "")
             {
-                palabrasClave.Add(new PalabraClave(p));
+                List<string> palabrasClaveFront = listaSeparadaConComas.Split(new char[] { ',' }).ToList();
+                List<PalabraClave> palabrasClave = new List<PalabraClave>();
+                foreach (string p in palabrasClaveFront)
+                {
+                    palabrasClave.Add(new PalabraClave(p));
+                }
+                return palabrasClave;
             }
-            return palabrasClave;
+            else {
+                List<PalabraClave> palabrasClave = new List<PalabraClave>();
+                return palabrasClave;
+            }
         }
 
     }

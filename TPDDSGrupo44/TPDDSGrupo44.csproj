@@ -322,6 +322,7 @@
     <Content Include="Views\Admin\ABMLocalComercial.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Shared\NoAccess.cshtml" />
+    <Content Include="Views\Admin\DeleteCGP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
