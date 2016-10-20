@@ -9,7 +9,7 @@
 <h2>Consulta de Locales</h2>
 
 <ul class="view-navegation">
-    @Html.ActionPermissions("Alta de locales", "CreateLocalComercial", "Admin", "Alta POI")
+    @Html.ActionPermissions("Alta de locales", "CreateLocalComercial", "Admin", "Alta POI", "ion-ios-plus-outline")
 </ul>
 <table class="table">
     <tr>
@@ -86,8 +86,8 @@
             @Html.DisplayFor(modelItem => item.entreCalles)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditLocalComercial", new { id=item.id }) |
-            @Html.ActionLink("Delete", "DeleteLocalComercial", new { id=item.id })
+            <span class="ion-ios-compose-outline"></span>@Html.ActionLink("Edit", "EditLocalComercial", new { id = item.id }) <br />
+<span class="ion-ios-trash-outline"></span>@Html.ActionLink("Delete", "DeleteLocalComercial", new { id = item.id })
         </td>
     </tr>
 }

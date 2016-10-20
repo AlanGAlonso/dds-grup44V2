@@ -30,5 +30,14 @@ namespace TPDDSGrupo44.Controllers
             }
 
         }
+
+
+        // GET: LogOut
+        public ActionResult LogOut()
+        {
+            Usuario.salir();
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -10,7 +10,7 @@
 <h2>Consulta de CGPs</h2>
 
 <ul class="view-navegation">
-@Html.ActionPermissions("Alta de CGPs", "CreateCGP", "Admin", "Alta POI")
+@Html.ActionPermissions("Alta de CGPs", "CreateCGP", "Admin", "Alta POI", "ion-ios-plus-outline")
 </ul>
 <table class="table">
     <tr>
@@ -99,8 +99,8 @@
                 @Html.DisplayFor(modelItem => item.zonaDelimitadaPorLaComuna)
             </td>
             <td>
-                @Html.ActionLink("Editar", "EditCGP", new { id = item.id }) |
-                @Html.ActionLink("Borrar", "DeleteCGP", new { id = item.id })
+                <span class="ion-ios-compose-outline"></span>@Html.ActionLink("Editar", "EditCGP", new { id = item.id })<br />
+                <span class="ion-ios-trash-outline"></span>@Html.ActionLink("Borrar", "DeleteCGP", new { id = item.id })
             </td>
         </tr>
     }

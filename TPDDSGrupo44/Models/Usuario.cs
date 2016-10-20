@@ -61,5 +61,10 @@ namespace TPDDSGrupo44.Models
             }
 
         }
+
+        public static void salir()
+        {
+            BaseViewModel.usuario = null;
+        }
     }
 }

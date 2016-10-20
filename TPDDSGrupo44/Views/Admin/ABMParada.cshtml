@@ -10,7 +10,7 @@
 <h2>Consulta de Paradas</h2>
 
 <ul class="view-navegation">
-    @Html.ActionPermissions("Alta de paradas", "CreateParada", "Admin", "Alta POI")
+    @Html.ActionPermissions("Alta de paradas", "CreateParada", "Admin", "Alta POI", "ion-ios-plus-outline")
 </ul>
 <table class="table">
     <tr>
@@ -75,8 +75,8 @@
                 @Html.DisplayFor(modelItem => item.entreCalles)
             </td>
             <td>
-                @Html.ActionLink("Editar", "EditParada", new { id = item.id }) |
-                @Html.ActionLink("Borrar", "DeleteParada", new { id = item.id })
+                <span class="ion-ios-compose-outline"></span>@Html.ActionLink("Editar", "EditParada", new { id = item.id }) <br />
+<span class="ion-ios-trash-outline"></span>@Html.ActionLink("Borrar", "DeleteParada", new { id = item.id })
             </td>
         </tr>
     }

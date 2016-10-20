@@ -8,6 +8,7 @@
     <title>@ViewBag.Title</title>
 
     @Styles.Render("~/Content/css")
+    @Styles.Render("http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/scripts/jquery-3.1.0.js")
 
@@ -30,14 +31,15 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Encuentra puntos", "Index", "Home")</li>  
+                        <li>@Html.ActionLink(" Encontrá Puntos", "Index", "Home", new { @class = "ion-ios-search" })</li>  
                         @if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario != null)
                         {
-                            @Html.ActionPermissions("Reportes", "Index", "Admin", "Reportes")
+                            @Html.ActionPermissions("Reportes", "Index", "Admin", "Reportes", "ion-ios-paper-outline")
                             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI" || f.nombre == "Baja POI" || f.nombre == "Editar POI" || f.nombre == "Consultar POI").ToList().Count() > 0)
                             {
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="ion-ios-location-outline"></span>
                                         ABM de POIs
                                         <span class="caret"></span>
                                     </a>
@@ -49,6 +51,8 @@
                                     </ul>
                                 </li>
                             }
+
+                            <li>@Html.ActionLink("Log Out", "LogOut", "User")</li>
                         }
                         else
                         {
