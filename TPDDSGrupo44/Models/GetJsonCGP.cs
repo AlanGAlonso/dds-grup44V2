@@ -8,7 +8,6 @@ namespace TPDDSGrupo44.Models
 {
     public class GetJsonCGP
     {
-
         public List<CGP> getJsonData()
         {
             //string url = "http://trimatek.org/Consultas/centro?zona=" + zona;
@@ -25,7 +24,10 @@ namespace TPDDSGrupo44.Models
                 List<CGP> cgps = new List<CGP>();
                 foreach (JsonCGP cgp in listCGP)
                 {
+
                 //CGP nuevoCGP = new CGP(cgp.comuna, cgp.serviciosJSON);
+                //nuevoCGP.nombreDePOI = ServiciosJSON.
+ 
                 //servicio = new DataModels.JsonCGP(cgp.serviciosJson.nombre);
                 //servicio = new Models.Servicio(cgp.servicios.nombre);
                 //servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.(Enum.GetName(typeof(DayOfWeek), cgp.diaSemana)), cgp.horaDesde, cgp.horaHasta));
