@@ -213,7 +213,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataModels\ErrorJson.cs" />
     <Compile Include="Global.asax.cs">
@@ -226,7 +225,7 @@
     <Compile Include="Models\AgregarAcciones.cs" />
     <Compile Include="Models\BajaPOI.cs" />
     <Compile Include="Models\Banco.cs" />
-    <Compile Include="Models\BuscAR.cs" />
+    <Compile Include="DataModels\BuscAR.cs" />
     <Compile Include="DataModels\Busqueda.cs" />
     <Compile Include="Models\CGP.cs" />
     <Compile Include="Models\FuncionalidadUsuario.cs" />
