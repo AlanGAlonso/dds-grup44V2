@@ -31,10 +31,10 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink(" Encontrá Puntos", "Index", "Home", new { @class = "ion-ios-search" })</li>  
+                        <li>@Html.ActionLink(" Encontrá Puntos", "Index", "Home", new { @class = "ion-ios-search" })</li>
                         @if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario != null)
                         {
-                            @Html.ActionPermissions("Reportes", "Index", "Admin", "Reportes", "ion-ios-paper-outline")
+                            
                             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI" || f.nombre == "Baja POI" || f.nombre == "Editar POI" || f.nombre == "Consultar POI").ToList().Count() > 0)
                             {
                                 <li class="dropdown">
@@ -51,15 +51,26 @@
                                     </ul>
                                 </li>
                             }
-                            @Html.ActionPermissions("Configuración", "Settings", "Admin", "Configuracion", "ion-ios-settings")
-                            <li>@Html.ActionLink("Log Out", "LogOut", "User")</li>
-                        }
-                        else
-                        {
-                            <li>@Html.ActionLink("Log In", "Index", "User")</li>
-                        }
-                    </ul>
-                </div>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="ion-ios-toggle-outline"></span>
+                                    Sistema
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @Html.ActionPermissions("Reportes", "Index", "Admin", "Reportes", "ion-ios-paper-outline")
+                                    @Html.ActionPermissions("Configuración", "Settings", "Admin", "Configuracion", "ion-ios-settings")
+                                </ul>
+                             </li>
+                                    
+                              <li>@Html.ActionLink(" Log Out", "LogOut", "User", new { @class = "ion-ios-person-outline" })</li>
+                         }
+                         else
+                         {
+                              <li>@Html.ActionLink(" Log In", "Index", "User", new { @class = "ion-ios-person-outline" })</li>
+                         }
+                 </ul>
+</div>
             </div>
         </div>
     </header>
