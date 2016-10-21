@@ -35,6 +35,7 @@ namespace TPDDSGrupo44.Models
         public virtual DbSet<DispositivoTactil> Terminales { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Rol> Roles { get; set; }
+        public virtual DbSet<Configuracion> Configuraciones { get; set; }
         //public virtual DbSet<ActualizacionAsincronica> LogProcesosAsincronicos { get; set; }
 
         // tablas accesorias

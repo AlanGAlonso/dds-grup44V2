@@ -5,6 +5,7 @@ using System.Linq;
 using TPDDSGrupo44.Models;
 using System.Data.Entity.Spatial;
 using TPDDSGrupo44.DataModels;
+using TPDDSGrupo44.ViewModels;
 
 namespace TPDDSGrupo44.Controllers
 {
@@ -18,7 +19,7 @@ namespace TPDDSGrupo44.Controllers
                 return View(recuperarBusquedas());
             } else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -30,7 +31,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -43,7 +44,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -60,7 +61,48 @@ namespace TPDDSGrupo44.Controllers
         }
 
 
-        
+        public ActionResult Settings()
+        {
+            if (BaseViewModel.usuario != null && ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Configuracion").ToList().Count() > 0)
+            {
+                if (BaseViewModel.configuracion == null)
+                {
+                    using (var db = new BuscAR())
+                    {
+                        BaseViewModel.configuracion = db.Configuraciones.Single();
+                    }
+                }
+                return View(BaseViewModel.configuracion);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        // POST
+        [HttpPost]
+        public ActionResult Settings(int id, FormCollection collection)
+        {
+            if (BaseViewModel.usuario != null && ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Configuracion").ToList().Count() > 0)
+            {
+                using (var db = new BuscAR())
+                {
+                    Configuracion config = db.Configuraciones.Single();
+                    config.duracionMaximaBusquedas = Convert.ToInt32(collection["duracionMaximaBusquedas"]);
+                    BaseViewModel.configuracion = config;
+
+                    db.SaveChanges();
+                }
+
+                return View(BaseViewModel.configuracion);
+            }
+            else
+            {
+                return View(BaseViewModel.configuracion);
+            }
+        }
+
         // ---------------------------------------------------------------------------------------
         //                             A B M   P A R A D A
         //----------------------------------------------------------------------------------------
@@ -82,7 +124,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -95,7 +137,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -121,7 +163,7 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("NoAccess", "Shared");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch
@@ -143,7 +185,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -173,7 +215,7 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("NoAccess", "Shared");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch
@@ -197,7 +239,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -239,7 +281,7 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("NoAccess", "Shared");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch
@@ -270,7 +312,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -283,7 +325,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -318,7 +360,7 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("NoAccess", "Shared");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch
@@ -340,7 +382,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -368,7 +410,7 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("NoAccess", "Shared");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch
@@ -392,7 +434,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -440,7 +482,7 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("NoAccess", "Shared");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch
@@ -471,7 +513,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -484,7 +526,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -523,7 +565,7 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("NoAccess", "Shared");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch
@@ -546,7 +588,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -574,7 +616,7 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("NoAccess", "Shared");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch
@@ -598,7 +640,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -650,7 +692,7 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("NoAccess", "Shared");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch
@@ -680,7 +722,7 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("NoAccess", "Shared");
+                return RedirectToAction("Index", "Home");
             }
         }
 

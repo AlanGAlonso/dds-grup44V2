@@ -11,6 +11,7 @@ namespace TPDDSGrupo44.Models
         public int dni { get; set; }
         public byte[] contrasenia { get; set; }
         public string nombre { get; set; }
+        public string email { get; set; }
         public virtual Rol rol { get; set; }
 
         public Usuario ()
@@ -19,11 +20,12 @@ namespace TPDDSGrupo44.Models
         }
 
         // CONSTRUCTOR
-        public Usuario (int documento, string usuario, string contrasena)
+        public Usuario (int documento, string usuario, string contrasena, string mail)
         {
             //datos básicos
             dni = documento;
             nombre = usuario;
+            email = mail;
 
             //encriptación del password
             var provider = new SHA256CryptoServiceProvider();

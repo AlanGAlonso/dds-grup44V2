@@ -20,11 +20,15 @@ namespace TPDDSGrupo44.Migrations
         protected override void Seed(TPDDSGrupo44.Models.BuscAR context)
         {
             // DATOS INSTANCIADOS POR DEFECTO
+            context.Configuraciones.AddOrUpdate(c => c.duracionMaximaBusquedas,
+            new Configuracion
+            {
+                duracionMaximaBusquedas = 30
+            });
 
+                //ROLES
 
-            //ROLES
-
-            context.Roles.AddOrUpdate(r => r.nombre,
+                context.Roles.AddOrUpdate(r => r.nombre,
             new Rol
             {
                 nombre = "Administrador",
@@ -65,6 +69,10 @@ namespace TPDDSGrupo44.Migrations
                     new FuncionalidadUsuario
                     {
                         nombre = "Reportes"
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Configuracion"
                     }
                 }
             },
@@ -97,14 +105,16 @@ namespace TPDDSGrupo44.Migrations
                 nombre = "admin",
                 dni = 37025888,
                 contrasenia = passAdmin,
-                rol = admin
+                rol = admin,
+                email = "dds44utnviernes@gmail.com"
             },
             new Usuario
             {
                 nombre = "terminal",
                 dni = 12605907,
                 contrasenia = passTrans,
-                rol = trans
+                rol = trans,
+                email = "jmlanghe@gmail.com"
             });
 
             context.SaveChanges();

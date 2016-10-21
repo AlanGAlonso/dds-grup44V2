@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
+using TPDDSGrupo44.Models;
 
 namespace TPDDSGrupo44.Helpers
 {
@@ -17,7 +20,16 @@ namespace TPDDSGrupo44.Helpers
                 SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
                 mail.From = new MailAddress("dds44utnviernes@gmail.com");
-                mail.To.Add("dds44utnviernes@gmail.com");
+
+                using (var db = new BuscAR())
+                {
+                    List<Usuario> admins = db.Usuarios.Where(u => u.rol.nombre == "Administrador").ToList();
+                    foreach (Usuario admin in admins)
+                    {
+                        mail.To.Add(admin.email);
+                    }
+                }
+                    
 
                 switch (tipoDeMail)
                 {

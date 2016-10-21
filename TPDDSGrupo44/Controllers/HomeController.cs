@@ -180,7 +180,7 @@ namespace TPDDSGrupo44.Controllers
                         db.SaveChanges();
                     
 
-                    if (contador.Elapsed.Seconds > 60)
+                    if (contador.Elapsed.Seconds > BaseViewModel.configuracion.duracionMaximaBusquedas)
                     {
                         EnvioDeMails mailer = new EnvioDeMails();
                         mailer.enviarMail(contador.Elapsed, 0);

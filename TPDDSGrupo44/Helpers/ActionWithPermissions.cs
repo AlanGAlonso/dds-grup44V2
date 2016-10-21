@@ -43,9 +43,9 @@ namespace TPDDSGrupo44.Helpers
                     span.AddCssClass(ionicon);
 
                     a.MergeAttribute("href", "/" + controller + "/" + action);
-                    a.InnerHtml =  visibleText;
+                    a.InnerHtml = span.ToString() + " " + visibleText;
 
-                    li.InnerHtml = span.ToString() + " " + a.ToString();
+                    li.InnerHtml =  a.ToString();
                     return MvcHtmlString.Create(li.ToString());
                 }
                 else

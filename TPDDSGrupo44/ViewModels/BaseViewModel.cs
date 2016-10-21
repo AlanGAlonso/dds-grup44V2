@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
+using TPDDSGrupo44.DataModels;
 using TPDDSGrupo44.Models;
 
 namespace TPDDSGrupo44.ViewModels
@@ -7,9 +9,17 @@ namespace TPDDSGrupo44.ViewModels
     {
         
         public static Usuario usuario { get; set; }
+        public static Configuracion configuracion { get; set; }
         private static BaseViewModel instance;
 
-        public BaseViewModel() { }
+        public BaseViewModel() {
+
+            using (var db = new BuscAR())
+            {
+                configuracion = db.Configuraciones.Single();
+            }    
+
+        }
 
         public static BaseViewModel Instance
         {
