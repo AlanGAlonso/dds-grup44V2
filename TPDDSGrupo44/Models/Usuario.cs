@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using TPDDSGrupo44.ViewModels;
@@ -41,6 +42,32 @@ namespace TPDDSGrupo44.Models
         }
 
 
+        //REGISTRARSE
+        public bool registrarse(string nombre, string password, string password2, string email, int dni)
+        {
+            using (var db = new BuscAR())
+            {
+                List<Usuario> usuarios = db.Usuarios.Where(u=> u.nombre == nombre).ToList();
+                if (usuarios != null) return false;
+
+                usuarios = db.Usuarios.Where(u => u.dni == dni).ToList();
+                if (usuarios != null) return false;
+
+                usuarios = db.Usuarios.Where(u => u.email == email).ToList();
+                if (usuarios != null) return false;
+
+                if (password != password2) return false;
+
+                Usuario usuario = new Usuario(dni, nombre, password, email);
+                db.Usuarios.Add(usuario);
+
+                db.SaveChanges();
+            }
+
+            return true;
+        }
+
+
         //LOGIN
         public static bool autenticarse(string usuario, string contrasena) {
             using (var db = new BuscAR())
@@ -63,6 +90,53 @@ namespace TPDDSGrupo44.Models
             }
 
         }
+
+
+        //ACTUALIZAR DATOS
+        public bool actualizarDatos(string nombre, string passwordActual, string passwordNueva, string passwordNueva2, int dni, string email)
+        {
+            using (var db = new BuscAR())
+            {
+                List<Usuario> usuarios = db.Usuarios.Where(u => u.nombre == nombre).ToList();
+                foreach (Usuario u in usuarios)
+                {
+                    if (u != null && u.id != id)
+                    {
+                        return false;
+                    }
+                }
+
+                Usuario usuario = db.Usuarios.Find(id);
+                usuario.email = email;
+                usuario.dni = dni;
+                usuario.nombre = nombre;
+
+                this.email = email;
+                this.dni = dni;
+                this.nombre = nombre;
+
+                if (passwordActual != "" && passwordNueva != "")
+                {
+                    var provider = new SHA256CryptoServiceProvider();
+                    var encoding = new UnicodeEncoding();
+                    byte[] pass = provider.ComputeHash(encoding.GetBytes(passwordActual));
+                    if (pass.SequenceEqual(this.contrasenia) && passwordNueva == passwordNueva2)
+                    {
+                        this.contrasenia = pass;
+                        usuario.contrasenia = pass;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                db.SaveChanges();
+            }
+
+            return true;
+        }
+
 
         public static void salir()
         {

@@ -1,16 +1,58 @@
-﻿@model TPDDSGrupo44.ViewModels.BaseViewModel
+﻿@model TPDDSGrupo44.Models.Usuario
 
 @{
-    ViewBag.Title = "Log In";
+    ViewBag.Title = "Perfil";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Log In</h2>
+<h2>Perfil</h2>
 
-@using (Html.BeginForm("Index", "User", FormMethod.Post))
+@using (Html.BeginForm("Index"))
 {
-    <input name="nombre" type="text" placeholder="Usuario" />
-    <input name="password" type="password" placeholder="Contraseña" />
-    <button type="submit">Ingresar</button>
-}
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.dni, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.dni, new { htmlAttributes = new { @class = "form-control", @min ="0" } })
+                @Html.ValidationMessageFor(model => model.dni, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.contrasenia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="password" placeholder="Contraseña Actual" name="contraseniaActual" class="control-label col-md-2"/>
+                <input type="password" placeholder="Contraseña Nueva" name="contraseniaNueva" class="control-label col-md-2"/>
+                <input type="password" placeholder="Contraseña Nueva (de nuevo)" name="contraseniaNueva2" class="control-label col-md-2"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

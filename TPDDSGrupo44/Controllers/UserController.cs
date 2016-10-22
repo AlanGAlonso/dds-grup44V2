@@ -4,20 +4,49 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TPDDSGrupo44.Models;
+using TPDDSGrupo44.ViewModels;
 
 namespace TPDDSGrupo44.Controllers
 {
     public class UserController : Controller
     {
+
+        public ActionResult Index ()
+        {
+            if (BaseViewModel.usuario != null)
+            {
+                return View(BaseViewModel.usuario);
+            }
+            else
+            {
+                return RedirectToAction("LogIn");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Index(FormCollection usuario)
+        {
+            if (BaseViewModel.usuario != null)
+            {
+                BaseViewModel.usuario.actualizarDatos(usuario["nombre"], usuario["contraseniaActual"], usuario["contraseniaNueva"], usuario["contraseniaNueva2"], Convert.ToInt32(usuario["dni"]), usuario["email"]);
+                return View(BaseViewModel.usuario);
+            }
+            else
+            {
+                return RedirectToAction("LogIn");
+            }
+        }
+
+
         // GET: User
-        public ActionResult Index()
+        public ActionResult LogIn()
         {
             return View();
         }
 
         //POST: User
         [HttpPost]
-        public ActionResult Index(FormCollection usuario)
+        public ActionResult LogIn(FormCollection usuario)
         {
             bool login = Usuario.autenticarse(usuario["nombre"], usuario["password"]);
 

@@ -229,6 +229,7 @@
     <Compile Include="DataModels\BuscAR.cs" />
     <Compile Include="DataModels\Busqueda.cs" />
     <Compile Include="Models\CGP.cs" />
+    <Compile Include="Models\FuncionalidadDispositivoTactil.cs" />
     <Compile Include="Models\FuncionalidadUsuario.cs" />
     <Compile Include="Helpers\EnvioDeMails.cs" />
     <Compile Include="Models\GetJsonCGP.cs" />
@@ -320,14 +321,16 @@
     <Content Include="Views\Admin\EditCGP.cshtml" />
     <Content Include="Views\Admin\EditParada.cshtml" />
     <Content Include="Views\Admin\ABMLocalComercial.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\LogIn.cshtml" />
     <Content Include="Views\Shared\NoAccess.cshtml" />
     <Content Include="Views\Admin\DeleteCGP.cshtml" />
     <Content Include="Views\Admin\Settings.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\json\" />
+    <Folder Include="Views\FuncionalidadDispositivoTactil\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />
