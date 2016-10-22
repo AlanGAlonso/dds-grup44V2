@@ -36,25 +36,25 @@ namespace TPDDSGrupo44.Models
             //rol por defecto
             using (var db = new BuscAR())
             {
-                rol = db.Roles.Where(r => r.nombre == "Transeunte").Single();
+                rol = db.Roles.Where(r => r.nombre == "Terminal").Single();
             }
 
         }
 
 
         //REGISTRARSE
-        public bool registrarse(string nombre, string password, string password2, string email, int dni)
+        public static bool registrarse(string nombre, string password, string password2, string email, int dni)
         {
             using (var db = new BuscAR())
             {
                 List<Usuario> usuarios = db.Usuarios.Where(u=> u.nombre == nombre).ToList();
-                if (usuarios != null) return false;
+                if (usuarios.Count() != 0) return false;
 
                 usuarios = db.Usuarios.Where(u => u.dni == dni).ToList();
-                if (usuarios != null) return false;
+                if (usuarios.Count() != 0) return false;
 
                 usuarios = db.Usuarios.Where(u => u.email == email).ToList();
-                if (usuarios != null) return false;
+                if (usuarios.Count() != 0) return false;
 
                 if (password != password2) return false;
 

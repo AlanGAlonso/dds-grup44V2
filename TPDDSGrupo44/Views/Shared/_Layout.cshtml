@@ -34,7 +34,7 @@
                         <li>@Html.ActionLink(" Encontrá Puntos", "Index", new { controller = "Home" }, new { @class = "ion-ios-search" })</li>
                         @if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario != null)
                         {
-                            
+
                             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI" || f.nombre == "Baja POI" || f.nombre == "Editar POI" || f.nombre == "Consultar POI").ToList().Count() > 0)
                             {
                                 <li class="dropdown">
@@ -50,25 +50,29 @@
                                         <li>@Html.ActionLink("CGPs", "ABMCGP", "Admin")</li>
                                     </ul>
                                 </li>
+                                }
+                                if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Reportes" || f.nombre == "Configuraciones").ToList().Count() != 0)
+                                {
+                                    <li class="dropdown">
+                                        <a href = "#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <span class="ion-ios-toggle-outline"></span>
+                                            Sistema
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            @Html.ActionPermissions("Reportes", "Index", "Admin", "Reportes", "ion-ios-paper-outline")
+                                            @Html.ActionPermissions("Configuración", "Settings", "Admin", "Configuracion", "ion-ios-settings")
+                                        </ul>
+                                     </li>
+                                }
+                                <li>@Html.ActionLink(" Cuenta", "Index", new { controller = "User" }, new { @class = "ion-ios-person-outline" })</li>  
+                                <li>@Html.ActionLink(" Log Out", "LogOut", new { controller = "User" }, new { @class = "ion-ios-close-outline" })</li>
                             }
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="ion-ios-toggle-outline"></span>
-                                    Sistema
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    @Html.ActionPermissions("Reportes", "Index", "Admin", "Reportes", "ion-ios-paper-outline")
-                                    @Html.ActionPermissions("Configuración", "Settings", "Admin", "Configuracion", "ion-ios-settings")
-                                </ul>
-                             </li>
-                              <li>@Html.ActionLink(" Cuenta", "Index", new { controller = "User" }, new { @class = "ion-ios-person-outline" })</li>  
-                              <li>@Html.ActionLink(" Log Out", "LogOut", new { controller = "User" }, new { @class = "ion-ios-close-outline" })</li>
-                         }
-                         else
-                         {
-                              <li>@Html.ActionLink(" Log In", "LogIn", new { controller = "User" }, new { @class = "ion-ios-person-outline" })</li>
-                         }
+                            else
+                            {
+                                <li>@Html.ActionLink(" Log In", "LogIn", new { controller = "User" }, new { @class = "ion-ios-person-outline" })</li>
+                                <li>@Html.ActionLink(" Registrate", "Register", new { controller = "User" }, new { @class = "ion-ios-checkmark-outline" })</li>
+                            }
                  </ul>
 </div>
             </div>

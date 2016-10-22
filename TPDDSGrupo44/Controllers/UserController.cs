@@ -37,6 +37,24 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
+        // GET: User
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        // GET: User
+        [HttpPost]
+        public ActionResult Register(FormCollection usuario)
+        {
+            bool registrado = Usuario.registrarse(usuario["nombre"], usuario["password"], usuario["password2"], usuario["email"], Convert.ToInt32(usuario["dni"]));
+            if (registrado)
+            {
+                return RedirectToAction("LogIn");
+            } 
+            return View();
+        }
+
 
         // GET: User
         public ActionResult LogIn()
