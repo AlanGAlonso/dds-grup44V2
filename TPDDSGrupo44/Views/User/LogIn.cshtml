@@ -1,0 +1,16 @@
+﻿@model TPDDSGrupo44.ViewModels.BaseViewModel
+
+@{
+    ViewBag.Title = "Log In";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Log In</h2>
+
+@using (Html.BeginForm("LogIn", "User", FormMethod.Post))
+{
+    <input name="nombre" type="text" placeholder="Usuario" />
+    <input name="password" type="password" placeholder="Contraseña" />
+    <button type="submit">Ingresar</button>
+}
+

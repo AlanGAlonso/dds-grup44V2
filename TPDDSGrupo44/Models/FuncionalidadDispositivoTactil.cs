@@ -1,18 +1,18 @@
 ﻿namespace TPDDSGrupo44.Models
 {
-    public class FuncionalidadUsuario
+    public class FuncionalidadDispositivoTactil
     {
-       
+
         public int id { get; set; }
         public string nombre { get; set; }
 
-        public FuncionalidadUsuario () { }
+        public FuncionalidadDispositivoTactil() { }
 
-        public FuncionalidadUsuario (string nombreFuncionalidad)
+        public FuncionalidadDispositivoTactil(string nombreFuncionalidad)
         {
             nombre = nombreFuncionalidad;
         }
-        
-        
+
+
     }
 }
