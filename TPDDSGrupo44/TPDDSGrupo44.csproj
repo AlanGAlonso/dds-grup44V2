@@ -222,10 +222,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ActionWithPermissions.cs" />
-    <Compile Include="Migrations\201610222059363_InitialCreate.cs" />
-    <Compile Include="Migrations\201610222059363_InitialCreate.Designer.cs">
-      <DependentUpon>201610222059363_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
     <Compile Include="Models\ActualizacionLocalComercial.cs" />
@@ -325,7 +321,6 @@
     <Content Include="Views\Admin\EditBanco.cshtml" />
     <Content Include="Views\Admin\EditCGP.cshtml" />
     <Content Include="Views\Admin\EditParada.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Shared\NoAccess.cshtml" />
     <Content Include="Views\Admin\DeleteCGP.cshtml" />
@@ -334,15 +329,6 @@
     <Content Include="Views\Admin\CreateLocalComercial.cshtml" />
     <Content Include="Views\Admin\DeleteLocalComercial.cshtml" />
     <Content Include="Views\Admin\EditLocalComercial.cshtml" />
-=======
-    <Content Include="Views\Admin\ABMLocalComercial.cshtml" />
-    <Content Include="Views\User\LogIn.cshtml" />
-    <Content Include="Views\Shared\NoAccess.cshtml" />
-    <Content Include="Views\Admin\DeleteCGP.cshtml" />
-    <Content Include="Views\Admin\Settings.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\Register.cshtml" />
->>>>>>> origin/master
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -354,11 +340,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610222059363_InitialCreate.resx">
-      <DependentUpon>201610222059363_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
