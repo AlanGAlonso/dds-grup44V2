@@ -334,8 +334,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\json\" />
     <Folder Include="Views\FuncionalidadDispositivoTactil\" />
-    <Folder Include="Views\ServicioBanco\" />
-    <Folder Include="Views\ServicioCGP\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />

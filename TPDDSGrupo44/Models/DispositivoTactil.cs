@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Spatial;
+using TPDDSGrupo44.Models;
 
 namespace TPDDSGrupo44
 {
@@ -11,7 +13,7 @@ namespace TPDDSGrupo44
 
         public DbGeography coordenada { get; set; }
         public string nombre { get; set; }
-        public int comuna { get; set; } 
+        public virtual List<FuncionalidadDispositivoTactil> funcionalidades { get; set; }
 
         ////////////////Constructor vacio////////////////
         public DispositivoTactil() { }

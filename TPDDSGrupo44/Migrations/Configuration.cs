@@ -126,12 +126,26 @@ namespace TPDDSGrupo44.Migrations
             new DispositivoTactil
             {
                 nombre = "UTN FRBA Lugano",
-                coordenada = DbGeography.FromText("POINT(-34.6597047 -58.4688947)")
+                coordenada = DbGeography.FromText("POINT(-34.6597047 -58.4688947)"),
+                funcionalidades = new List<FuncionalidadDispositivoTactil>
+                {
+                    new FuncionalidadDispositivoTactil("Parada"),
+                    new FuncionalidadDispositivoTactil("Banco"),
+                    new FuncionalidadDispositivoTactil("CGP"),
+                    new FuncionalidadDispositivoTactil("Locales")
+                }
             },
 new DispositivoTactil
 {
     nombre = "Teatro Gran Rivadavia",
-    coordenada = DbGeography.FromText("POINT(-34.6349293 -58.4853798)")
+    coordenada = DbGeography.FromText("POINT(-34.6349293 -58.4853798)"),
+    funcionalidades = new List<FuncionalidadDispositivoTactil>
+                {
+                    new FuncionalidadDispositivoTactil("Parada"),
+                    new FuncionalidadDispositivoTactil("Banco"),
+                    new FuncionalidadDispositivoTactil("CGP"),
+                    new FuncionalidadDispositivoTactil("Locales")
+                }
 });
 
             context.SaveChanges();
