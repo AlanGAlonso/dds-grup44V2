@@ -31,7 +31,7 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink(" Encontrá Puntos", "Index", "Home", new { @class = "ion-ios-search" })</li>
+                        <li>@Html.ActionLink(" Encontrá Puntos", "Index", new { controller = "Home" }, new { @class = "ion-ios-search" })</li>
                         @if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario != null)
                         {
                             
@@ -63,11 +63,11 @@
                                 </ul>
                              </li>
                                     
-                              <li>@Html.ActionLink(" Log Out", "LogOut", "User", new { @class = "ion-ios-person-outline" })</li>
+                              <li>@Html.ActionLink(" Log Out", "LogOut", new { controller = "User" }, new { @class = "ion-ios-person-outline" })</li>
                          }
                          else
                          {
-                              <li>@Html.ActionLink(" Log In", "Index", "User", new { @class = "ion-ios-person-outline" })</li>
+                              <li>@Html.ActionLink(" Log In", "Index", new { controller = "User" }, new { @class = "ion-ios-person-outline" })</li>
                          }
                  </ul>
 </div>
