@@ -29,9 +29,7 @@ namespace TPDDSGrupo44.Models
             email = mail;
 
             //encriptación del password
-            var provider = new SHA256CryptoServiceProvider();
-            var encoding = new UnicodeEncoding();
-            contrasenia = provider.ComputeHash(encoding.GetBytes(contrasena));
+            contrasenia = encriptar(contrasena);
 
             //rol por defecto
             using (var db = new BuscAR())
@@ -77,10 +75,8 @@ namespace TPDDSGrupo44.Models
                 {
                     return false;
                 }
-
-                var provider = new SHA256CryptoServiceProvider();
-                var encoding = new UnicodeEncoding();
-                byte[] pass = provider.ComputeHash(encoding.GetBytes(contrasena));
+                
+                byte[] pass = Usuario.encriptar(contrasena);
                 if (pass.SequenceEqual(user.contrasenia))
                 {
                     BaseViewModel.usuario = user;
@@ -117,9 +113,8 @@ namespace TPDDSGrupo44.Models
 
                 if (passwordActual != "" && passwordNueva != "")
                 {
-                    var provider = new SHA256CryptoServiceProvider();
-                    var encoding = new UnicodeEncoding();
-                    byte[] pass = provider.ComputeHash(encoding.GetBytes(passwordActual));
+                   
+                    byte[] pass = encriptar(passwordActual);
                     if (pass.SequenceEqual(this.contrasenia) && passwordNueva == passwordNueva2)
                     {
                         this.contrasenia = pass;
@@ -141,6 +136,14 @@ namespace TPDDSGrupo44.Models
         public static void salir()
         {
             BaseViewModel.usuario = null;
+        }
+
+        public static byte[] encriptar(string texto)
+        {
+            //encriptación del password
+            var provider = new SHA256CryptoServiceProvider();
+            var encoding = new UnicodeEncoding();
+            return provider.ComputeHash(encoding.GetBytes(texto));
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity.Spatial;
 using System.Linq;
 using TPDDSGrupo44.DataModels;
-using static TPDDSGrupo44.DataModels.JsonCGP;
 
 namespace TPDDSGrupo44.Models
 {

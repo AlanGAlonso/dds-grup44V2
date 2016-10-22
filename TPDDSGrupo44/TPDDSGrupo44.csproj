@@ -216,6 +216,8 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataModels\Configuracion.cs" />
     <Compile Include="DataModels\ErrorJson.cs" />
+    <Compile Include="DataModels\ServicioBanco.cs" />
+    <Compile Include="DataModels\ServicioCGP.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -332,6 +334,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\json\" />
     <Folder Include="Views\FuncionalidadDispositivoTactil\" />
+    <Folder Include="Views\ServicioBanco\" />
+    <Folder Include="Views\ServicioCGP\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />

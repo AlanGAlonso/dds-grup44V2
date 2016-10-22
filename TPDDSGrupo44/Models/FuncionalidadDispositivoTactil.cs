@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TPDDSGrupo44.Models
+﻿namespace TPDDSGrupo44.Models
 {
     public class FuncionalidadDispositivoTactil
     {
