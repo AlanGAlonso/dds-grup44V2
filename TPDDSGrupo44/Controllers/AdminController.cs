@@ -35,7 +35,6 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-
         public ActionResult ResultsPerSearch()
         {
             if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Reportes").ToList().Count() > 0)
@@ -48,7 +47,6 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-
         private List<Busqueda> recuperarBusquedas()
         {
             List<Busqueda> busquedas;
@@ -59,7 +57,6 @@ namespace TPDDSGrupo44.Controllers
 
             return busquedas;
         }
-
 
         public ActionResult Settings()
         {
@@ -179,7 +176,7 @@ namespace TPDDSGrupo44.Controllers
                 ParadaDeColectivo parada;
                 using (var db = new BuscAR())
                 {
-                    parada = db.Paradas.Where(p => p.id == id).Single();
+                    parada = db.Paradas.Include("palabrasClave").Where(p => p.id == id).Single();
                 }
                 return View(parada);
             }
@@ -189,7 +186,7 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-        // POST: Default/Create
+        // POST: Default/Delete
         [HttpPost]
         public ActionResult DeleteParada(int id, FormCollection collection)
         {
@@ -201,7 +198,7 @@ namespace TPDDSGrupo44.Controllers
 
                     using (var db = new BuscAR())
                     {
-                        parada = db.Paradas.Include("palabrasClave").Where(p => p.id == id).Single();
+                        parada = db.Paradas.Where(p => p.id == id).Single();
                         parada.palabrasClave.Clear();
                         db.SaveChanges();
                     }
@@ -223,7 +220,6 @@ namespace TPDDSGrupo44.Controllers
                 return View();
             }
         }
-
 
 
         public ActionResult EditParada(int id)
@@ -257,15 +253,10 @@ namespace TPDDSGrupo44.Controllers
                         int id = Convert.ToInt16(collection["id"]);
                         parada = db.Paradas.Where(p => p.id == id).Single();
 
-
                         parada.palabrasClave.Clear();
                         db.SaveChanges();
-
                         List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
-
-                        string coordenadaLatitude = (collection["coordenada.Latitude"]).Replace(",", ".");
-                        string coordenadaLongitude = (collection["coordenada.Longitude"]).Replace(",", ".");
-                        DbGeography coordenada = DbGeography.FromText("POINT(" + coordenadaLatitude + " " + coordenadaLongitude + ")");
+                        DbGeography coordenada = actualizarCoordenada(collection["coordenada.Latitude"], collection["coordenada.Longitude"]);
 
 
 
@@ -316,7 +307,6 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-
         public ActionResult CreateBanco()
         {
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
@@ -339,7 +329,6 @@ namespace TPDDSGrupo44.Controllers
                 if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
                 {
                     DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
-
                     List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
                     List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
@@ -376,7 +365,7 @@ namespace TPDDSGrupo44.Controllers
                 Banco banco;
                 using (var db = new BuscAR())
                 {
-                    banco = db.Bancos.Where(p => p.id == id).Single();
+                    banco = db.Bancos.Include("palabrasClave").Where(p => p.id == id).Single();
                 }
                 return View(banco);
             }
@@ -398,10 +387,8 @@ namespace TPDDSGrupo44.Controllers
                     using (var db = new BuscAR())
                     {
                         banco = db.Bancos.Where(p => p.id == id).Single();
-                        banco = db.Bancos.Include("palabrasClave").Where(p => p.id == id).Single();
                         banco.palabrasClave.Clear();
                         db.SaveChanges();
-
                     }
 
                     banco.eliminarBanco(id);
@@ -418,8 +405,6 @@ namespace TPDDSGrupo44.Controllers
                 return View();
             }
         }
-
-
 
         public ActionResult EditBanco(int id)
         {
@@ -456,24 +441,18 @@ namespace TPDDSGrupo44.Controllers
                         db.SaveChanges();
                         List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
-                        string coordenadaLatitude = (collection["coordenada.Latitude"]).Replace(",", ".");
-                        string coordenadaLongitude = (collection["coordenada.Longitude"]).Replace(",", ".");
-                        DbGeography coordenada = DbGeography.FromText("POINT(" + coordenadaLatitude + " " + coordenadaLongitude + ")");
+                        DbGeography coordenada = actualizarCoordenada(collection["coordenada.Latitude"], collection["coordenada.Longitude"]);
 
                         List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
-
                         //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
                         //         horariosAbierto.Add(horarios);
-
                         List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
 
                         List<ServicioBanco> servicios = new List<ServicioBanco>();
 
-                        banco.actualizar(collection["calle"], Convert.ToInt32(collection["numeroAltura"]), Convert.ToInt32(collection["piso"]),
+                        banco.actualizar(coordenada,collection["calle"], Convert.ToInt32(collection["numeroAltura"]), Convert.ToInt32(collection["piso"]),
                           Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], collection["provincia"],
                           collection["pais"], collection["entreCalles"], collection["nombreDePOI"], palabrasClave, horariosAbierto, horariosFeriado, servicios);
-
-
 
                         db.SaveChanges();
                     }
@@ -490,8 +469,6 @@ namespace TPDDSGrupo44.Controllers
                 return View();
             }
         }
-
-
 
         // ---------------------------------------------------------------------------------------
         //                             A B M   C G P
@@ -542,16 +519,10 @@ namespace TPDDSGrupo44.Controllers
                     List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
                     List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
-
                     //HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
                     //horariosAbierto.Add(horarios);
-
                     List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
                     List<ServicioCGP> servicios = new List<ServicioCGP>();
-
-
-                    /* convert list to string -- 
-                     * var result = string.Join(",", list.ToArray()); */
 
                     CGP cgp = new CGP(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                           Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
@@ -574,7 +545,6 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-
         public ActionResult DeleteCGP(int id)
         {
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Baja POI").ToList().Count() > 0)
@@ -582,7 +552,7 @@ namespace TPDDSGrupo44.Controllers
                 CGP cgp;
                 using (var db = new BuscAR())
                 {
-                    cgp = db.CGPs.Where(p => p.id == id).Single();
+                    cgp = db.CGPs.Include("palabrasClave").Where(p => p.id == id).Single();
                 }
                 return View(cgp);
             }
@@ -604,7 +574,6 @@ namespace TPDDSGrupo44.Controllers
                     using (var db = new BuscAR())
                     {
                         cgp = db.CGPs.Where(p => p.id == id).Single();
-                        cgp = db.CGPs.Include("palabrasClave").Where(p => p.id == id).Single();
                         cgp.palabrasClave.Clear();
                         db.SaveChanges();
 
@@ -624,7 +593,6 @@ namespace TPDDSGrupo44.Controllers
                 return View();
             }
         }
-
 
 
         public ActionResult EditCGP(int id)
@@ -661,24 +629,17 @@ namespace TPDDSGrupo44.Controllers
                         cgp.palabrasClave.Clear();
                         db.SaveChanges();
 
-                        string coordenadaLatitude = (collection["coordenada.Latitude"]).Replace(",", ".");
-                        string coordenadaLongitude = (collection["coordenada.Longitude"]).Replace(",", ".");
-                        DbGeography coordenada = DbGeography.FromText("POINT(" + coordenadaLatitude + " " + coordenadaLongitude + ")");
-
+                        DbGeography coordenada = actualizarCoordenada(collection["coordenada.Latitude"], collection["coordenada.Longitude"]);
                         List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
                         List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
-
                         //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
                         //         horariosAbierto.Add(horarios);
-
                         List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
 
                         List<ServicioCGP> servicios = new List<ServicioCGP>();
 
-
-
-                        cgp.actualizar(collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
+                        cgp.actualizar(coordenada,collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                           Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
                           collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
                           palabrasClave, collection["nombreDePOI"], Convert.ToInt32(collection["numeroDeComuna"]),
@@ -726,142 +687,183 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-        //public ActionResult CreateLocalComercial()
-        //{
-        //
-        //    return View();
-        //}
+        public ActionResult CreateLocalComercial()
+        {
+            if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
-        //// POST: Default/Create
-        //[HttpPost]
-        //public ActionResult CreateLocalComercial(FormCollection collection)
-        //{
-        //    try
-        //    {
+        // POST: Default/Create
+        [HttpPost]
+        public ActionResult CreateLocalComercial(FormCollection collection)
+        {
+            try
+            {
+                if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
+                {
+                    DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
+                List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
+
+                List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
+                //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
+                //         horariosAbierto.Add(horarios);
+                List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
+
+                Rubro rubro = new Rubro();
+
+                LocalComercial localComercial = new LocalComercial(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
+                      Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]), 
+                      collection["localidad"],collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
+                      palabrasClave, collection["nombreDePOI"], horariosAbierto, horariosFeriado,rubro);
+
+                localComercial.agregarLocComercial(localComercial);
+
+                return RedirectToAction("ABMBanco");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult DeleteLocalComercial(int id)
+        {
+            if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Baja POI").ToList().Count() > 0)
+            {
+                LocalComercial localComercial;
+                using (var db = new BuscAR())
+                {
+                    localComercial = db.Locales.Include("palabrasClave").Where(p => p.id == id).Single();
+                }
+                return View(localComercial);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        // POST: Default/Create
+        [HttpPost]
+        public ActionResult DeleteLocalComercial(int id, FormCollection collection)
+        {
+            try
+            {
+                if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Baja POI").ToList().Count() > 0)
+                {
+                    LocalComercial localComercial;
+                using (var db = new BuscAR())
+                {
+                    localComercial = db.Locales.Where(p => p.id == id).Single();
+                    localComercial.palabrasClave.Clear();
+                }
+
+                localComercial.eliminarLocComercial(id);
+
+                return RedirectToAction("ABMLocalComercial");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult EditLocalComercial(int id)
+        {
+            if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Editar POI").ToList().Count() > 0)
+            {
+                LocalComercial localComercial;
+            using (var db = new BuscAR())
+            {
+                localComercial = db.Locales.Include("palabrasClave").Where(p => p.id == id).Single();
+            }
+            return View(localComercial);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        // POST: Default/Edit
+        [HttpPost]
+        public ActionResult EditLocalComercial(FormCollection collection)
+        {
+            try
+            {
+                if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Editar POI").ToList().Count() > 0)
+                {
+                    LocalComercial localComercial;
+                using (var db = new BuscAR())
+                {
+                    int id = Convert.ToInt16(collection["id"]);
+                    localComercial = db.Locales.Where(p => p.id == id).Single();
+
+                    localComercial.palabrasClave.Clear();
+                    db.SaveChanges();
+                    List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
+                    DbGeography coordenada = actualizarCoordenada(collection["coordenada.Latitude"], collection["coordenada.Longitude"]);
 
 
-        //        DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
-        //        List<string> palabrasClaveFront = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
+                    List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
+                    //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
+                    //         horariosAbierto.Add(horarios);
+                    List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
 
-        //    List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
+                    Rubro rubro = new Rubro();
 
-        //        List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
+                    localComercial.actualizar(coordenada,collection["calle"], Convert.ToInt32(collection["numeroAltura"]), Convert.ToInt32(collection["piso"]),
+                      Convert.ToInt32(collection["unidad"]),Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], 
+                      collection["provincia"], collection["pais"], collection["entreCalles"], collection["nombreDePOI"], 
+                      palabrasClave, horariosAbierto, horariosFeriado, rubro);
 
-        //        //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
-        //        //         horariosAbierto.Add(horarios);
+                    db.SaveChanges();
+                }
 
-        //        List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
-
-        //        List<ServicioBanco> servicios = new List<ServicioBanco>();
-
-
-
-        //        LocalComercial localComercial = new LocalComercial(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
-        //              Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["codigoPostal"]), collection["localidad"],
-        //              collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
-        //              palabrasClave, collection["nombreDePOI"], horariosAbierto, horariosFeriado, servicios);
-
-        //        localComercial.agregarBanco(localComercial);
-
-        //        return RedirectToAction("ABMBanco");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //public ActionResult DeleteLocalComercial(int id)
-        //{
-        //    LocalComercial localComercial;
-        //    using (var db = new BuscAR())
-        //    {
-        //        localComercial = db.Locales.Where(p => p.id == id).Single();
-        //    }
-        //    return View(localComercial);
-        //}
-
-        //// POST: Default/Create
-        //[HttpPost]
-        //public ActionResult DeleteLocalComercial(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        LocalComercial localComercial;
-        //        using (var db = new BuscAR())
-        //        {
-        //            localComercial = db.Locales.Where(p => p.id == id).Single();
-        //            localComercial = db.Locales.Include("palabrasClave").Where(p => p.id == id).Single();
-        //            localComercial.palabrasClave.Clear();
-        //        }
-
-        //        localComercial.eliminarLocalComercial(id);
-
-        //        return RedirectToAction("ABMLocalComercial");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+                return RedirectToAction("ABMLocalComercial");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
 
 
-        //public ActionResult EditLocalComercial(int id)
-        //{
-        //    LocalComercial localComercial;
-        //    using (var db = new BuscAR())
-        //    {
-        //        localComercial = db.Locales.Include("palabrasClave").Where(p => p.id == id).Single();
-        //    }
-        //    return View(localComercial);
-        //}
-
-        //// POST: Default/Edit
-        //[HttpPost]
-        //public ActionResult EditLocalComercial(FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        LocalComercial localComercial;
-        //        using (var db = new BuscAR())
-        //        {
-        //            int id = Convert.ToInt16(collection["id"]);
-        //            localComercial = db.Locales.Where(p => p.id == id).Single();
-
-        //            localComercial.palabrasClave.Clear();
-        //            db.SaveChanges();
-        //            List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
-
-
-        //            DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
-
-
-        //            List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
-
-        //            //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
-        //            //         horariosAbierto.Add(horarios);
-
-        //            List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
-
-        //            List<ServicioBanco> servicios = new List<ServicioBanco>();
-
-        //            localComercial.actualizar(collection["calle"], Convert.ToInt32(collection["numeroAltura"]), Convert.ToInt32(collection["piso"]),
-        //              Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], collection["provincia"],
-        //              collection["pais"], collection["entreCalles"], collection["nombreDePOI"], palabrasClave, horariosAbierto, horariosFeriado, servicios);
 
 
 
-        //            db.SaveChanges();
-        //        }
 
-        //        return RedirectToAction("ABMLocalComercial");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -881,6 +883,14 @@ namespace TPDDSGrupo44.Controllers
                 List<PalabraClave> palabrasClave = new List<PalabraClave>();
                 return palabrasClave;
             }
+        }
+
+        private DbGeography actualizarCoordenada(string coorLat, string coorLong)
+        {
+            string coordenadaLatitude = coorLat.Replace(",", ".");
+            string coordenadaLongitude = coorLong.Replace(",", ".");
+            DbGeography coordenada = DbGeography.FromText("POINT(" + coordenadaLatitude + " " + coordenadaLongitude + ")");
+            return coordenada;
         }
 
     }

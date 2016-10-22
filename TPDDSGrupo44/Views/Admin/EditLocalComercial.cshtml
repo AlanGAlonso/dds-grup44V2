@@ -1,25 +1,34 @@
 ﻿@model TPDDSGrupo44.Models.LocalComercial
 
 @{
-    ViewBag.Title = "CreateLocal";
+    ViewBag.Title = "EditLocalComercial";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CreateLocal</h2>
+<h2>Editar Local Comercial</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditLocalComercial", "Admin", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>LocalComercial</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
         <div class="form-group">
-            @Html.LabelFor(model => model.coordenada, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.coordenada.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.coordenada, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.coordenada, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.coordenada.Latitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.coordenada.Latitude, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.coordenada.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.coordenada.Longitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.coordenada.Longitude, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -111,39 +120,29 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.tipoDePOI, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
 
-                @Html.EditorFor(model => model.tipoDePOI, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.tipoDePOI, "", new { @class = "text-danger" })
-            </div>
-        </div>
         <div class="form-group">
+
             @Html.LabelFor(model => model.palabrasClave, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input class="form-control" name="palabrasClave">
-            </div>
-        </div>
+            @{string variablePalabra = "";}
+            @foreach (var palabra in Model.palabrasClave)
+            {
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.horarioAbierto, htmlAttributes: new { @class = "control-label col-md-2" })
+                variablePalabra = variablePalabra + @palabra.palabraClave + ",";
+            }
             <div class="col-md-10">
-                <label>Lunes</label>
-                De <input class="form-control" name="abreLunes" type="time"> a <input class="form-control" name="cierraLunes" type="time">
-
-                <label>Martes</label>
-                De <input class="form-control" name="abreMartes" type="time"> a <input class="form-control" name="cierraMartes" type="time">
+                <input type="text" value="@variablePalabra" name="palabrasClave" />
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
-}
+
+                }
 
 <div>
     @Html.ActionLink("Back to List", "Index")

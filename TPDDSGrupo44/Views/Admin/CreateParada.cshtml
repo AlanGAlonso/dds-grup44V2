@@ -4,14 +4,13 @@
     ViewBag.Title = "CreateParada";
 }
 
-<h2>ABMPOI</h2>
+<h2>Crear Parada de Colectivo</h2>
 
 
 @Html.AntiForgeryToken()
 
 
 <div class="form-horizontal">
-    <h4>ParadaDeColectivo</h4>
     <hr />
     @using (Html.BeginForm("CreateParada", "Admin", FormMethod.Post))
     {

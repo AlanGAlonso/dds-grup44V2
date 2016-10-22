@@ -129,10 +129,11 @@ namespace TPDDSGrupo44.Models
 
         }
 
-        public void actualizar(string calle, int numeroAltura, int piso,int codigoPostal, string localidad, string barrio, 
+        public void actualizar(DbGeography coordenada,string calle, int numeroAltura, int piso,int codigoPostal, string localidad, string barrio, 
             string provincia, string pais, string entreCalles, string nombreDePOI, List<PalabraClave> palabrasClave,
             List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
         {
+            this.coordenada = coordenada;
             this.calle = calle;
             this.numeroAltura = numeroAltura;
             this.piso = piso;
