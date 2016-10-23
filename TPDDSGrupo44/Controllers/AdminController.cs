@@ -150,6 +150,7 @@ namespace TPDDSGrupo44.Controllers
                     List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
 
+
                     ParadaDeColectivo parada = new ParadaDeColectivo(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                         Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], collection["provincia"],
                         collection["pais"], collection["entreCalles"], palabrasClave, collection["nombreDePOI"]);
@@ -345,7 +346,7 @@ namespace TPDDSGrupo44.Controllers
 
                     banco.agregarBanco(banco);
 
-                    return RedirectToAction("ABMBanco");
+                    return RedirectToAction("CreateServBancos",banco);
                 }
                 else
                 {
@@ -358,6 +359,65 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
+
+        public ActionResult CreateServBancos(Banco banco)
+        {
+            if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
+            {
+                ServBViewModel viewModel = new ServBViewModel(banco.id);
+               
+                return View(viewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CreateServBancos(FormCollection collection,int id)
+        {
+            try
+            {
+
+                if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
+                {
+
+                    Banco banco;
+                    using (var db = new BuscAR())
+                    {
+                        banco = db.Bancos.Where(p => p.id == id).Single();
+                        ServicioBanco servicioBanco = new ServicioBanco();
+                        servicioBanco.nombre = collection["nombre"];
+                        banco.servicios.Add(servicioBanco);
+                        db.SaveChanges();
+                    }
+
+                    if (Request.Form["terminar"] != null)
+                    {
+                        return RedirectToAction("ABMBanco", "Admin");
+                    }
+                    else
+                    {
+                        ServBViewModel viewModel = new ServBViewModel(banco.id);
+                        return RedirectToAction("CreateServBancos", "Admin", viewModel);
+                    }
+
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
         public ActionResult DeleteBanco(int id)
         {
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Baja POI").ToList().Count() > 0)
@@ -365,7 +425,7 @@ namespace TPDDSGrupo44.Controllers
                 Banco banco;
                 using (var db = new BuscAR())
                 {
-                    banco = db.Bancos.Include("palabrasClave").Where(p => p.id == id).Single();
+                    banco = db.Bancos.Include("palabrasClave").Include("servicios").Where(p => p.id == id).Single();
                 }
                 return View(banco);
             }
@@ -377,7 +437,7 @@ namespace TPDDSGrupo44.Controllers
 
         // POST: Default/Create
         [HttpPost]
-        public ActionResult DeleteBanco(int id, FormCollection collection)
+        public ActionResult DeleteBanco(int id, FormCollection collection) 
         {
             try
             {
@@ -387,6 +447,7 @@ namespace TPDDSGrupo44.Controllers
                     using (var db = new BuscAR())
                     {
                         banco = db.Bancos.Where(p => p.id == id).Single();
+                        banco.servicios.Clear();
                         banco.palabrasClave.Clear();
                         db.SaveChanges();
                     }

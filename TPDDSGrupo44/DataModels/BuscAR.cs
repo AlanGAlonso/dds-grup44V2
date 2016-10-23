@@ -38,12 +38,14 @@ namespace TPDDSGrupo44.DataModels
         public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Rol> Roles { get; set; }
         public virtual DbSet<Configuracion> Configuraciones { get; set; }
-        //public virtual DbSet<ActualizacionAsincronica> LogProcesosAsincronicos { get; set; }
+        public virtual DbSet<LogAction> LogProcesosAsincronicos { get; set; }
 
         // tablas accesorias
         public virtual DbSet<Rubro> Rubros { get; set; }
         public virtual DbSet<HorarioAbierto> Horarios { get; set; }
         public virtual DbSet<ServicioCGP> ServiciosCPG { get; set; }
+
+        public System.Data.Entity.DbSet<TPDDSGrupo44.DataModels.ServicioBanco> ServicioBancoes { get; set; }
     }
 
 }
