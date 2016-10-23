@@ -9,7 +9,7 @@
 
         public FuncionalidadUsuario () { }
 
-        public FuncionalidadUsuario (string nombreFuncionalidad, int lote)
+        public FuncionalidadUsuario (string nombreFuncionalidad)
         {
             nombre = nombreFuncionalidad;
         }

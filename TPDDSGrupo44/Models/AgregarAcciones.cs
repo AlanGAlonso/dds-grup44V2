@@ -8,9 +8,17 @@ namespace TPDDSGrupo44.Models
     public class AgregarAcciones : ActualizacionAsincronica
     {
 
-        public AgregarAcciones () { }
+        public AgregarAcciones () :base (){ }
 
-        public void actualizar(List<FuncionalidadUsuario> func) {
+        public override void actualizar(string funcionalidades):base(funcionalidades) {
+
+            string[] values = funcionalidades.Split(',').Select(sValue => sValue.Trim()).ToArray();
+            List<FuncionalidadUsuario> func = new List<FuncionalidadUsuario>();
+            foreach (string v in values)
+            {
+                func.Add(new FuncionalidadUsuario(v));
+            }
+
             using (var db = new BuscAR())
             {
                 LogAction log = new LogAction("Agregar Acciones Asinc", BaseViewModel.usuario.nombre);

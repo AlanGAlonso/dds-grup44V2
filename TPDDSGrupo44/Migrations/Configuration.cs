@@ -39,17 +39,17 @@ namespace TPDDSGrupo44.Migrations
                         nombre = "Actualizar Local Comercial Asinc",
                         lote = 1
                     },
-                    new FuncionalidadUsuario
+                    new AgregarAcciones
                     {
                         nombre = "Agregar Acciones Asinc",
                         lote = 1
                     },
-                    new FuncionalidadUsuario
+                    new ProcesoMultiple
                     {
                         nombre = "Proceso Múltiple Asinc",
                         lote = 1
                     },
-                    new FuncionalidadUsuario
+                    new BajaPOI
                     {
                         nombre = "Baja POIs Asinc",
                         lote = 1
