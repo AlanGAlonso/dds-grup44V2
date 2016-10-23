@@ -34,45 +34,55 @@ namespace TPDDSGrupo44.Migrations
                 nombre = "Administrador",
                 funcionalidades = new List<FuncionalidadUsuario>()
                 {
-                    new FuncionalidadUsuario
+                    new ActualizacionLocalComercial
                     {
-                        nombre = "Actualizar Local Comercial Asinc"
+                        nombre = "Actualizar Local Comercial Asinc",
+                        lote = 1
                     },
                     new FuncionalidadUsuario
                     {
-                        nombre = "Agregar Acciones Asinc"
+                        nombre = "Agregar Acciones Asinc",
+                        lote = 1
                     },
                     new FuncionalidadUsuario
                     {
-                        nombre = "Proceso Múltiple Asinc"
+                        nombre = "Proceso Múltiple Asinc",
+                        lote = 1
                     },
                     new FuncionalidadUsuario
                     {
-                        nombre = "Baja POIs Asinc"
+                        nombre = "Baja POIs Asinc",
+                        lote = 1
                     },
                     new FuncionalidadUsuario
                     {
-                        nombre = "Alta POI"
+                        nombre = "Alta POI",
+                        lote = 1
                     },
                     new FuncionalidadUsuario
                     {
-                        nombre = "Baja POI"
+                        nombre = "Baja POI",
+                        lote = 1
                     },
                     new FuncionalidadUsuario
                     {
-                        nombre = "Editar POI"
+                        nombre = "Editar POI",
+                        lote = 1
                     },
                     new FuncionalidadUsuario
                     {
-                        nombre = "Consultar POI"
+                        nombre = "Consultar POI",
+                        lote = 1
                     },
                     new FuncionalidadUsuario
                     {
-                        nombre = "Reportes"
+                        nombre = "Reportes",
+                        lote = 1
                     },
                     new FuncionalidadUsuario
                     {
-                        nombre = "Configuracion"
+                        nombre = "Configuracion",
+                        lote = 1
                     }
                 }
             },
@@ -83,7 +93,8 @@ namespace TPDDSGrupo44.Migrations
                 {
                     new FuncionalidadUsuario
                     {
-                        nombre = "Trámite"
+                        nombre = "Trámite",
+                        lote = 1
                     }
                 }
             });
