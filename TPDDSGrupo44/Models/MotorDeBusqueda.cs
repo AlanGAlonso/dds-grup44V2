@@ -31,7 +31,7 @@ namespace TPDDSGrupo44.Models
                 if (int.TryParse(palabraBusqueda, out linea) && linea > 0)
                 {
 
-                    List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower() == palabraBusqueda.ToLower()).Count() != 0).ToList();
+                    List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).Count() != 0).ToList();
                     foreach (ParadaDeColectivo punto in resultadosBusqueda)
                     {
 
@@ -68,7 +68,7 @@ namespace TPDDSGrupo44.Models
                     // Si la palabra ingresada no era parada ni rubro, la busco como local
                 }
 
-                List<LocalComercial> resultadosBusquedaLocales = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Include("rubro").Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower() == palabraBusqueda.ToLower()).Count() != 0).ToList();
+                List<LocalComercial> resultadosBusquedaLocales = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Include("rubro").Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).Count() != 0).ToList();
                 if (resultadosBusquedaLocales.Count() > 0)
                 {
                     foreach (LocalComercial punto in resultadosBusquedaLocales)
@@ -84,7 +84,7 @@ namespace TPDDSGrupo44.Models
                     }
                 }
 
-                List<Banco> resultadosBusquedaBancos = db.Bancos.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower() == palabraBusqueda.ToLower()).Count() != 0).ToList();
+                List<Banco> resultadosBusquedaBancos = db.Bancos.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).Count() != 0).ToList();
 
                 GetJsonBanks buscadorDeBancosJSON = new GetJsonBanks();
                 List<Banco> resultadoBusquedaJSONBancos = buscadorDeBancosJSON.getJsonData().FindAll(b => b.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower()));
@@ -107,9 +107,11 @@ namespace TPDDSGrupo44.Models
 
 
 
-                List<CGP> resultadosBusquedaCGP = db.CGPs.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower() == palabraBusqueda.ToLower()).Count() != 0).ToList();
-                
+                List<CGP> resultadosBusquedaCGP = db.CGPs.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).Count() != 0).ToList();
 
+                GetJsonCGP buscadorDeCGPJSON = new GetJsonCGP();
+                List<CGP> resultadoBusquedaJSONCGP = buscadorDeCGPJSON.getJsonData().FindAll(c => c.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower()));
+                resultadosBusquedaCGP.AddRange(resultadoBusquedaJSONCGP);
 
                 if (resultadosBusquedaCGP.Count() > 0)
                 {
