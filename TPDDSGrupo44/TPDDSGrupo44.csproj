@@ -224,6 +224,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ActionWithPermissions.cs" />
+    <Compile Include="Migrations\201610231346086_InitialCreate.cs" />
+    <Compile Include="Migrations\201610231346086_InitialCreate.Designer.cs">
+      <DependentUpon>201610231346086_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
     <Compile Include="Models\ActualizacionLocalComercial.cs" />
@@ -256,6 +260,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\ServBViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -331,17 +336,24 @@
     <Content Include="Views\Admin\CreateLocalComercial.cshtml" />
     <Content Include="Views\Admin\DeleteLocalComercial.cshtml" />
     <Content Include="Views\Admin\EditLocalComercial.cshtml" />
+    <Content Include="Views\Admin\CreateServBancos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\json\" />
     <Folder Include="Views\FuncionalidadDispositivoTactil\" />
+    <Folder Include="Views\ServiciosBancoViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610231346086_InitialCreate.resx">
+      <DependentUpon>201610231346086_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
