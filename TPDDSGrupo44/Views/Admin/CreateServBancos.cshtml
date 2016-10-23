@@ -10,19 +10,19 @@
 
 @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm("CreateServBancos", "Admin", FormMethod.Post))
-    {
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.idBanco)
+@using (Html.BeginForm("CreateServBancos", "Admin", FormMethod.Post))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.idBanco)
 
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
-                </div>
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
 
 
@@ -94,7 +94,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Agregar Otro Servicio" class="btn btn-default" name="siguiente"/>
+                    <input type="submit" value="Agregar Otro Servicio" class="btn btn-default" name="siguiente" />
                 </div>
             </div>
 
@@ -105,6 +105,4 @@
                     <input type="submit" value="Finalizar" class="btn btn-default" name="terminar" />
                 </div>
             </div>
-    }
-
-
+}

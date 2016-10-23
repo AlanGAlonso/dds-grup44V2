@@ -17,7 +17,8 @@ namespace TPDDSGrupo44.Controllers
             if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Reportes").ToList().Count() > 0)
             {
                 return View(recuperarBusquedas());
-            } else
+            }
+            else
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -333,11 +334,18 @@ namespace TPDDSGrupo44.Controllers
                     List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
                     List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
-                    //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
-                    //         horariosAbierto.Add(horarios);
+                    horariosAbierto = funcParce(collection["abreLunes"], collection["cierraLunes"], horariosAbierto, DayOfWeek.Monday);
+                    horariosAbierto = funcParce(collection["abreMartes"], collection["cierraMartes"], horariosAbierto, DayOfWeek.Tuesday);
+                    horariosAbierto = funcParce(collection["abreMiercoles"], collection["cierraMiercoles"], horariosAbierto, DayOfWeek.Wednesday);
+                    horariosAbierto = funcParce(collection["abreJueves"], collection["cierraJueves"], horariosAbierto, DayOfWeek.Thursday);
+                    horariosAbierto = funcParce(collection["abreViernes"], collection["cierraViernes"], horariosAbierto, DayOfWeek.Friday);
+                    horariosAbierto = funcParce(collection["abreSabado"], collection["cierraSabado"], horariosAbierto, DayOfWeek.Saturday);
+                    horariosAbierto = funcParce(collection["abreDomingo"], collection["cierraDomingo"], horariosAbierto, DayOfWeek.Sunday);
                     List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
 
+
                     List<ServicioBanco> servicios = new List<ServicioBanco>();
+
 
                     Banco banco = new Banco(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                           Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["codigoPostal"]), collection["localidad"],
@@ -346,7 +354,7 @@ namespace TPDDSGrupo44.Controllers
 
                     banco.agregarBanco(banco);
 
-                    return RedirectToAction("CreateServBancos",banco);
+                    return RedirectToAction("CreateServBancos", banco);
                 }
                 else
                 {
@@ -365,7 +373,7 @@ namespace TPDDSGrupo44.Controllers
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
             {
                 ServBViewModel viewModel = new ServBViewModel(banco.id);
-               
+
                 return View(viewModel);
             }
             else
@@ -375,14 +383,17 @@ namespace TPDDSGrupo44.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateServBancos(FormCollection collection,int id)
+        public ActionResult CreateServBancos(FormCollection collection, int id)
         {
             try
             {
 
                 if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
                 {
-
+                    if (Request.Form["terminar"] != null && (collection["nombre"] == null))
+                    {
+                        return RedirectToAction("ABMBanco", "Admin");
+                    }
                     Banco banco;
                     using (var db = new BuscAR())
                     {
@@ -437,7 +448,7 @@ namespace TPDDSGrupo44.Controllers
 
         // POST: Default/Create
         [HttpPost]
-        public ActionResult DeleteBanco(int id, FormCollection collection) 
+        public ActionResult DeleteBanco(int id, FormCollection collection)
         {
             try
             {
@@ -449,6 +460,7 @@ namespace TPDDSGrupo44.Controllers
                         banco = db.Bancos.Where(p => p.id == id).Single();
                         banco.servicios.Clear();
                         banco.palabrasClave.Clear();
+                        banco.horarioAbierto.Clear();
                         db.SaveChanges();
                     }
 
@@ -511,7 +523,7 @@ namespace TPDDSGrupo44.Controllers
 
                         List<ServicioBanco> servicios = new List<ServicioBanco>();
 
-                        banco.actualizar(coordenada,collection["calle"], Convert.ToInt32(collection["numeroAltura"]), Convert.ToInt32(collection["piso"]),
+                        banco.actualizar(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]), Convert.ToInt32(collection["piso"]),
                           Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], collection["provincia"],
                           collection["pais"], collection["entreCalles"], collection["nombreDePOI"], palabrasClave, horariosAbierto, horariosFeriado, servicios);
 
@@ -558,7 +570,7 @@ namespace TPDDSGrupo44.Controllers
 
         public ActionResult CreateCGP()
         {
-            if(TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
+            if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
             {
                 return View();
             }
@@ -700,7 +712,7 @@ namespace TPDDSGrupo44.Controllers
 
                         List<ServicioCGP> servicios = new List<ServicioCGP>();
 
-                        cgp.actualizar(coordenada,collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
+                        cgp.actualizar(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                           Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
                           collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
                           palabrasClave, collection["nombreDePOI"], Convert.ToInt32(collection["numeroDeComuna"]),
@@ -736,8 +748,8 @@ namespace TPDDSGrupo44.Controllers
                 using (var db = new BuscAR())
                 {
                     localComercial = (from p in db.Locales
-                           orderby p.nombreDePOI
-                           select p).ToList();
+                                      orderby p.nombreDePOI
+                                      select p).ToList();
                 }
 
                 return View(localComercial);
@@ -769,23 +781,30 @@ namespace TPDDSGrupo44.Controllers
                 if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
                 {
                     DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
-                List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
+                    List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
-                List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
-                //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
-                //         horariosAbierto.Add(horarios);
-                List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
+                    List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
+                    horariosAbierto = funcParce(collection["abreLunes"], collection["cierraLunes"], horariosAbierto, DayOfWeek.Monday);
+                    horariosAbierto = funcParce(collection["abreMartes"], collection["cierraMartes"], horariosAbierto, DayOfWeek.Tuesday);
+                    horariosAbierto = funcParce(collection["abreMiercoles"], collection["cierraMiercoles"], horariosAbierto, DayOfWeek.Wednesday);
+                    horariosAbierto = funcParce(collection["abreJueves"], collection["cierraJueves"], horariosAbierto, DayOfWeek.Thursday);
+                    horariosAbierto = funcParce(collection["abreViernes"], collection["cierraViernes"], horariosAbierto, DayOfWeek.Friday);
+                    horariosAbierto = funcParce(collection["abreSabado"], collection["cierraSabado"], horariosAbierto, DayOfWeek.Saturday);
+                    horariosAbierto = funcParce(collection["abreDomingo"], collection["cierraDomingo"], horariosAbierto, DayOfWeek.Sunday);
+                    List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
 
-                Rubro rubro = new Rubro();
+                    Rubro rubro = new Rubro();
+                    rubro.nombre = collection["rubro"];
+                    rubro.radioDeCercania = Convert.ToInt32(collection["radioDeCercania"]);
 
-                LocalComercial localComercial = new LocalComercial(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
-                      Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]), 
-                      collection["localidad"],collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
-                      palabrasClave, collection["nombreDePOI"], horariosAbierto, horariosFeriado,rubro);
+                    LocalComercial localComercial = new LocalComercial(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
+                      Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
+                      collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
+                      palabrasClave, collection["nombreDePOI"], horariosAbierto, horariosFeriado, rubro);
 
-                localComercial.agregarLocComercial(localComercial);
+                    localComercial.agregarLocComercial(localComercial);
 
-                return RedirectToAction("ABMBanco");
+                    return RedirectToAction("ABMBanco");
                 }
                 else
                 {
@@ -824,15 +843,15 @@ namespace TPDDSGrupo44.Controllers
                 if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Baja POI").ToList().Count() > 0)
                 {
                     LocalComercial localComercial;
-                using (var db = new BuscAR())
-                {
-                    localComercial = db.Locales.Where(p => p.id == id).Single();
-                    localComercial.palabrasClave.Clear();
-                }
+                    using (var db = new BuscAR())
+                    {
+                        localComercial = db.Locales.Where(p => p.id == id).Single();
+                        localComercial.palabrasClave.Clear();
+                    }
 
-                localComercial.eliminarLocComercial(id);
+                    localComercial.eliminarLocComercial(id);
 
-                return RedirectToAction("ABMLocalComercial");
+                    return RedirectToAction("ABMLocalComercial");
                 }
                 else
                 {
@@ -850,11 +869,11 @@ namespace TPDDSGrupo44.Controllers
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Editar POI").ToList().Count() > 0)
             {
                 LocalComercial localComercial;
-            using (var db = new BuscAR())
-            {
-                localComercial = db.Locales.Include("palabrasClave").Where(p => p.id == id).Single();
-            }
-            return View(localComercial);
+                using (var db = new BuscAR())
+                {
+                    localComercial = db.Locales.Include("palabrasClave").Where(p => p.id == id).Single();
+                }
+                return View(localComercial);
             }
             else
             {
@@ -871,33 +890,33 @@ namespace TPDDSGrupo44.Controllers
                 if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Editar POI").ToList().Count() > 0)
                 {
                     LocalComercial localComercial;
-                using (var db = new BuscAR())
-                {
-                    int id = Convert.ToInt16(collection["id"]);
-                    localComercial = db.Locales.Where(p => p.id == id).Single();
+                    using (var db = new BuscAR())
+                    {
+                        int id = Convert.ToInt16(collection["id"]);
+                        localComercial = db.Locales.Where(p => p.id == id).Single();
 
-                    localComercial.palabrasClave.Clear();
-                    db.SaveChanges();
-                    List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
-                    DbGeography coordenada = actualizarCoordenada(collection["coordenada.Latitude"], collection["coordenada.Longitude"]);
+                        localComercial.palabrasClave.Clear();
+                        db.SaveChanges();
+                        List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
+                        DbGeography coordenada = actualizarCoordenada(collection["coordenada.Latitude"], collection["coordenada.Longitude"]);
 
 
-                    List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
-                    //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
-                    //         horariosAbierto.Add(horarios);
-                    List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
+                        List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
+                        //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
+                        //         horariosAbierto.Add(horarios);
+                        List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
 
-                    Rubro rubro = new Rubro();
+                        Rubro rubro = new Rubro();
 
-                    localComercial.actualizar(coordenada,collection["calle"], Convert.ToInt32(collection["numeroAltura"]), Convert.ToInt32(collection["piso"]),
-                      Convert.ToInt32(collection["unidad"]),Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], 
-                      collection["provincia"], collection["pais"], collection["entreCalles"], collection["nombreDePOI"], 
-                      palabrasClave, horariosAbierto, horariosFeriado, rubro);
+                        localComercial.actualizar(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]), Convert.ToInt32(collection["piso"]),
+                          Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"],
+                          collection["provincia"], collection["pais"], collection["entreCalles"], collection["nombreDePOI"],
+                          palabrasClave, horariosAbierto, horariosFeriado, rubro);
 
-                    db.SaveChanges();
-                }
+                        db.SaveChanges();
+                    }
 
-                return RedirectToAction("ABMLocalComercial");
+                    return RedirectToAction("ABMLocalComercial");
                 }
                 else
                 {
@@ -927,6 +946,18 @@ namespace TPDDSGrupo44.Controllers
 
 
 
+        private List<HorarioAbierto> funcParce(string horarioApertura, string horarioCierre, List<HorarioAbierto> listHorarios, DayOfWeek dia)
+        {
+            TimeSpan apertura;
+            TimeSpan.TryParse(horarioApertura, out apertura);
+            TimeSpan cierre;
+            TimeSpan.TryParse(horarioCierre, out cierre);
+
+            HorarioAbierto horarios = new HorarioAbierto(dia, apertura.Hours, cierre.Hours);
+
+            listHorarios.Add(horarios);
+            return listHorarios;
+        }
 
         private List<PalabraClave> parsearListaDePalabras(string listaSeparadaConComas)
         {
@@ -940,7 +971,8 @@ namespace TPDDSGrupo44.Controllers
                 }
                 return palabrasClave;
             }
-            else {
+            else
+            {
                 List<PalabraClave> palabrasClave = new List<PalabraClave>();
                 return palabrasClave;
             }
@@ -956,5 +988,5 @@ namespace TPDDSGrupo44.Controllers
 
     }
 
-    
+
 }
