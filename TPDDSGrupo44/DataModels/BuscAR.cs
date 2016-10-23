@@ -1,6 +1,7 @@
-namespace TPDDSGrupo44.Models
+namespace TPDDSGrupo44.DataModels
 {
     using DataModels;
+    using Models;
     using System.Data.Entity;
 
     public class BuscAR : DbContext
@@ -33,6 +34,7 @@ namespace TPDDSGrupo44.Models
 
         //tablas de sistema
         public virtual DbSet<DispositivoTactil> Terminales { get; set; }
+        public virtual DbSet<FuncionalidadDispositivoTactil> FuncionalidadesTerminales { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Rol> Roles { get; set; }
         public virtual DbSet<Configuracion> Configuraciones { get; set; }

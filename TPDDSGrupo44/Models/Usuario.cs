@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using TPDDSGrupo44.DataModels;
 using TPDDSGrupo44.ViewModels;
 
 namespace TPDDSGrupo44.Models

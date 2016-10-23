@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using TPDDSGrupo44.DataModels;
 using TPDDSGrupo44.Models;
 
 namespace TPDDSGrupo44.Helpers

@@ -9,15 +9,15 @@ namespace TPDDSGrupo44.Migrations
     using System.Security.Cryptography;
     using System.Text;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<TPDDSGrupo44.Models.BuscAR>
+    internal sealed class Configuration : DbMigrationsConfiguration<TPDDSGrupo44.DataModels.BuscAR>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "TPDDSGrupo44.Models.BuscAR";
+            ContextKey = "TPDDSGrupo44.DataModels.BuscAR";
         }
 
-        protected override void Seed(TPDDSGrupo44.Models.BuscAR context)
+        protected override void Seed(TPDDSGrupo44.DataModels.BuscAR context)
         {
             // DATOS INSTANCIADOS POR DEFECTO
             context.Configuraciones.AddOrUpdate(c => c.duracionMaximaBusquedas,
@@ -120,6 +120,17 @@ namespace TPDDSGrupo44.Migrations
             context.SaveChanges();
 
 
+            // FUNCIONALIDADES DE TERMINALES
+ /*           context.FuncionalidadesTerminales.AddOrUpdate(f => f.nombre,
+                    new FuncionalidadDispositivoTactil("Parada"),
+                    new FuncionalidadDispositivoTactil("Banco"),
+                    new FuncionalidadDispositivoTactil("CGP"),
+                    new FuncionalidadDispositivoTactil("Locales")
+                );*/
+
+            context.SaveChanges();
+
+            List<FuncionalidadDispositivoTactil> func = context.FuncionalidadesTerminales.ToList();
 
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego terminales
             context.Terminales.AddOrUpdate(d => d.nombre,

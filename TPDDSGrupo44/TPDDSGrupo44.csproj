@@ -222,6 +222,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ActionWithPermissions.cs" />
+    <Compile Include="Migrations\201610231311128_InitialCreate.cs" />
+    <Compile Include="Migrations\201610231311128_InitialCreate.Designer.cs">
+      <DependentUpon>201610231311128_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610231320372_InitialCreate1.cs" />
+    <Compile Include="Migrations\201610231320372_InitialCreate1.Designer.cs">
+      <DependentUpon>201610231320372_InitialCreate1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
     <Compile Include="Models\ActualizacionLocalComercial.cs" />
@@ -340,6 +348,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610231311128_InitialCreate.resx">
+      <DependentUpon>201610231311128_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610231320372_InitialCreate1.resx">
+      <DependentUpon>201610231320372_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
