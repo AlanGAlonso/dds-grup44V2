@@ -10,7 +10,7 @@ namespace TPDDSGrupo44.Models
 
         public AgregarAcciones () :base (){ }
 
-        public override void actualizar(string funcionalidades):base(funcionalidades) {
+        public override void actualizar(string funcionalidades) {
 
             string[] values = funcionalidades.Split(',').Select(sValue => sValue.Trim()).ToArray();
             List<FuncionalidadUsuario> func = new List<FuncionalidadUsuario>();
