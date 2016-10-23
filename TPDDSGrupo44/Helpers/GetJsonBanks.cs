@@ -3,13 +3,14 @@ using System.Data.Entity.Spatial;
 using System.Net;
 using System.Web.Script.Serialization;
 using TPDDSGrupo44.DataModels;
+using TPDDSGrupo44.Models;
 
-namespace TPDDSGrupo44.Models
+namespace TPDDSGrupo44.Helpers
 
 {
     public class GetJsonBanks 
     {
-        public List<Banco> getJsonData()
+        public static List<Banco> getJsonData()
         {
             //depende de la búsqueda
             //string url = "http://trimatek.org/Consultas/banco?banco=" + bank + "&servicio=" + service;

@@ -4,7 +4,7 @@ using System.Net;
 using System.Web.Script.Serialization;
 using TPDDSGrupo44.DataModels;
 
-namespace TPDDSGrupo44.Models
+namespace TPDDSGrupo44.Helpers
 {
     public class GetJsonError
     {

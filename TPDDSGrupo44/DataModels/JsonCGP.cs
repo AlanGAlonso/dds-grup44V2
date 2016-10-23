@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AutoMapper;
 using TPDDSGrupo44.Models;
 using System;
+using TPDDSGrupo44.Helpers;
 
 namespace TPDDSGrupo44.DataModels
 {
@@ -15,16 +15,7 @@ namespace TPDDSGrupo44.DataModels
 
         public List<ServiciosJSON> servicios { get; set; }
 
-
-        //public void mapear() {
-        //    var config = new MapperConfiguration(cfg => {
-        //        cfg.CreateMap<JsonCGP, CGP>();
-        //    });
-
-        //    IMapper mapper = config.CreateMapper();
-        //    var jsoncgp = new JsonCGP();
-        //    var dest = mapper.Map<JsonCGP, CGP>(jsoncgp);
-        //}
+        
 
         public CGP mapear()
         {
@@ -32,7 +23,10 @@ namespace TPDDSGrupo44.DataModels
 
             CGP cgp = new CGP();
 
-            cgp.nombreDePOI = "Sede Comunal" + comuna;
+            cgp.nombreDePOI = "Sede Comunal " + comuna;
+            cgp.palabrasClave = new List<PalabraClave>();
+            cgp.palabrasClave.Add(new PalabraClave("CGP"));
+            cgp.palabrasClave.Add(new PalabraClave(cgp.nombreDePOI));
 
             foreach (ServiciosJSON s in servicios)
             {

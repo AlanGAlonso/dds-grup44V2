@@ -35,6 +35,8 @@ namespace TPDDSGrupo44.Models
         {
             servicios = new List<ServicioCGP>();
             palabrasClave = new List<PalabraClave>();
+            horarioAbierto = new List<HorarioAbierto>();
+            horarioFeriado = new List<HorarioAbierto>();
         }
 
 
@@ -115,7 +117,7 @@ namespace TPDDSGrupo44.Models
         ////////////////Cálculo de Cercanía////////////////
         public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
         {
-            if (coordenada.IsEmpty)
+            if (coordenada == null)
             {
                 return false;
             }
