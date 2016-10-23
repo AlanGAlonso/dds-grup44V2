@@ -38,7 +38,7 @@ namespace TPDDSGrupo44.DataModels
         public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Rol> Roles { get; set; }
         public virtual DbSet<Configuracion> Configuraciones { get; set; }
-        //public virtual DbSet<ActualizacionAsincronica> LogProcesosAsincronicos { get; set; }
+        public virtual DbSet<LogAction> LogProcesosAsincronicos { get; set; }
 
         // tablas accesorias
         public virtual DbSet<Rubro> Rubros { get; set; }

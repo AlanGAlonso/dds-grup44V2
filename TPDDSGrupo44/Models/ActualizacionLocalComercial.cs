@@ -1,54 +1,59 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TPDDSGrupo44.DataModels;
+using TPDDSGrupo44.ViewModels;
 
 namespace TPDDSGrupo44.Models
 {
     public class ActualizacionLocalComercial : ActualizacionAsincronica
     {
 
-        public ActualizacionLocalComercial() { }
+        public ActualizacionLocalComercial() : base () {
+        }
 
         public override void actualizar() {
-
-
-            //abrir archivo. tendría que recibirlo por parámetro... corregir!
-            System.IO.StreamReader reader = System.IO.File.OpenText("filename.txt");
-            string line;
-            //traigo linea por linea, leyendo y parseando
-            while ((line = reader.ReadLine()) != null)
+            using (var db = new BuscAR())
             {
-                string[] items = line.Split(';');
-                string nombre = items[0];
+                LogAction log = new LogAction("Actualizar Local Comercial Asinc", BaseViewModel.usuario.nombre);
 
-                List<string> palabrasClaveFront = items[1].Split(' ').ToList();
-                List<PalabraClave> palabrasClave = new List<PalabraClave>();
-                foreach (string p in palabrasClaveFront)
+                //abrir archivo. tendría que recibirlo por parámetro... corregir!
+                System.IO.StreamReader reader = System.IO.File.OpenText("filename.txt");
+                string line;
+                //traigo linea por linea, leyendo y parseando
+                while ((line = reader.ReadLine()) != null)
                 {
-                    palabrasClave.Add(new PalabraClave(p));
-                }
+                    string[] items = line.Split(';');
+                    string nombre = items[0];
 
-
-                using (var db = new BuscAR())
-                {
-                    LocalComercial local = (from l in db.Locales
-                                            where l.nombreDePOI == nombre
-                                            select l).Single();
-                    // si el local ya existe, lo actualizo
-                    if (local != null)
+                    List<string> palabrasClaveFront = items[1].Split(' ').ToList();
+                    List<PalabraClave> palabrasClave = new List<PalabraClave>();
+                    foreach (string p in palabrasClaveFront)
                     {
-                        local.palabrasClave = palabrasClave;
-                        db.SaveChanges();
-                    } else
-                    {
-                        //si el local no existe, lo agrego
-                        local = new LocalComercial(nombre, palabrasClave);
-                        db.Locales.Add(local);
-                        db.SaveChanges();
+                        palabrasClave.Add(new PalabraClave(p));
                     }
+                    
+                        LocalComercial local = (from l in db.Locales
+                                                where l.nombreDePOI == nombre
+                                                select l).Single();
+                        // si el local ya existe, lo actualizo
+                        if (local != null)
+                        {
+                            local.palabrasClave = palabrasClave;
+                        } else
+                        {
+                            //si el local no existe, lo agrego
+                            local = new LocalComercial(nombre, palabrasClave);
+                            db.Locales.Add(local);
+                        }
 
+                    db.SaveChanges();
                 }
-                
+
+                log.finalizarProceso("Exito");
+                db.LogProcesosAsincronicos.Add(log);
+
+                db.SaveChanges();
+
             }
         }
     }

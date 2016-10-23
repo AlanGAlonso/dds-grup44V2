@@ -11,5 +11,7 @@ namespace TPDDSGrupo44.Models
         public ActualizacionAsincronica() { }
 
         public virtual void actualizar() { }
+
+        public virtual void actualizar(string param) { }
     }
 }
