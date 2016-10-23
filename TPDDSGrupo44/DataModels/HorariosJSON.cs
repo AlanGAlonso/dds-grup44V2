@@ -9,6 +9,8 @@ namespace TPDDSGrupo44.DataModels
     {
         public int diaSemana { get; set; }
         public int horaDesde { get; set; }
+        public int minutosDesde { get; set; }
         public int horaHasta { get; set; }
+        public int minutosHasta { get; set; }
     }
 }

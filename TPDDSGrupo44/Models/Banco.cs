@@ -30,6 +30,9 @@ namespace TPDDSGrupo44.Models
         public Banco() : base ()
         {
             servicios = new List<ServicioBanco>();
+            palabrasClave = new List<PalabraClave>();
+            horarioAbierto = new List<HorarioAbierto>();
+            horarioFeriado = new List<HorarioAbierto>();
         }
 
         //public Banco():base() { }
@@ -42,6 +45,9 @@ namespace TPDDSGrupo44.Models
             servicios = new List<ServicioBanco>();
             horarioAbierto = new List<HorarioAbierto>();
             horarioFeriado = new List<HorarioAbierto>();
+            palabrasClave = new List<PalabraClave>();
+            palabrasClave.Add(new PalabraClave("Banco"));
+            palabrasClave.Add(new PalabraClave(nombre));
 
             foreach (string servicio in serviciosJSON)
             {

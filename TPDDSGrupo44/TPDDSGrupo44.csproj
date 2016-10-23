@@ -116,8 +116,8 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
@@ -224,10 +224,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ActionWithPermissions.cs" />
-    <Compile Include="Migrations\201610231346086_InitialCreate.cs" />
-    <Compile Include="Migrations\201610231346086_InitialCreate.Designer.cs">
-      <DependentUpon>201610231346086_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
     <Compile Include="Models\ActualizacionLocalComercial.cs" />
@@ -240,15 +236,16 @@
     <Compile Include="Models\FuncionalidadDispositivoTactil.cs" />
     <Compile Include="Models\FuncionalidadUsuario.cs" />
     <Compile Include="Helpers\EnvioDeMails.cs" />
-    <Compile Include="Models\GetJsonCGP.cs" />
+    <Compile Include="Helpers\GetJsonCGP.cs" />
     <Compile Include="DataModels\JsonBank.cs" />
     <Compile Include="Models\DispositivoTactil.cs" />
-    <Compile Include="Models\GetJsonError.cs" />
+    <Compile Include="Helpers\GetJsonError.cs" />
     <Compile Include="Models\HorarioAbierto.cs" />
-    <Compile Include="Models\GetJsonBanks.cs" />
+    <Compile Include="Helpers\GetJsonBanks.cs" />
     <Compile Include="Models\LocalComercial.cs" />
     <Compile Include="DataModels\LogAction.cs" />
     <Compile Include="DataModels\PalabraClave.cs" />
+    <Compile Include="Models\MotorDeBusqueda.cs" />
     <Compile Include="Models\ParadaDeColectivo.cs" />
     <Compile Include="Models\ProcesoMultiple.cs" />
     <Compile Include="Models\PuntoDeInteres.cs" />
@@ -287,6 +284,13 @@
     <Content Include="Scripts\index.js" />
     <None Include="Scripts\jquery-3.0.0.intellisense.js" />
     <None Include="Scripts\jquery-3.1.0-vsdoc.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
@@ -341,19 +345,12 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\json\" />
-    <Folder Include="Views\FuncionalidadDispositivoTactil\" />
-    <Folder Include="Views\ServiciosBancoViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610231346086_InitialCreate.resx">
-      <DependentUpon>201610231346086_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
