@@ -1,6 +1,5 @@
 namespace TPDDSGrupo44.DataModels
 {
-    using DataModels;
     using Models;
     using System.Data.Entity;
 
@@ -46,6 +45,8 @@ namespace TPDDSGrupo44.DataModels
         public virtual DbSet<ServicioCGP> ServiciosCPG { get; set; }
 
         public System.Data.Entity.DbSet<TPDDSGrupo44.DataModels.ServicioBanco> ServicioBancoes { get; set; }
+
+        public System.Data.Entity.DbSet<TPDDSGrupo44.Models.PuntoDeInteres> PuntoDeInteres { get; set; }
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using TPDDSGrupo44.ViewModels;
 
 namespace TPDDSGrupo44.DataModels
 {
@@ -11,6 +12,7 @@ namespace TPDDSGrupo44.DataModels
         public string textoBuscado { get; set; }
         public int cantidadDeResultados { get; set; }
         public DateTime fecha { get; set; }
+        public string usuario { get; set; }
         public virtual DispositivoTactil terminal { get; set; }
         public TimeSpan duracionDeBusqueda { get; set; }
 
@@ -27,6 +29,10 @@ namespace TPDDSGrupo44.DataModels
             fecha = fechaBusqueda;
             terminal = terminalBusqueda;
             duracionDeBusqueda = duracion;
+            if (BaseViewModel.usuario != null )
+            {
+                usuario = BaseViewModel.usuario.nombre;
+            }
         }
     }
 }

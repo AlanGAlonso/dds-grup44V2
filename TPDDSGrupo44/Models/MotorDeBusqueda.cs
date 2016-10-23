@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Web;
 using TPDDSGrupo44.DataModels;
 using TPDDSGrupo44.Helpers;
 using TPDDSGrupo44.ViewModels;
@@ -128,9 +127,9 @@ namespace TPDDSGrupo44.Models
 
                 contador.Stop();
 
-                int resultados = modeloVista.bancosEncontrados.Count() + modeloVista.bancosEncontradosCerca.Count() + modeloVista.cgpsEncontrados.Count() + modeloVista.localesEncontrados.Count() + modeloVista.localesEncontradosCerca.Count() + modeloVista.paradasEncontradas.Count() + modeloVista.paradasEncontradasCerca.Count();
+                modeloVista.resultados = modeloVista.bancosEncontrados.Count() + modeloVista.bancosEncontradosCerca.Count() + modeloVista.cgpsEncontrados.Count() + modeloVista.localesEncontrados.Count() + modeloVista.localesEncontradosCerca.Count() + modeloVista.paradasEncontradas.Count() + modeloVista.paradasEncontradasCerca.Count();
                 
-                Busqueda busqueda = new Busqueda(palabraBusqueda, resultados, DateTime.Today, dispositivoTactil, contador.Elapsed);
+                Busqueda busqueda = new Busqueda(palabraBusqueda, modeloVista.resultados, DateTime.Today, dispositivoTactil, contador.Elapsed);
                 db.Busquedas.Add(busqueda);
                 db.SaveChanges();
 
