@@ -29,9 +29,6 @@ namespace TPDDSGrupo44.Models
         public virtual List<HorarioAbierto> horarioFeriado { get; set; }
 
 
-        //public int id { get; set; } ---> ya estaría 
-        //public DateTime fechaBaja { get; set; } --> faltaria agregar este
-
 
         ////////////////Constructor vacio////////////////
         public PuntoDeInteres() {

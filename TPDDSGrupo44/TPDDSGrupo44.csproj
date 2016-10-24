@@ -254,7 +254,7 @@
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Rubro.cs" />
     <Compile Include="Models\Servicio.cs" />
-    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Scripts\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
