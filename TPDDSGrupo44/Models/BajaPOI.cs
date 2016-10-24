@@ -14,8 +14,11 @@ namespace TPDDSGrupo44.Models
 
         public override void actualizar()
         {
+            using (var db = new BuscAR())
+            {
+                LogAction log = new LogAction("Baja POIs Asinc", BaseViewModel.usuario.nombre);
 
-            string url = "http://demo3537367.mockable.io/trash/pois";
+                string url = "http://demo3537367.mockable.io/trash/pois";
             var jsonString = string.Empty;
 
             var client = new WebClient();
@@ -62,7 +65,12 @@ namespace TPDDSGrupo44.Models
                     LocalComercial.eliminarLocComercial(modeloVista.localesEncontradosCerca.Single().id);
                 }
             }
+                log.finalizarProceso("Exito");
+                db.LogProcesosAsincronicos.Add(log);
 
+                db.SaveChanges();
+
+            }
         }
         
 

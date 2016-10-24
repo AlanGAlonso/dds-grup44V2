@@ -12,16 +12,17 @@ namespace TPDDSGrupo44.Models
 
         public override void actualizar(string funcionalidades) {
 
-            string[] values = funcionalidades.Split(',').Select(sValue => sValue.Trim()).ToArray();
+            using (var db = new BuscAR())
+            {
+                LogAction log = new LogAction("Agregar Acciones Asinc", BaseViewModel.usuario.nombre);
+
+                string[] values = funcionalidades.Split(',').Select(sValue => sValue.Trim()).ToArray();
             List<FuncionalidadUsuario> func = new List<FuncionalidadUsuario>();
             foreach (string v in values)
             {
                 func.Add(new FuncionalidadUsuario(v));
             }
-
-            using (var db = new BuscAR())
-            {
-                LogAction log = new LogAction("Agregar Acciones Asinc", BaseViewModel.usuario.nombre);
+            
 
                 List<Rol> roles = db.Roles.ToList();
 

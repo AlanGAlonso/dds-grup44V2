@@ -351,8 +351,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\json\" />
-    <Folder Include="Views\EditTerminalViewModel\" />
-    <Folder Include="Views\JSONBajaPOI\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />

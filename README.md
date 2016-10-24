@@ -1,4 +1,4 @@
-# Herramientas
+﻿# Herramientas
 * Visual Studio 2015
 * GitHub for Desktop
 * Kanbanize
@@ -20,13 +20,13 @@
 * Almacenar los resultados de las búsquedas. Se quiere conocer qué es lo que se buscó (frase buscada), la cantidad de resultados devueltos por el Sistema y el tiempo que demoró dicha consulta.
 * Obtener un reporte que permita totalizar la cantidad de búsquedas por Fecha.
 * Generar un reporte que muestre la cantidad de resultados por búsqueda y por Terminal.
-* Activar/desactivar las acciones por Terminal en forma dinámica. --X-- (falta)
+* Activar/desactivar las acciones por Terminal en forma dinámica.
 
 # Entrega 4
-* Actualización de Locales Comerciales --X-- (falta)
-* Baja de POIs --X-- (falta)
-* Agregar acciones para todos los usuarios --X-- (falta)
-* Definicion de Procesos Multiples --X-- (falta)
+* Actualización de Locales Comerciales 
+* Baja de POIs 
+* Agregar acciones para todos los usuarios
+* Definicion de Procesos Multiples 
 * Manejo de resultados / errores en la Ejecución del Proceso --X-- (falta) ¿?
 
 # Entrega 5
