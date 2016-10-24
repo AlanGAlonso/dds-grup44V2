@@ -18,11 +18,11 @@ namespace TPDDSGrupo44.Controllers
     {
         private BuscAR db = new BuscAR();
 
-        // GET: api/PuntoDeInteres
-        public IQueryable<PuntoDeInteres> GetPuntoDeInteres()
-        {
-            return db.PuntoDeInteres;
-        }
+        //// GET: api/PuntoDeInteres
+        //public IQueryable<PuntoDeInteres> GetPuntoDeInteres()
+        //{
+        //    return db.PuntoDeInteres;
+        //}
 
         // GET: api/PuntoDeInteres/5
         [ResponseType(typeof(List<PuntoDeInteres>))]

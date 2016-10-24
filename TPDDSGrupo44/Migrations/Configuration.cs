@@ -83,6 +83,11 @@ namespace TPDDSGrupo44.Migrations
                     {
                         nombre = "Configuracion",
                         lote = 1
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Terminales",
+                        lote = 1
                     }
                 }
             },

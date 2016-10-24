@@ -59,6 +59,27 @@ namespace TPDDSGrupo44.Controllers
             return busquedas;
         }
 
+        // TERMINALES
+
+        public ActionResult ABMTerminal()
+        {
+            if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Terminales").ToList().Count() > 0)
+            {
+                List<DispositivoTactil> terminales;
+                using (var db = new BuscAR())
+                {
+                    terminales = db.Terminales.Include("funcionalidades").ToList();
+                }
+                return View(terminales);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+
+        // CONFIGURACIONES
         public ActionResult Settings()
         {
             if (BaseViewModel.usuario != null && ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Configuracion").ToList().Count() > 0)

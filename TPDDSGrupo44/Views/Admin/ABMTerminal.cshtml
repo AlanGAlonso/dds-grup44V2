@@ -1,0 +1,52 @@
+﻿@model IEnumerable<TPDDSGrupo44.DispositivoTactil>
+
+@{
+    ViewBag.Title = "Consulta de Terminales";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Terminales</h2>
+
+<p>
+    @Html.ActionLink("Agregar Terminal", "CreateTerminal")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.coordenada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>@Html.DisplayNameFor(model => model.funcionalidades)</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            Lat: @Html.DisplayFor(modelItem => item.coordenada.Latitude)<br />
+            Lon: @Html.DisplayFor(modelItem => item.coordenada.Longitude)<br />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @if (item.funcionalidades.Count() > 0)
+            {
+                <ul>
+                    @foreach (var f in item.funcionalidades)
+                    {
+                        <li>@f.nombre</li>
+                    }
+                </ul>
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id, @class = "ion-ios-compose-outline"  }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id, @class = "ion-ios-trash-outline" })
+        </td>
+    </tr>
+}
+
+</table>
