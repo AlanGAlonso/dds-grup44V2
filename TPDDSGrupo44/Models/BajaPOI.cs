@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Script.Serialization;
 using TPDDSGrupo44.DataModels;
@@ -11,11 +12,7 @@ namespace TPDDSGrupo44.Models
     {
         public BajaPOI() { }
 
-        public int id { get; set; }
-        public DateTime fechaBaja { get; set; }
-
-
-        public override void actualizar(String palabraBusqueda)
+        public override void actualizar()
         {
 
             string url = "http://demo3537367.mockable.io/trash/pois";
@@ -25,70 +22,49 @@ namespace TPDDSGrupo44.Models
             jsonString = client.DownloadString(url);
 
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            
+            List<JsonBajaPOI> listbp = (List<JsonBajaPOI>)javaScriptSerializer.Deserialize(jsonString, typeof(List<JsonBajaPOI>));
 
-            //BajaPOI bp = JsonConvert.DeserializeObject<BajaPOI>(jsonString);
+            foreach (JsonBajaPOI p in listbp) { 
+                SearchViewModel modeloVista = MotorDeBusqueda.buscar(p.id.ToString());
 
-            List<BajaPOI> listbp = (List<BajaPOI>)javaScriptSerializer.Deserialize(jsonString, typeof(List<BajaPOI>));
+                if (modeloVista.paradasEncontradas.Count > 0)
+                {
+                    ParadaDeColectivo.eliminarParada(modeloVista.paradasEncontradas.Single().id);
 
-            //string palabraBusqueda = listbp.Find(id);
+                } else if (modeloVista.paradasEncontradasCerca.Count > 0)
+                {
+                    ParadaDeColectivo.eliminarParada(modeloVista.paradasEncontradasCerca.Single().id);
+                }
 
-            SearchViewModel modeloVista = MotorDeBusqueda.buscar(palabraBusqueda);
+                else if (modeloVista.bancosEncontrados.Count > 0)
+                {
+                    Banco.eliminarBanco(modeloVista.bancosEncontrados.Single().id);
+                }
+                else if (modeloVista.bancosEncontradosCerca.Count > 0)
+                {
+                    Banco.eliminarBanco(modeloVista.bancosEncontradosCerca.Single().id);
+                }
 
-            if (modeloVista.paradasEncontradas.Count > 0)
-            {
-                ParadaDeColectivo parada = new ParadaDeColectivo();
-                parada.eliminarParada(id);
-
-                //ParadaDeColectivo.eliminarParada(id);
+                else if (modeloVista.cgpsEncontrados.Count > 0)
+                {
+                    CGP.eliminarCGP(modeloVista.cgpsEncontrados.Single().id);
+                }
+                else if (modeloVista.cgpsEncontradosCerca.Count > 0 )
+                {
+                    CGP.eliminarCGP(modeloVista.cgpsEncontradosCerca.Single().id);
+                }
+                else if (modeloVista.localesEncontrados.Count > 0) {
+                    LocalComercial.eliminarLocComercial(modeloVista.localesEncontrados.Single().id);
+                }
+                else if (modeloVista.localesEncontradosCerca.Count > 0)
+                {
+                    LocalComercial.eliminarLocComercial(modeloVista.localesEncontradosCerca.Single().id);
+                }
             }
-            else if (modeloVista.bancosEncontrados.Count > 0)
-            {
-                Banco banco = new Banco();
-                banco.eliminarBanco(id);
-                //Banco.eliminarBanco(id);
-            }
-            else if (modeloVista.cgpsEncontrados.Count > 0)
-            {
-                CGP cgp = new CGP();
-                cgp.eliminarCGP(id);
-
-                //CGP.eliminarCGP(id);
-            }
-            else if (modeloVista.localesEncontrados.Count > 0) {
-                LocalComercial local = new LocalComercial();
-                local.eliminarLocComercial(id);
-
-                //LocalComercial.eliminarLocComercial(id);
-            }
-
-
-            //if (modeloVista.res == 0)
-            //{
-            //    //ViewBag.Search = "error";
-            //    //ViewBag.SearchText = "Disculpa, pero no encontramos ningún punto con esa palabra clave.";
-
-            //}
-            //else
-            //{
-            //    //BajaPOI.eliminarPOI(id);
-            //    foreach (BajaPOI)
-
-
-            //}
-            ////return View(modeloVista);
-            //return;
-
 
         }
-        //public static void eliminarPOI(int id)
-        //{
-        //    Banco banco = new Banco();
-        //    banco.eliminarBanco(id);
-
-        //}
-
-        List<PuntoDeInteres> puntos = new List<PuntoDeInteres>();
-
+        
 
     }
 }

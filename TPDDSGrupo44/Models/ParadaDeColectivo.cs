@@ -95,7 +95,7 @@ namespace TPDDSGrupo44.Models
 
 
 
-        public void agregarParada(ParadaDeColectivo parada)
+        public static void agregarParada(ParadaDeColectivo parada)
         {
             using (var db = new BuscAR())
             {
@@ -104,13 +104,15 @@ namespace TPDDSGrupo44.Models
             }
         }
 
-        public void eliminarParada(int id)
+        public static void eliminarParada(int id)
         {
             using (var db = new BuscAR())
             {
 
                 ParadaDeColectivo parada = db.Paradas.Where(p => p.id == id).Single();
-
+                parada.palabrasClave.Clear();
+                parada.horarioAbierto.Clear();
+                parada.horarioFeriado.Clear();
                 db.Paradas.Remove(parada);
                 db.SaveChanges();
             }
@@ -119,20 +121,28 @@ namespace TPDDSGrupo44.Models
         }
 
 
-        public void actualizar(DbGeography unaCoordenada,string calle, int numeroAltura, int codigoPostal, string localidad, string barrio, string provincia, string pais,
+        public static void actualizar(DbGeography unaCoordenada,string calle, int numeroAltura, int codigoPostal, string localidad, string barrio, string provincia, string pais,
             string entreCalles, List<PalabraClave> palabrasClave, string nombreDePOI)
         {
-            this.coordenada = unaCoordenada;
-            this.calle = calle;
-            this.numeroAltura = numeroAltura;
-            this.codigoPostal = codigoPostal;
-            this.localidad = localidad;
-            this.barrio = barrio;
-            this.provincia = provincia;
-            this.pais = pais;
-            this.entreCalles = entreCalles;
-            this.palabrasClave = palabrasClave;
-            this.nombreDePOI = nombreDePOI;
+            using (var db = new BuscAR())
+            {
+
+                ParadaDeColectivo parada = db.Paradas.Where(p => p.nombreDePOI == nombreDePOI).Single();
+
+                parada.coordenada = unaCoordenada;
+                parada.calle = calle;
+                parada.numeroAltura = numeroAltura;
+                parada.codigoPostal = codigoPostal;
+                parada.localidad = localidad;
+                parada.barrio = barrio;
+                parada.provincia = provincia;
+                parada.pais = pais;
+                parada.entreCalles = entreCalles;
+                parada.palabrasClave = palabrasClave;
+                parada.nombreDePOI = nombreDePOI;
+
+                db.SaveChanges();
+            }
         }
 
     }

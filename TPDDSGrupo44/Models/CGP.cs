@@ -127,7 +127,7 @@ namespace TPDDSGrupo44.Models
 
 
         // -------------------- ABM CGP --------------------------
-        public void agregarCGP(CGP cgp)
+        public static void agregarCGP(CGP cgp)
         {
             using (var db = new BuscAR())
             {
@@ -136,12 +136,22 @@ namespace TPDDSGrupo44.Models
             }
         }
 
-        public void eliminarCGP(int id)
+        public static void eliminarCGP(int id)
         {
             using (var db = new BuscAR())
             {
 
                 CGP cgp = db.CGPs.Where(p => p.id == id).Single();
+                cgp.palabrasClave.Clear();
+                cgp.horarioAbierto.Clear();
+                cgp.horarioFeriado.Clear();
+                foreach (ServicioCGP s in cgp.servicios)
+                {
+                    s.horarioAbierto.Clear();
+                    s.horarioFeriados.Clear();
+                }
+
+                cgp.servicios.Clear();
 
                 db.CGPs.Remove(cgp);
                 db.SaveChanges();
@@ -150,29 +160,37 @@ namespace TPDDSGrupo44.Models
 
         }
 
-        public void actualizar(DbGeography unaCoordenada,string calle, int numeroAltura, int piso, int unidad,
+        public static void actualizar(DbGeography unaCoordenada,string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<PalabraClave> palabrasClave,
            string nombreDePOI, int numeroDeComuna, List<ServicioCGP> servicios, int zonaDelimitadaPorLaComuna,
            List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado)
         {
-            this.coordenada = unaCoordenada;
-            this.calle = calle;
-            this.numeroAltura = numeroAltura;
-            this.piso = piso;
-            this.unidad = unidad;
-            this.codigoPostal = codigoPostal;
-            this.localidad = localidad;
-            this.barrio = barrio;
-            this.provincia = provincia;
-            this.pais = pais;
-            this.entreCalles = entreCalles;
-            this.palabrasClave = palabrasClave;
-            this.nombreDePOI = nombreDePOI;
-            this.numeroDeComuna = numeroDeComuna;
-            this.horarioAbierto = horarioAbierto;
-            this.horarioFeriado = horarioFeriado;
-            this.servicios = servicios;
-            this.zonaDelimitadaPorLaComuna = zonaDelimitadaPorLaComuna;
+
+            using (var db = new BuscAR())
+            {
+
+                CGP cgp = db.CGPs.Where(p => p.nombreDePOI == nombreDePOI).Single();
+                cgp.coordenada = unaCoordenada;
+                cgp.calle = calle;
+                cgp.numeroAltura = numeroAltura;
+                cgp.piso = piso;
+                cgp.unidad = unidad;
+                cgp.codigoPostal = codigoPostal;
+                cgp.localidad = localidad;
+                cgp.barrio = barrio;
+                cgp.provincia = provincia;
+                cgp.pais = pais;
+                cgp.entreCalles = entreCalles;
+                cgp.palabrasClave = palabrasClave;
+                cgp.nombreDePOI = nombreDePOI;
+                cgp.numeroDeComuna = numeroDeComuna;
+                cgp.horarioAbierto = horarioAbierto;
+                cgp.horarioFeriado = horarioFeriado;
+                cgp.servicios = servicios;
+                cgp.zonaDelimitadaPorLaComuna = zonaDelimitadaPorLaComuna;
+
+                db.SaveChanges();
+            }
         }
 
     }

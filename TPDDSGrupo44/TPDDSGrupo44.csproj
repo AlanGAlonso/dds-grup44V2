@@ -219,6 +219,7 @@
     <Compile Include="DataModels\Configuracion.cs" />
     <Compile Include="DataModels\ErrorJson.cs" />
     <Compile Include="DataModels\HorariosJSON.cs" />
+    <Compile Include="DataModels\JsonBajaPOI.cs" />
     <Compile Include="DataModels\ServicioBanco.cs" />
     <Compile Include="DataModels\ServicioCGP.cs" />
     <Compile Include="DataModels\ServiciosJSON.cs" />
@@ -351,6 +352,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\json\" />
     <Folder Include="Views\EditTerminalViewModel\" />
+    <Folder Include="Views\JSONBajaPOI\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />

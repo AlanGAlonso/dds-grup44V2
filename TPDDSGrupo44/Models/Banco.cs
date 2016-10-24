@@ -112,7 +112,7 @@ namespace TPDDSGrupo44.Models
 
 
         //--------------- ABM BANCO --------------------
-        public void agregarBanco(Banco banco)
+        public static void agregarBanco(Banco banco)
         {
             using (var db = new BuscAR())
             {
@@ -121,12 +121,22 @@ namespace TPDDSGrupo44.Models
             }
         }
 
-        public void eliminarBanco(int id)
+        public static void eliminarBanco(int id)
         {
             using (var db = new BuscAR())
             {
 
                 Banco banco = db.Bancos.Where(p => p.id == id).Single();
+                banco.palabrasClave.Clear();
+                banco.horarioAbierto.Clear();
+                banco.horarioFeriado.Clear();
+                foreach (ServicioBanco s in banco.servicios)
+                {
+                    s.horarioAbierto.Clear();
+                    s.horarioFeriados.Clear();
+                }
+
+                banco.servicios.Clear();
 
                 db.Bancos.Remove(banco);
                 db.SaveChanges();
@@ -135,25 +145,31 @@ namespace TPDDSGrupo44.Models
 
         }
 
-        public void actualizar(DbGeography coordenada,string calle, int numeroAltura, int piso,int codigoPostal, string localidad, string barrio, 
+        public static void actualizar(DbGeography coordenada,string calle, int numeroAltura, int piso,int codigoPostal, string localidad, string barrio, 
             string provincia, string pais, string entreCalles, string nombreDePOI, List<PalabraClave> palabrasClave,
             List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
         {
-            this.coordenada = coordenada;
-            this.calle = calle;
-            this.numeroAltura = numeroAltura;
-            this.piso = piso;
-            this.codigoPostal = codigoPostal;
-            this.localidad = localidad;
-            this.barrio = barrio;
-            this.provincia = provincia;
-            this.pais = pais;
-            this.entreCalles = entreCalles;
-            this.nombreDePOI = nombreDePOI;
-            this.palabrasClave = palabrasClave;
-            this.horarioAbierto = horarioAbierto;
-            this.horarioFeriado = horarioFeriado;
-            this.servicios = servicios;
+            using (var db = new BuscAR())
+            {
+
+                Banco banco = db.Bancos.Where(p => p.nombreDePOI == nombreDePOI).Single();
+                banco.coordenada = coordenada;
+                banco.calle = calle;
+                banco.numeroAltura = numeroAltura;
+                banco.piso = piso;
+                banco.codigoPostal = codigoPostal;
+                banco.localidad = localidad;
+                banco.barrio = barrio;
+                banco.provincia = provincia;
+                banco.pais = pais;
+                banco.entreCalles = entreCalles;
+                banco.nombreDePOI = nombreDePOI;
+                banco.palabrasClave = palabrasClave;
+                banco.horarioAbierto = horarioAbierto;
+                banco.horarioFeriado = horarioFeriado;
+                banco.servicios = servicios;
+                db.SaveChanges();
+            }
         }
 
 
