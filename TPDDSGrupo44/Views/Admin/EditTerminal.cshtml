@@ -1,0 +1,62 @@
+﻿@model TPDDSGrupo44.ViewModels.EditTerminalViewModel
+
+@{
+    ViewBag.Title = "Editar Terminal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Editar Terminal</h2>
+
+
+@using (Html.BeginForm("EditTerminal", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Terminal</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.terminal.Id)
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.terminal.coordenada, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                Latitud: @Html.EditorFor(model => model.terminal.coordenada.Latitude, new { htmlAttributes = new { @class = "form-control" } })<br />
+                Longitud: @Html.EditorFor(model => model.terminal.coordenada.Longitude, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.funcionalidades, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @foreach(var f in Model.funcionalidades)
+                {
+                    <input type="checkbox" value="@f.nombre" id="@f.nombre" name="funcionalidades" @(Model.terminal.funcionalidades.Any(ft => ft.nombre == f.nombre) ?  "checked=checked" : "" )/> <label for="@f.nombre">@f.nombre</label><br />
+                }
+            </div>
+        </div>
+
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.terminal.nombre, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.terminal.nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.terminal.nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

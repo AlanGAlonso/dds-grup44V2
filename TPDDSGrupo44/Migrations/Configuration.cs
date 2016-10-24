@@ -137,17 +137,26 @@ namespace TPDDSGrupo44.Migrations
 
 
             // FUNCIONALIDADES DE TERMINALES
- /*           context.FuncionalidadesTerminales.AddOrUpdate(f => f.nombre,
-                    new FuncionalidadDispositivoTactil("Parada"),
-                    new FuncionalidadDispositivoTactil("Banco"),
-                    new FuncionalidadDispositivoTactil("CGP"),
-                    new FuncionalidadDispositivoTactil("Locales")
-                );*/
+            context.FuncionalidadesTerminales.AddOrUpdate(f => f.nombre,
+                    new FuncionalidadDispositivoTactil
+                    {
+                        nombre = "Parada"
+                    },
+                    new FuncionalidadDispositivoTactil
+                    {
+                        nombre = "Banco"
+                    },
+                    new FuncionalidadDispositivoTactil {
+                        nombre = "CGP"
+                    },
+                    new FuncionalidadDispositivoTactil
+                    {
+                        nombre = "Locales"
+                    }
+                );
 
             context.SaveChanges();
-
-            List<FuncionalidadDispositivoTactil> func = context.FuncionalidadesTerminales.ToList();
-
+            
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego terminales
             context.Terminales.AddOrUpdate(d => d.nombre,
             new DispositivoTactil

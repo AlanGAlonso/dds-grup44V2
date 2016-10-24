@@ -79,8 +79,69 @@ namespace TPDDSGrupo44.Controllers
         }
 
 
-        // CONFIGURACIONES
-        public ActionResult Settings()
+        public ActionResult EditTerminal(int id)
+        {
+            if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Terminales").ToList().Count() > 0)
+            {
+                DispositivoTactil terminal;
+                List<FuncionalidadDispositivoTactil> func = new List<FuncionalidadDispositivoTactil>();
+                using (var db = new BuscAR())
+                {
+                    terminal = db.Terminales.Include("funcionalidades").Where(t => t.Id == id).Single();
+                    func = db.FuncionalidadesTerminales.GroupBy(f => f.nombre).Select(f => f.FirstOrDefault()).ToList();
+                }
+                EditTerminalViewModel viewModel = new EditTerminalViewModel();
+                viewModel.terminal = terminal;
+                viewModel.funcionalidades = func;
+
+                return View(viewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+  
+
+
+    [HttpPost]
+    public ActionResult EditTerminal(FormCollection form)
+    {
+        if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Terminales").ToList().Count() > 0)
+        {
+                DispositivoTactil terminal;
+                int id = Convert.ToInt32(form["terminal.Id"]);
+                using (var db = new BuscAR())
+                {
+                    terminal = db.Terminales.Include("funcionalidades").Where(t => t.Id == id).Single();
+                    DbGeography coordenada = DbGeography.FromText("POINT(" + form["terminal.coordenada.Latitude"] + " " + form["terminal.coordenada.Longitude"] + ")");
+
+                    terminal.coordenada = coordenada;
+                    terminal.nombre = form["terminal.nombre"];
+                    var func = form["funcionalidades"];
+                    List<string> funcFront = func.Split(new char[] { ',' }).ToList();
+                    List<FuncionalidadDispositivoTactil> funcionalidades = new List<FuncionalidadDispositivoTactil>();
+                    foreach (string p in funcFront)
+                    {
+                        funcionalidades.Add(new FuncionalidadDispositivoTactil(p));
+                    }
+                    terminal.funcionalidades.RemoveAll(f => f.nombre != "");
+                    terminal.funcionalidades = funcionalidades;
+
+                    db.SaveChanges();
+
+                }
+
+                return RedirectToAction("ABMTerminal", "Admin");
+            }
+        else
+        {
+            return RedirectToAction("Index", "Home");
+        }
+    }
+
+    // CONFIGURACIONES
+    public ActionResult Settings()
         {
             if (BaseViewModel.usuario != null && ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Configuracion").ToList().Count() > 0)
             {
