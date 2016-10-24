@@ -877,7 +877,7 @@ namespace TPDDSGrupo44.Controllers
 
                     Rubro rubro = new Rubro();
                     rubro.nombre = collection["rubro"];
-                    rubro.radioDeCercania = Convert.ToInt32(collection["radioDeCercania"]);
+                    //rubro.radioDeCercania = Convert.ToInt32(collection["radioDeCercania"]);
 
                     LocalComercial localComercial = new LocalComercial(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                       Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
@@ -886,7 +886,7 @@ namespace TPDDSGrupo44.Controllers
 
                     localComercial.agregarLocComercial(localComercial);
 
-                    return RedirectToAction("ABMBanco");
+                    return RedirectToAction("ABMLocalComercial");
                 }
                 else
                 {
@@ -906,7 +906,7 @@ namespace TPDDSGrupo44.Controllers
                 LocalComercial localComercial;
                 using (var db = new BuscAR())
                 {
-                    localComercial = db.Locales.Include("palabrasClave").Where(p => p.id == id).Single();
+                    localComercial = db.Locales.Include("palabrasClave").Include("horarioAbierto").Where(p => p.id == id).Single();
                 }
                 return View(localComercial);
             }
@@ -929,6 +929,9 @@ namespace TPDDSGrupo44.Controllers
                     {
                         localComercial = db.Locales.Where(p => p.id == id).Single();
                         localComercial.palabrasClave.Clear();
+                        localComercial.horarioAbierto.Clear();
+                        db.SaveChanges();
+
                     }
 
                     localComercial.eliminarLocComercial(id);
