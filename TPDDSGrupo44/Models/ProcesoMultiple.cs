@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using TPDDSGrupo44.DataModels;
+using TPDDSGrupo44.ViewModels;
 
 namespace TPDDSGrupo44.Models
 {
@@ -11,18 +13,31 @@ namespace TPDDSGrupo44.Models
         }
 
         public override void actualizar() {
-
-            foreach (KeyValuePair<ActualizacionAsincronica, string> a in actualizaciones)
+            using (var db = new BuscAR())
             {
-                if (a.Value == "" || a.Value == null) { 
-                    a.Key.actualizar();
-                }
-                else
+                LogAction log = new LogAction("Agregar Acciones Asinc", BaseViewModel.usuario.nombre);
+
+                try
                 {
-                    a.Key.actualizar(a.Value);
+                    foreach (KeyValuePair<ActualizacionAsincronica, string> a in actualizaciones)
+                    {
+                        if (a.Value == "" || a.Value == null)
+                        {
+                            a.Key.actualizar();
+                        }
+                        else
+                        {
+                            a.Key.actualizar(a.Value);
+                        }
+                    }
+
+                }
+                catch
+                {
+                    log.finalizarProceso("Error", "Hubo un problema inesperado en la ejecución del proceso, y el mismo no se pudo completar.");
+                    db.LogProcesosAsincronicos.Add(log);
                 }
             }
-
-        }
+}
     }
 }

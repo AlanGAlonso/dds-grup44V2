@@ -246,7 +246,7 @@
     <Compile Include="Models\HorarioAbierto.cs" />
     <Compile Include="Helpers\GetJsonBanks.cs" />
     <Compile Include="Models\LocalComercial.cs" />
-    <Compile Include="DataModels\LogAction.cs" />
+    <Compile Include="Models\LogAction.cs" />
     <Compile Include="DataModels\PalabraClave.cs" />
     <Compile Include="Models\MotorDeBusqueda.cs" />
     <Compile Include="Models\ParadaDeColectivo.cs" />

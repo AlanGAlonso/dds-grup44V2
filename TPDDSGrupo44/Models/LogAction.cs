@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TPDDSGrupo44.DataModels
+namespace TPDDSGrupo44.Models
 {
     public class LogAction
     {

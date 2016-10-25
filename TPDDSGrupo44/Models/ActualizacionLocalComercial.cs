@@ -16,42 +16,48 @@ namespace TPDDSGrupo44.Models
             {
                 LogAction log = new LogAction("Actualizar Local Comercial Asinc", BaseViewModel.usuario.nombre);
 
-                //abrir archivo. tendría que recibirlo por parámetro... corregir!
-                System.IO.StreamReader reader = System.IO.File.OpenText("filename.txt");
-                string line;
-                //traigo linea por linea, leyendo y parseando
-                while ((line = reader.ReadLine()) != null)
-                {
-                    string[] items = line.Split(';');
-                    string nombre = items[0];
-
-                    List<string> palabrasClaveFront = items[1].Split(' ').ToList();
-                    List<PalabraClave> palabrasClave = new List<PalabraClave>();
-                    foreach (string p in palabrasClaveFront)
+                try { 
+                    //abrir archivo. tendría que recibirlo por parámetro... corregir!
+                    System.IO.StreamReader reader = System.IO.File.OpenText("filename.txt");
+                    string line;
+                    //traigo linea por linea, leyendo y parseando
+                    while ((line = reader.ReadLine()) != null)
                     {
-                        palabrasClave.Add(new PalabraClave(p));
-                    }
-                    
-                        LocalComercial local = (from l in db.Locales
-                                                where l.nombreDePOI == nombre
-                                                select l).Single();
-                        // si el local ya existe, lo actualizo
-                        if (local != null)
+                        string[] items = line.Split(';');
+                        string nombre = items[0];
+
+                        List<string> palabrasClaveFront = items[1].Split(' ').ToList();
+                        List<PalabraClave> palabrasClave = new List<PalabraClave>();
+                        foreach (string p in palabrasClaveFront)
                         {
-                            local.palabrasClave = palabrasClave;
-                        } else
-                        {
-                            //si el local no existe, lo agrego
-                            local = new LocalComercial(nombre, palabrasClave);
-                            db.Locales.Add(local);
+                            palabrasClave.Add(new PalabraClave(p));
                         }
+                    
+                            LocalComercial local = (from l in db.Locales
+                                                    where l.nombreDePOI == nombre
+                                                    select l).Single();
+                            // si el local ya existe, lo actualizo
+                            if (local != null)
+                            {
+                                local.palabrasClave = palabrasClave;
+                            } else
+                            {
+                                //si el local no existe, lo agrego
+                                local = new LocalComercial(nombre, palabrasClave);
+                                db.Locales.Add(local);
+                            }
 
-                    db.SaveChanges();
+                        db.SaveChanges();
+                    }
+
+                    log.finalizarProceso("Exito");
+                    db.LogProcesosAsincronicos.Add(log);
+                    }
+                catch
+                {
+                    log.finalizarProceso("Error", "Hubo un problema inesperado en la ejecución del proceso, y el mismo no se pudo completar.");
+                    db.LogProcesosAsincronicos.Add(log);
                 }
-
-                log.finalizarProceso("Exito");
-                db.LogProcesosAsincronicos.Add(log);
-
                 db.SaveChanges();
 
             }
