@@ -221,8 +221,7 @@ new ParadaDeColectivo
     palabrasClave = new List<PalabraClave> {
                     new PalabraClave("Colectivo"),
                     new PalabraClave("Bondi") },
-    coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)"),
-
+    coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)")
 });
 
             context.SaveChanges();

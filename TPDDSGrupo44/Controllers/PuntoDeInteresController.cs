@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TPDDSGrupo44.DataModels;
@@ -18,24 +19,44 @@ namespace TPDDSGrupo44.Controllers
         //}
 
         // GET: api/PuntoDeInteres/5
+        [HttpGet]
         [ResponseType(typeof(List<PuntoDeInteres>))]
-        public IHttpActionResult GetPuntoDeInteres(string palabraBusqueda)
+        public IHttpActionResult GetPuntoDeInteres(string id)
         {
-            SearchViewModel modelo = MotorDeBusqueda.buscar(palabraBusqueda);
-            if (modelo.resultados == 0)
-            {
-                return NotFound();
-            }
-
+            SearchViewModel modelo;
             List<PuntoDeInteres> puntos = new List<PuntoDeInteres>();
-            puntos.AddRange(modelo.bancosEncontrados);
-            puntos.AddRange(modelo.bancosEncontradosCerca);
-            puntos.AddRange(modelo.cgpsEncontrados);
-            puntos.AddRange(modelo.cgpsEncontradosCerca);
-            puntos.AddRange(modelo.localesEncontrados);
-            puntos.AddRange(modelo.localesEncontradosCerca);
-            puntos.AddRange(modelo.paradasEncontradas);
-            puntos.AddRange(modelo.paradasEncontradasCerca);
+
+            if (id.Contains(","))
+            {
+                List<string> palabrasClave = id.Split(new char[] { ',' }).ToList();
+                foreach (string p in palabrasClave)
+                {
+                    modelo = MotorDeBusqueda.buscar(p);
+                    puntos.AddRange(modelo.bancosEncontrados);
+                    puntos.AddRange(modelo.bancosEncontradosCerca);
+                    puntos.AddRange(modelo.cgpsEncontrados);
+                    puntos.AddRange(modelo.cgpsEncontradosCerca);
+                    puntos.AddRange(modelo.localesEncontrados);
+                    puntos.AddRange(modelo.localesEncontradosCerca);
+                    puntos.AddRange(modelo.paradasEncontradas);
+                    puntos.AddRange(modelo.paradasEncontradasCerca);
+                }
+            } else
+            {
+                modelo = MotorDeBusqueda.buscar(id);
+                if (modelo.resultados == 0)
+                {
+                    return NotFound();
+                }
+                puntos.AddRange(modelo.bancosEncontrados);
+                puntos.AddRange(modelo.bancosEncontradosCerca);
+                puntos.AddRange(modelo.cgpsEncontrados);
+                puntos.AddRange(modelo.cgpsEncontradosCerca);
+                puntos.AddRange(modelo.localesEncontrados);
+                puntos.AddRange(modelo.localesEncontradosCerca);
+                puntos.AddRange(modelo.paradasEncontradas);
+                puntos.AddRange(modelo.paradasEncontradasCerca);
+            }
 
             return Ok(puntos);
         }

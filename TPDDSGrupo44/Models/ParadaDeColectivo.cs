@@ -28,7 +28,10 @@ namespace TPDDSGrupo44.Models
 
 
         ////////////////Constructor vacio////////////////
-        public ParadaDeColectivo() :base () { }
+        public ParadaDeColectivo() :base () {
+            horarioAbierto = new List<HorarioAbierto>();
+            horarioFeriado = new List<HorarioAbierto>();
+        }
 
         ////////////////Constructor generico////////////////
         public ParadaDeColectivo(DbGeography unaCoordenada, string calle, int numeroAltura, int codigoPostal,
@@ -47,19 +50,14 @@ namespace TPDDSGrupo44.Models
             this.entreCalles = entreCalles;
             this.palabrasClave = palabrasClave;
             this.nombreDePOI = nombreDePOI;
+            horarioAbierto = new List<HorarioAbierto>();
+            horarioFeriado = new List<HorarioAbierto>();
         }
 
 
 
 
-
-        ////////////////Constructor Viejo(Usado en controlador////////////////
-        public ParadaDeColectivo(string nombre, DbGeography unaCoordenada)
-        : base(nombre, unaCoordenada)
-        {
-            nombreDePOI = nombre;
-            coordenada = unaCoordenada;
-        }
+        
 
         ////////////////Funcion manhattan////////////////
         private static double functionManhattan(DbGeography coordenadaDeDispositivoTactil, DbGeography coordenada)

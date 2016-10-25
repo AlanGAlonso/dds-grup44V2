@@ -28,10 +28,7 @@ namespace TPDDSGrupo44.Models
                 
                 if (funcionalidadesTerminal.Any(f => f.nombre == "Parada")) { 
                 //Si la persona ingresó un número, asumo que busca una parada de bondi
-                    int linea = 0;
-                    if (int.TryParse(palabraBusqueda, out linea) && linea > 0)
-                    {
-
+                    
                         List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).Count() != 0).ToList();
                         foreach (ParadaDeColectivo punto in resultadosBusqueda)
                         {
@@ -47,7 +44,6 @@ namespace TPDDSGrupo44.Models
 
                         }
 
-                    }
                 }
 
                 if (funcionalidadesTerminal.Any(f => f.nombre == "Locales"))
@@ -77,13 +73,16 @@ namespace TPDDSGrupo44.Models
                     {
                         foreach (LocalComercial punto in resultadosBusquedaLocales)
                         {
-                            if (punto.estaCerca(dispositivoTactil.coordenada))
-                            {
-                                modeloVista.localesEncontradosCerca.Add(punto);
-                            }
-                            else
-                            {
-                                modeloVista.localesEncontrados.Add(punto);
+                            if (!modeloVista.localesEncontrados.Any(l => l.id == punto.id)
+                            && !modeloVista.localesEncontradosCerca.Any(l => l.id == punto.id)) { 
+                                if (punto.estaCerca(dispositivoTactil.coordenada))
+                                {
+                                    modeloVista.localesEncontradosCerca.Add(punto);
+                                }
+                                else
+                                {
+                                    modeloVista.localesEncontrados.Add(punto);
+                                }
                             }
                         }
                     }
@@ -91,7 +90,10 @@ namespace TPDDSGrupo44.Models
 
                 if (funcionalidadesTerminal.Any(f => f.nombre == "Banco"))
                 {
-                    List<Banco> resultadosBusquedaBancos = db.Bancos.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).Count() != 0).ToList();
+                    List<Banco> resultadosBusquedaBancos = db.Bancos
+                        .Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Include("palabrasClave")
+                        .Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).Count() != 0).ToList();
+
 
                     List<Banco> resultadoBusquedaJSONBancos = GetJsonBanks.getJsonData().FindAll(b => b.palabrasClave.Where(p => p.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList().Count() > 0);
                     resultadosBusquedaBancos.AddRange(resultadoBusquedaJSONBancos);
