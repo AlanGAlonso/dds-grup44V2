@@ -29,7 +29,7 @@ namespace TPDDSGrupo44.Models
                 if (funcionalidadesTerminal.Any(f => f.nombre == "Parada")) { 
                 //Si la persona ingresó un número, asumo que busca una parada de bondi
                     
-                        List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Include("palabrasClave").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).Count() != 0).ToList();
+                        List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Include("palabrasClave").Include("horarioAbierto").Include("horarioFeriado").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).Count() != 0).ToList();
                         foreach (ParadaDeColectivo punto in resultadosBusqueda)
                         {
 

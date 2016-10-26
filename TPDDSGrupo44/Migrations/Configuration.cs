@@ -137,7 +137,7 @@ namespace TPDDSGrupo44.Migrations
 
 
             // FUNCIONALIDADES DE TERMINALES
-            context.FuncionalidadesTerminales.AddOrUpdate(f => f.nombre,
+          /*  context.FuncionalidadesTerminales.AddOrUpdate(f => f.nombre,
                     new FuncionalidadDispositivoTactil
                     {
                         nombre = "Parada"
@@ -154,7 +154,7 @@ namespace TPDDSGrupo44.Migrations
                         nombre = "Locales"
                     }
                 );
-
+                */
             context.SaveChanges();
             
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego terminales
@@ -206,7 +206,18 @@ new DispositivoTactil
                     new PalabraClave("Colectivo"),
                     new PalabraClave("Bondi") },
                 coordenada = DbGeography.FromText("POINT(-34.659690 -58.468764)"),
-
+                
+                horarioAbierto = new List<HorarioAbierto>
+    {
+        new HorarioAbierto(System.DayOfWeek.Monday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Tuesday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Wednesday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Thursday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Friday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Saturday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Sunday, 0, 24)
+    },
+                horarioFeriado = new List<HorarioAbierto>()
             },
 new ParadaDeColectivo
 {
@@ -221,7 +232,18 @@ new ParadaDeColectivo
     palabrasClave = new List<PalabraClave> {
                     new PalabraClave("Colectivo"),
                     new PalabraClave("Bondi") },
-    coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)")
+    coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)"),
+    horarioAbierto = new List<HorarioAbierto>
+    {
+        new HorarioAbierto(System.DayOfWeek.Monday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Tuesday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Wednesday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Thursday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Friday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Saturday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Sunday, 0, 24)
+    },
+    horarioFeriado = new List<HorarioAbierto>()
 });
 
             context.SaveChanges();
