@@ -43,10 +43,10 @@
         foreach (var punto in Model.paradasEncontradasCerca)
         {
             <div class="poi">
-                <h3>@punto.nombreDePOI <span>(cercano)</span></h3>
+                <h3><span class="ion-android-bus"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
                 @punto.calle @punto.numeroAltura
                 <div class="detalles">
-                    <h4>Horarios</h4>
+                    <h4><span class="ion-android-time"></span> Horarios</h4>
                     Siempre disponible.
                 </div>
             </div>
@@ -55,10 +55,10 @@
         foreach (var punto in Model.paradasEncontradas)
         {
             <div class="poi">
-                <h3>@punto.nombreDePOI</h3>
+                <h3><span class="ion-android-bus"></span> @punto.nombreDePOI</h3>
                 @punto.calle @punto.numeroAltura
                 <div class="detalles">
-                    <h4>Horarios</h4>
+                    <h4><span class="ion-android-time"></span> Horarios</h4>
                     Siempre disponible.
                 </div>
             </div>
@@ -71,12 +71,12 @@
         foreach (var punto in Model.bancosEncontradosCerca)
         {
             <div class="poi">
-                <h3>@punto.nombreDePOI <span>(cercano)</span></h3>
+                <h3><span class="ion-android-lock"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
                 @punto.calle @punto.numeroAltura
                 <div class="detalles">
                     @if (punto.horarioAbierto.Count() != 0)
                     {
-                        <h4>Horarios</h4>
+                        <h4><span class="ion-android-time"></span> Horarios</h4>
                         <ul>
                             @foreach (var horario in punto.horarioAbierto)
                             {
@@ -110,12 +110,12 @@
         foreach (var punto in Model.bancosEncontrados)
         {
             <div class="poi">
-                <h3>@punto.nombreDePOI</h3>
+                <h3><span class="ion-android-lock"></span> @punto.nombreDePOI</h3>
                 @punto.calle @punto.numeroAltura
                 <div class="detalles">
                     @if (punto.horarioAbierto.Count() != 0)
                     {
-                        <h4>Horarios</h4>
+                        <h4><span class="ion-android-time"></span> Horarios</h4>
                         <ul>
                             @foreach (var horario in punto.horarioAbierto)
                             {
@@ -156,12 +156,12 @@
         foreach (var punto in Model.localesEncontradosCerca)
         {
             <div class="poi">
-                <h3>@punto.nombreDePOI <span>(cercano)</span></h3>
+                <h3><span class="ion-android-cart"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
                 @punto.calle @punto.numeroAltura
                 <div class="detalles">
                     <h4>Rubro</h4>
                     @punto.rubro.nombre
-                    <h4>Horarios</h4>
+                    <h4><span class="ion-android-time"></span> Horarios</h4>
                     <ul>
                         @foreach (var horario in punto.horarioAbierto)
                     {
@@ -175,7 +175,7 @@
         foreach (var punto in Model.localesEncontrados)
         {
             <div class="poi">
-                <h3>@punto.nombreDePOI</h3>
+                <h3><span class="ion-android-cart"></span> @punto.nombreDePOI</h3>
                 @punto.calle @punto.numeroAltura
                 <div class="detalles">
                     <h4>Rubro</h4>
@@ -183,7 +183,7 @@
 
 @if (punto.horarioAbierto.Count() > 0)
 {
-                    <h4>Horarios</h4>
+                    <h4><span class="ion-android-time"></span> Horarios</h4>
                     <ul>
                         @foreach (var horario in punto.horarioAbierto)
                         {
@@ -203,13 +203,13 @@
         foreach (var punto in Model.cgpsEncontradosCerca)
         {
             <div class="poi">
-                <h3>@punto.nombreDePOI <span>(cercano)</span></h3>
+                <h3><span class="ion-android-clipboard"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
                 @punto.calle @punto.numeroAltura
                 <div class="detalles">
 
 @if (punto.horarioAbierto.Count() > 0)
 {
-                    <h4>Horarios</h4>
+                    <h4><span class="ion-android-time"></span> Horarios</h4>
                     <ul>
                         @foreach (var horario in punto.horarioAbierto)
                         {
@@ -243,11 +243,11 @@
         foreach (var punto in Model.cgpsEncontrados)
         {
             <div class="poi">
-                <h3>@punto.nombreDePOI</h3>
+                <h3><span class="ion-android-clipboard"></span> @punto.nombreDePOI</h3>
                 @punto.calle @punto.numeroAltura
                 <div class="detalles">
                     @if (punto.horarioAbierto.Count() > 0) { 
-                    <h4>Horarios</h4>
+                    <h4><span class="ion-android-time"></span> Horarios</h4>
                     <ul>
                         @foreach (var horario in punto.horarioAbierto)
                     {
