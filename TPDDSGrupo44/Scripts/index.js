@@ -1,4 +1,4 @@
-﻿
+﻿/*
 function initMap(place, text) {
     var mapDiv = document.getElementById('map');
     var map = new google.maps.Map(mapDiv, {
@@ -12,7 +12,7 @@ function initMap(place, text) {
     });
 
     marker.setMap(map);
-}
+}*/
 
 $(document).ready(function () {
 

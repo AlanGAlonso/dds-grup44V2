@@ -23,12 +23,24 @@ namespace TPDDSGrupo44.Models
         public new string entreCalles { get; set; }
         public new string nombreDePOI { get; set; }
         public virtual new List<PalabraClave> palabrasClave { get; set; }
- 
-
+        public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
+        public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
 
 
         ////////////////Constructor vacio////////////////
-        public ParadaDeColectivo() :base () { }
+        public ParadaDeColectivo() :base () {
+            horarioAbierto = new List<HorarioAbierto>
+    {
+        new HorarioAbierto(System.DayOfWeek.Monday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Tuesday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Wednesday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Thursday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Friday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Saturday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Sunday, 0, 24)
+    };
+            horarioFeriado = new List<HorarioAbierto>();
+        }
 
         ////////////////Constructor generico////////////////
         public ParadaDeColectivo(DbGeography unaCoordenada, string calle, int numeroAltura, int codigoPostal,
@@ -47,19 +59,23 @@ namespace TPDDSGrupo44.Models
             this.entreCalles = entreCalles;
             this.palabrasClave = palabrasClave;
             this.nombreDePOI = nombreDePOI;
+            horarioAbierto = new List<HorarioAbierto>
+    {
+        new HorarioAbierto(System.DayOfWeek.Monday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Tuesday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Wednesday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Thursday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Friday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Saturday, 0, 24),
+        new HorarioAbierto(System.DayOfWeek.Sunday, 0, 24)
+    };
+            horarioFeriado = new List<HorarioAbierto>();
         }
 
 
 
 
-
-        ////////////////Constructor Viejo(Usado en controlador////////////////
-        public ParadaDeColectivo(string nombre, DbGeography unaCoordenada)
-        : base(nombre, unaCoordenada)
-        {
-            nombreDePOI = nombre;
-            coordenada = unaCoordenada;
-        }
+        
 
         ////////////////Funcion manhattan////////////////
         private static double functionManhattan(DbGeography coordenadaDeDispositivoTactil, DbGeography coordenada)

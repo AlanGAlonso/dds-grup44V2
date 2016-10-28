@@ -331,8 +331,6 @@ namespace TPDDSGrupo44.Controllers
             {
                 if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Editar POI").ToList().Count() > 0)
                 {
-                    ParadaDeColectivo parada;
-                        int id = Convert.ToInt16(collection["id"]);
                         List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
                         DbGeography coordenada = actualizarCoordenada(collection["coordenada.Latitude"], collection["coordenada.Longitude"]);
 

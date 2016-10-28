@@ -15,8 +15,10 @@ namespace TPDDSGrupo44.Models
             using (var db = new BuscAR())
             {
                 LogAction log = new LogAction("Agregar Acciones Asinc", BaseViewModel.usuario.nombre);
+                try
+                {
 
-                string[] values = funcionalidades.Split(',').Select(sValue => sValue.Trim()).ToArray();
+                    string[] values = funcionalidades.Split(',').Select(sValue => sValue.Trim()).ToArray();
             List<FuncionalidadUsuario> func = new List<FuncionalidadUsuario>();
             foreach (string v in values)
             {
@@ -24,23 +26,31 @@ namespace TPDDSGrupo44.Models
             }
             
 
-                List<Rol> roles = db.Roles.ToList();
+                
 
-                foreach (Rol r in roles)
-                {
-                    int lote = r.funcionalidades.Aggregate((i1, i2) => i1.lote > i2.lote ? i1 : i2).lote + 1;
-                    foreach (FuncionalidadUsuario f in func)
+                    List<Rol> roles = db.Roles.ToList();
+
+                    foreach (Rol r in roles)
                     {
-                        if (r.funcionalidades.Find(i => i.nombre == f.nombre) == null)
+                        int lote = r.funcionalidades.Aggregate((i1, i2) => i1.lote > i2.lote ? i1 : i2).lote + 1;
+                        foreach (FuncionalidadUsuario f in func)
                         {
-                            f.lote = lote;
-                            r.funcionalidades.Add(f);
+                            if (r.funcionalidades.Find(i => i.nombre == f.nombre) == null)
+                            {
+                                f.lote = lote;
+                                r.funcionalidades.Add(f);
+                            }
                         }
                     }
-                }
 
-                log.finalizarProceso("Exito");
-                db.LogProcesosAsincronicos.Add(log);
+                    log.finalizarProceso("Exito");
+                    db.LogProcesosAsincronicos.Add(log);
+                }
+                catch
+                {
+                    log.finalizarProceso("Error", "Hubo un problema inesperado en la ejecución del proceso, y el mismo no se pudo completar.");
+                    db.LogProcesosAsincronicos.Add(log);
+                }
 
                 db.SaveChanges();
 

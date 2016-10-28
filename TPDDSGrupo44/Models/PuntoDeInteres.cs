@@ -32,6 +32,9 @@ namespace TPDDSGrupo44.Models
 
         ////////////////Constructor vacio////////////////
         public PuntoDeInteres() {
+            horarioAbierto = new List<HorarioAbierto>();
+            horarioFeriado = new List<HorarioAbierto>();
+            palabrasClave = new List<PalabraClave>();
         }
 
         ////////////////Constructor generico////////////////
@@ -59,6 +62,9 @@ namespace TPDDSGrupo44.Models
         {
             this.nombreDePOI = nombre;
             this.coordenada = unaCordenada;
+            horarioAbierto = new List<HorarioAbierto>();
+            horarioFeriado = new List<HorarioAbierto>();
+            palabrasClave = new List<PalabraClave>();
         }
 
 

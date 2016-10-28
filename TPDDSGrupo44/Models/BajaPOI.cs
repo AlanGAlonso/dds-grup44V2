@@ -18,52 +18,64 @@ namespace TPDDSGrupo44.Models
             {
                 LogAction log = new LogAction("Baja POIs Asinc", BaseViewModel.usuario.nombre);
 
-                string url = "http://demo3537367.mockable.io/trash/pois";
-            var jsonString = string.Empty;
-
-            var client = new WebClient();
-            jsonString = client.DownloadString(url);
-
-            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
-            
-            List<JsonBajaPOI> listbp = (List<JsonBajaPOI>)javaScriptSerializer.Deserialize(jsonString, typeof(List<JsonBajaPOI>));
-
-            foreach (JsonBajaPOI p in listbp) { 
-                SearchViewModel modeloVista = MotorDeBusqueda.buscar(p.id.ToString());
-
-                if (modeloVista.paradasEncontradas.Count > 0)
+                try
                 {
-                    ParadaDeColectivo.eliminarParada(modeloVista.paradasEncontradas.Single().id);
+                    string url = "http://demo3537367.mockable.io/trash/pois";
+                    var jsonString = string.Empty;
 
-                } else if (modeloVista.paradasEncontradasCerca.Count > 0)
-                {
-                    ParadaDeColectivo.eliminarParada(modeloVista.paradasEncontradasCerca.Single().id);
-                }
+                    var client = new WebClient();
+                    jsonString = client.DownloadString(url);
 
-                else if (modeloVista.bancosEncontrados.Count > 0)
-                {
-                    Banco.eliminarBanco(modeloVista.bancosEncontrados.Single().id);
-                }
-                else if (modeloVista.bancosEncontradosCerca.Count > 0)
-                {
-                    Banco.eliminarBanco(modeloVista.bancosEncontradosCerca.Single().id);
-                }
+                    JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
 
-                else if (modeloVista.cgpsEncontrados.Count > 0)
+                    List<JsonBajaPOI> listbp = (List<JsonBajaPOI>)javaScriptSerializer.Deserialize(jsonString, typeof(List<JsonBajaPOI>));
+
+                    foreach (JsonBajaPOI p in listbp)
+                    {
+                        SearchViewModel modeloVista = MotorDeBusqueda.buscar(p.id.ToString());
+
+                        if (modeloVista.paradasEncontradas.Count > 0)
+                        {
+                            ParadaDeColectivo.eliminarParada(modeloVista.paradasEncontradas.Single().id);
+
+                        }
+                        else if (modeloVista.paradasEncontradasCerca.Count > 0)
+                        {
+                            ParadaDeColectivo.eliminarParada(modeloVista.paradasEncontradasCerca.Single().id);
+                        }
+
+                        else if (modeloVista.bancosEncontrados.Count > 0)
+                        {
+                            Banco.eliminarBanco(modeloVista.bancosEncontrados.Single().id);
+                        }
+                        else if (modeloVista.bancosEncontradosCerca.Count > 0)
+                        {
+                            Banco.eliminarBanco(modeloVista.bancosEncontradosCerca.Single().id);
+                        }
+
+                        else if (modeloVista.cgpsEncontrados.Count > 0)
+                        {
+                            CGP.eliminarCGP(modeloVista.cgpsEncontrados.Single().id);
+                        }
+                        else if (modeloVista.cgpsEncontradosCerca.Count > 0)
+                        {
+                            CGP.eliminarCGP(modeloVista.cgpsEncontradosCerca.Single().id);
+                        }
+                        else if (modeloVista.localesEncontrados.Count > 0)
+                        {
+                            LocalComercial.eliminarLocComercial(modeloVista.localesEncontrados.Single().id);
+                        }
+                        else if (modeloVista.localesEncontradosCerca.Count > 0)
+                        {
+                            LocalComercial.eliminarLocComercial(modeloVista.localesEncontradosCerca.Single().id);
+                        }
+                    }
+                }
+                catch
                 {
-                    CGP.eliminarCGP(modeloVista.cgpsEncontrados.Single().id);
-                }
-                else if (modeloVista.cgpsEncontradosCerca.Count > 0 )
-                {
-                    CGP.eliminarCGP(modeloVista.cgpsEncontradosCerca.Single().id);
-                }
-                else if (modeloVista.localesEncontrados.Count > 0) {
-                    LocalComercial.eliminarLocComercial(modeloVista.localesEncontrados.Single().id);
-                }
-                else if (modeloVista.localesEncontradosCerca.Count > 0)
-                {
-                    LocalComercial.eliminarLocComercial(modeloVista.localesEncontradosCerca.Single().id);
-                }
+                    log.finalizarProceso("Error", "Hubo un problema inesperado en la ejecución del proceso, y el mismo no se pudo completar.");
+                    db.LogProcesosAsincronicos.Add(log);
+                
             }
                 log.finalizarProceso("Exito");
                 db.LogProcesosAsincronicos.Add(log);
@@ -73,6 +85,5 @@ namespace TPDDSGrupo44.Models
             }
         }
         
-
+        }
     }
-}
