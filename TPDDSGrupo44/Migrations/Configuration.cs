@@ -137,7 +137,7 @@ namespace TPDDSGrupo44.Migrations
 
 
             // FUNCIONALIDADES DE TERMINALES
-          /*  context.FuncionalidadesTerminales.AddOrUpdate(f => f.nombre,
+     /*     context.FuncionalidadesTerminales.AddOrUpdate(f => f.nombre,
                     new FuncionalidadDispositivoTactil
                     {
                         nombre = "Parada"
@@ -153,9 +153,13 @@ namespace TPDDSGrupo44.Migrations
                     {
                         nombre = "Locales"
                     }
+                    ,
+                    new FuncionalidadDispositivoTactil
+                    {
+                        nombre = "Loggear Búsquedas"
+                    }
                 );
-                */
-            context.SaveChanges();
+            context.SaveChanges();*/
             
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego terminales
             context.Terminales.AddOrUpdate(d => d.nombre,

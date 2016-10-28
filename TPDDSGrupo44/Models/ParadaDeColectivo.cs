@@ -129,6 +129,7 @@ namespace TPDDSGrupo44.Models
                 parada.palabrasClave.Clear();
                 parada.horarioAbierto.Clear();
                 parada.horarioFeriado.Clear();
+                db.SaveChanges();
                 db.Paradas.Remove(parada);
                 db.SaveChanges();
             }

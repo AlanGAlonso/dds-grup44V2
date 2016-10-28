@@ -142,9 +142,11 @@ namespace TPDDSGrupo44.Models
 
                 modeloVista.resultados = modeloVista.bancosEncontrados.Count() + modeloVista.bancosEncontradosCerca.Count() + modeloVista.cgpsEncontrados.Count() + modeloVista.localesEncontrados.Count() + modeloVista.localesEncontradosCerca.Count() + modeloVista.paradasEncontradas.Count() + modeloVista.paradasEncontradasCerca.Count();
                 
-                Busqueda busqueda = new Busqueda(palabraBusqueda, modeloVista.resultados, DateTime.Today, dispositivoTactil, contador.Elapsed);
-                db.Busquedas.Add(busqueda);
-                db.SaveChanges();
+                if (dispositivoTactil.funcionalidades.Where(f => f.nombre == "Loggear Búsquedas").ToList().Count() != 0) { 
+                    Busqueda busqueda = new Busqueda(palabraBusqueda, modeloVista.resultados, DateTime.Today, dispositivoTactil, contador.Elapsed);
+                    db.Busquedas.Add(busqueda);
+                    db.SaveChanges();
+                }
 
 
                 if (contador.Elapsed.Seconds > BaseViewModel.configuracion.duracionMaximaBusquedas)

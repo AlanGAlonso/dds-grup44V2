@@ -278,19 +278,9 @@ namespace TPDDSGrupo44.Controllers
             {
                 if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Baja POI").ToList().Count() > 0)
                 {
-                    ParadaDeColectivo parada;
-
-                    using (var db = new BuscAR())
-                    {
-                        parada = db.Paradas.Where(p => p.id == id).Single();
-                        parada.palabrasClave.Clear();
-                        db.SaveChanges();
-                    }
-
-                    if (parada.palabrasClave.Count() < 1)
-                    {
+                    
                         ParadaDeColectivo.eliminarParada(id);
-                    }
+                    
 
                     return RedirectToAction("ABMParada");
                 }
