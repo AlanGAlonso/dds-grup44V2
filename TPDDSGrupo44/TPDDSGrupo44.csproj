@@ -227,9 +227,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ActionWithPermissions.cs" />
-    <Compile Include="Migrations\201610282337041_EntregaFinal.cs" />
-    <Compile Include="Migrations\201610282337041_EntregaFinal.Designer.cs">
-      <DependentUpon>201610282337041_EntregaFinal.cs</DependentUpon>
+    <Compile Include="Migrations\201611062116526_InitialCreate.cs" />
+    <Compile Include="Migrations\201611062116526_InitialCreate.Designer.cs">
+      <DependentUpon>201611062116526_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
@@ -364,8 +364,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610282337041_EntregaFinal.resx">
-      <DependentUpon>201610282337041_EntregaFinal.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611062116526_InitialCreate.resx">
+      <DependentUpon>201611062116526_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

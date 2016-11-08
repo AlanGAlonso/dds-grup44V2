@@ -138,7 +138,7 @@ namespace TPDDSGrupo44.Models
 
         }
 
-        public static void actualizar(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
+        public static void actualizar(int id,DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles,
            string nombreDePOI, List<PalabraClave> palabrasClave,  List<HorarioAbierto> horarioAbierto,
            List<HorarioAbierto> horarioFeriados,Rubro rubro)
@@ -146,7 +146,7 @@ namespace TPDDSGrupo44.Models
             using (var db = new BuscAR())
             {
 
-                LocalComercial local = db.Locales.Where(p => p.nombreDePOI == nombreDePOI).Single();
+                LocalComercial local = db.Locales.Where(p => p.id == id).Single();
                 local.coordenada = unaCoordenada;
                 local.calle = calle;
                 local.numeroAltura = numeroAltura;
@@ -168,7 +168,16 @@ namespace TPDDSGrupo44.Models
             }
         }
 
+        public static void eliminarPalabrasClaves(int id)
+        {
+            using (var db = new BuscAR())
+            {
 
+                LocalComercial local = db.Locales.Where(p => p.id == id).Single();
+                local.palabrasClave.Clear();
+                db.SaveChanges();
+            }
+        }
 
 
     }

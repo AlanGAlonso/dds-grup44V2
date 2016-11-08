@@ -127,9 +127,9 @@ namespace TPDDSGrupo44.Models
             {
 
                 Banco banco = db.Bancos.Where(p => p.id == id).Single();
-                banco.palabrasClave.Clear();
-                banco.horarioAbierto.Clear();
-                banco.horarioFeriado.Clear();
+                eliminarPalabrasClaves(id);
+                eliminarHorarios(id);
+
                 foreach (ServicioBanco s in banco.servicios)
                 {
                     s.horarioAbierto.Clear();
@@ -141,18 +141,28 @@ namespace TPDDSGrupo44.Models
                 db.Bancos.Remove(banco);
                 db.SaveChanges();
             }
-
-
         }
 
-        public static void actualizar(DbGeography coordenada,string calle, int numeroAltura, int piso,int codigoPostal, string localidad, string barrio, 
+        
+
+        public static Banco buscarBanco(string nombreBanco)
+        {
+            using (var db = new BuscAR())
+            {
+                Banco banco = db.Bancos.Where(p => p.nombreDePOI == nombreBanco).Single();
+                return banco;
+            }
+        }
+
+
+        public static void actualizar(int id,DbGeography coordenada,string calle, int numeroAltura, int piso,int codigoPostal, string localidad, string barrio, 
             string provincia, string pais, string entreCalles, string nombreDePOI, List<PalabraClave> palabrasClave,
             List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
         {
             using (var db = new BuscAR())
             {
 
-                Banco banco = db.Bancos.Where(p => p.nombreDePOI == nombreDePOI).Single();
+                Banco banco = db.Bancos.Where(p => p.id == id).Single();
                 banco.coordenada = coordenada;
                 banco.calle = calle;
                 banco.numeroAltura = numeroAltura;
@@ -171,6 +181,32 @@ namespace TPDDSGrupo44.Models
                 db.SaveChanges();
             }
         }
+
+        public static void eliminarPalabrasClaves(int id)
+        {
+            using (var db = new BuscAR())
+            {
+
+                Banco banco = db.Bancos.Where(p => p.id == id).Single();
+                banco.palabrasClave.Clear();
+                db.SaveChanges();
+            }
+        }
+
+        public static void eliminarHorarios(int id)
+        {
+            using (var db = new BuscAR())
+            {
+
+                Banco banco = db.Bancos.Where(p => p.id == id).Single();
+                banco.horarioAbierto.Clear();
+                banco.horarioFeriado.Clear();
+                db.SaveChanges();
+            }
+        }
+
+
+
 
 
     }

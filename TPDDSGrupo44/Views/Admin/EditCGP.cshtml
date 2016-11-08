@@ -148,7 +148,7 @@
                 variablePalabra = variablePalabra + @palabra.palabraClave + ",";
             }
             <div class="col-md-10">
-                <input type="text" value="@variablePalabra" name="palabrasClave" />
+                <input class="form-control" value="@variablePalabra" name="palabrasClave" />
             </div>
         </div>
 
@@ -164,5 +164,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "ABMCGP", "Admin")
 </div>

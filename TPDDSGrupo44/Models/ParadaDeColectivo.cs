@@ -137,14 +137,28 @@ namespace TPDDSGrupo44.Models
 
         }
 
+        public static void eliminarPalabrasClaves(int id)
+        {
+            using (var db = new BuscAR())
+            {
 
-        public static void actualizar(DbGeography unaCoordenada,string calle, int numeroAltura, int codigoPostal, string localidad, string barrio, string provincia, string pais,
+                ParadaDeColectivo parada = db.Paradas.Where(p => p.id == id).Single();
+                parada.palabrasClave.Clear();
+                db.SaveChanges();
+            }
+
+
+        }
+
+
+
+        public static void actualizar(int id, DbGeography unaCoordenada,string calle, int numeroAltura, int codigoPostal, string localidad, string barrio, string provincia, string pais,
             string entreCalles, List<PalabraClave> palabrasClave, string nombreDePOI)
         {
             using (var db = new BuscAR())
             {
 
-                ParadaDeColectivo parada = db.Paradas.Where(p => p.nombreDePOI == nombreDePOI).Single();
+                ParadaDeColectivo parada = db.Paradas.Where(p => p.id == id).Single();
 
                 parada.coordenada = unaCoordenada;
                 parada.calle = calle;
