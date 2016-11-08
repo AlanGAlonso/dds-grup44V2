@@ -145,13 +145,16 @@ namespace TPDDSGrupo44.Models
 
         
 
-        public static Banco buscarBanco(string nombreBanco)
+        public static Banco buscarBanco(string id)
         {
+            int idBanco = Convert.ToInt32(id);
+            Banco banco;
             using (var db = new BuscAR())
             {
-                Banco banco = db.Bancos.Where(p => p.nombreDePOI == nombreBanco).Single();
-                return banco;
+                 banco = db.Bancos.Where(b => b.id == idBanco).Single();
+                
             }
+            return banco;
         }
 
 

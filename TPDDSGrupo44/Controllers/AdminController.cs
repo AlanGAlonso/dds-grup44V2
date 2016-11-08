@@ -521,7 +521,7 @@ namespace TPDDSGrupo44.Controllers
                       Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], collection["provincia"],
                       collection["pais"], collection["entreCalles"], collection["nombreDePOI"], palabrasClave, horariosAbierto, horariosFeriado, servicios);
 
-                   Banco banco =  Banco.buscarBanco(collection["nombreDePOI"]);
+                   Banco banco =  Banco.buscarBanco(collection["id"]);
                     if (Request.Form["siguiente"] != null)
                     {
                      return RedirectToAction("CreateServBancos", banco);
@@ -541,8 +541,7 @@ namespace TPDDSGrupo44.Controllers
 }
 
 
-
-        [Authorize]
+        
         public ActionResult CreateServBancos(Banco banco)
         {
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
