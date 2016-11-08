@@ -139,7 +139,6 @@
 
 
         <div class="form-group col-md-12">
-
             <div class="col-md-6">
                 <div class="col-md-3">
                     <label>Lunes</label>
@@ -205,20 +204,30 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+        <div class="form-group ">
+            <div class="col-md-6">
             </div>
-        </div>
+                <div class="col-md-6">
+                    <div class="col-md-2">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="submit" value="Agregar Servicio" class="btn btn-default" name="siguiente" />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="submit" value="Eliminar todos los servicios" class="btn btn-default" name="eliminarServicios" />
+                    </div>
+                </div>
+            </div>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Agregar Servicio" class="btn btn-default" name="siguiente" />
-        </div>
-    </div>
+  
+ 
 
                 }
 
 <div>
     @Html.ActionLink("Back to List", "ABMBanco", "Admin")
 </div>
+
+
+

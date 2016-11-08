@@ -10,7 +10,7 @@ namespace TPDDSGrupo44.Models
     {
 
         ////////////////Atributos////////////////
-        [Key]
+        //[Key]
         public int id { get; set; }
         public DbGeography coordenada { get; set; }
         public string calle { get; set; }

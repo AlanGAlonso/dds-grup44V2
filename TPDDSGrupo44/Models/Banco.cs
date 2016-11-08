@@ -207,7 +207,17 @@ namespace TPDDSGrupo44.Models
                 db.SaveChanges();
             }
         }
+        public static void eliminarServicios(int id)
+        {
+            using (var db = new BuscAR())
+            {
 
+                Banco banco = db.Bancos.Include("palabrasClave").Where(p => p.id == id).Single();
+                banco.servicios.Clear();
+         
+                db.SaveChanges();
+            }
+        }
 
 
 
