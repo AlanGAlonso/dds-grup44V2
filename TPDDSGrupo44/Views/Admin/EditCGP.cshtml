@@ -152,14 +152,26 @@
             </div>
         </div>
 
-        <div class="form-group col-md-12">
 
+
+
+
+
+        <div class="form-group col-md-12">
             <div class="col-md-6">
                 <div class="col-md-3">
                     <label>Lunes</label>
                 </div>
                 <div class="col-md-9">
-                    De <input class="form-control" name="abreLunes" type="time"> a <input class="form-control" name="cierraLunes" type="time">
+                    @{string abreLunesHorario = "";}
+                    @if ((@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Monday).Single().horarioInicio) < 10)
+                    { abreLunesHorario = ("0" + (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Monday).Single().horarioInicio)) + ":" + "00"); }
+                    else { abreLunesHorario = (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Monday).Single().horarioInicio)) + ":" + "00"; }
+                    @{string cierraLunesHorario = "";}
+                    @if ((@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Monday).Single().horarioFin) < 10)
+                    { cierraLunesHorario = ("0" + (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Monday).Single().horarioFin)) + ":" + "00"); }
+                    else { cierraLunesHorario = (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Monday).Single().horarioFin)) + ":" + "00"; }
+                    De <input class="form-control" name="abreLunes" type="time" value="@abreLunesHorario"> a <input class="form-control" name="cierraLunes" type="time" value="@cierraLunesHorario">
                 </div>
             </div>
 
@@ -168,7 +180,15 @@
                     <label>Martes</label>
                 </div>
                 <div class="col-md-9">
-                    De <input class="form-control" name="abreMartes" type="time"> a <input class="form-control" name="cierraMartes" type="time">
+                    @{string abreMartesHorario = "";}
+                    @if ((@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Tuesday).Single().horarioInicio) < 10)
+                    { abreMartesHorario = ("0" + (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Tuesday).Single().horarioInicio)) + ":" + "00"); }
+                    else { abreMartesHorario = (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Tuesday).Single().horarioInicio)) + ":" + "00"; }
+                    @{string cierraMartesHorario = "";}
+                    @if ((@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Tuesday).Single().horarioFin) < 10)
+                    { cierraMartesHorario = ("0" + (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Tuesday).Single().horarioFin)) + ":" + "00"); }
+                    else { cierraMartesHorario = (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Tuesday).Single().horarioFin)) + ":" + "00"; }
+                    De <input class="form-control" name="abreMartes" type="time" value="@abreMartesHorario"> a <input class="form-control" name="cierraMartes" type="time" value="@cierraMartesHorario">
                 </div>
             </div>
 
@@ -179,7 +199,15 @@
                     <label>Miercoles</label>
                 </div>
                 <div class="col-md-9">
-                    De <input class="form-control" name="abreMiercoles" type="time"> a <input class="form-control" name="cierraMiercoles" type="time">
+                    @{string abreMiercolesHorario = "";}
+                    @if ((@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Wednesday).Single().horarioInicio) < 10)
+                    { abreMiercolesHorario = ("0" + (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Wednesday).Single().horarioInicio)) + ":" + "00"); }
+                    else { abreMiercolesHorario = (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Wednesday).Single().horarioInicio)) + ":" + "00"; }
+                    @{string cierraMiercolesHorario = "";}
+                    @if ((@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Wednesday).Single().horarioFin) < 10)
+                    { cierraMiercolesHorario = ("0" + (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Wednesday).Single().horarioFin)) + ":" + "00"); }
+                    else { cierraMiercolesHorario = (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Wednesday).Single().horarioFin)) + ":" + "00"; }
+                    De <input class="form-control" name="abreMiercoles" type="time" value="@abreMiercolesHorario"> a <input class="form-control" name="cierraMiercoles" type="time" value="@cierraMiercolesHorario">
                 </div>
             </div>
             <div class="col-md-6">
@@ -187,7 +215,15 @@
                     <label>Jueves</label>
                 </div>
                 <div class="col-md-9">
-                    De <input class="form-control" name="abreJueves" type="time"> a <input class="form-control" name="cierraJueves" type="time">
+                    @{string abreJuevesHorario = "";}
+                    @if ((@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Thursday).Single().horarioInicio) < 10)
+                    { abreJuevesHorario = ("0" + (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Thursday).Single().horarioInicio)) + ":" + "00"); }
+                    else { abreJuevesHorario = (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Thursday).Single().horarioInicio)) + ":" + "00"; }
+                    @{string cierraJuevesHorario = "";}
+                    @if ((@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Thursday).Single().horarioFin) < 10)
+                    { cierraJuevesHorario = ("0" + (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Thursday).Single().horarioFin)) + ":" + "00"); }
+                    else { cierraJuevesHorario = (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Thursday).Single().horarioFin)) + ":" + "00"; }
+                    De <input class="form-control" name="abreJueves" type="time" value="@abreJuevesHorario"> a <input class="form-control" name="cierraJueves" type="time" value="@cierraJuevesHorario">
                 </div>
             </div>
 
@@ -196,7 +232,15 @@
                     <label>Viernes</label>
                 </div>
                 <div class="col-md-9">
-                    De <input class="form-control" name="abreViernes" type="time"> a <input class="form-control" name="cierraViernes" type="time">
+                    @{string abreViernesHorario = "";}
+                    @if ((@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Friday).Single().horarioInicio) < 10)
+                    { abreViernesHorario = ("0" + (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Friday).Single().horarioInicio)) + ":" + "00"); }
+                    else { abreViernesHorario = (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Friday).Single().horarioInicio)) + ":" + "00"; }
+                    @{string cierraViernesHorario = "";}
+                    @if ((@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Friday).Single().horarioFin) < 10)
+                    { cierraViernesHorario = ("0" + (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Friday).Single().horarioFin)) + ":" + "00"); }
+                    else { cierraViernesHorario = (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Friday).Single().horarioFin)) + ":" + "00"; }
+                    De <input class="form-control" name="abreViernes" type="time" value="@abreViernesHorario"> a <input class="form-control" name="cierraViernes" type="time" value="@cierraViernesHorario">
                 </div>
             </div>
 
@@ -205,7 +249,15 @@
                     <label>Sabado</label>
                 </div>
                 <div class="col-md-9">
-                    De <input class="form-control" name="abreSabado" type="time"> a <input class="form-control" name="cierraSabado" type="time">
+                    @{string abreSabadoHorario = "";}
+                    @if ((@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Saturday).Single().horarioInicio) < 10)
+                    { abreSabadoHorario = ("0" + (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Saturday).Single().horarioInicio)) + ":" + "00"); }
+                    else { abreSabadoHorario = (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Saturday).Single().horarioInicio)) + ":" + "00"; }
+                    @{string cierraSabadoHorario = "";}
+                    @if ((@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Saturday).Single().horarioFin) < 10)
+                    { cierraSabadoHorario = ("0" + (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Saturday).Single().horarioFin)) + ":" + "00"); }
+                    else { cierraSabadoHorario = (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Saturday).Single().horarioFin)) + ":" + "00"; }
+                    De <input class="form-control" name="abreSabado" type="time" value="@abreSabadoHorario"> a <input class="form-control" name="cierraSabado" type="time" value="@cierraSabadoHorario">
                 </div>
             </div>
 
@@ -214,7 +266,15 @@
                     <label>Domingo</label>
                 </div>
                 <div class="col-md-9">
-                    De <input class="form-control" name="abreDomingo" type="time"> a <input class="form-control" name="cierraDomingo" type="time">
+                    @{string abreDomingoHorario = "";}
+                    @if ((@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Sunday).Single().horarioInicio) < 10)
+                    { abreDomingoHorario = ("0" + (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Sunday).Single().horarioInicio)) + ":" + "00"); }
+                    else { abreDomingoHorario = (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Sunday).Single().horarioInicio)) + ":" + "00"; }
+                    @{string cierraDomingoHorario = "";}
+                    @if ((@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Sunday).Single().horarioFin) < 10)
+                    { cierraDomingoHorario = ("0" + (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Sunday).Single().horarioFin)) + ":" + "00"); }
+                    else { cierraDomingoHorario = (Convert.ToString(@Model.horarioAbierto.Where(d => d.dia == DayOfWeek.Sunday).Single().horarioFin)) + ":" + "00"; }
+                    De <input class="form-control" name="abreDomingo" type="time" value="@abreDomingoHorario"> a <input class="form-control" name="cierraDomingo" type="time" value="@cierraDomingoHorario">
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
 using System.Linq;
+using System.Web.Mvc;
 using TPDDSGrupo44.DataModels;
 
 namespace TPDDSGrupo44.Models
@@ -27,7 +28,7 @@ namespace TPDDSGrupo44.Models
         public virtual List<ServicioBanco> servicios { get; set; }
 
         ////////////////Constructor vacio///////////////
-        public Banco() : base ()
+        public Banco() : base()
         {
             servicios = new List<ServicioBanco>();
             palabrasClave = new List<PalabraClave>();
@@ -38,7 +39,7 @@ namespace TPDDSGrupo44.Models
         //public Banco():base() { }
 
         ////////////////Constructor JSON (usado para generar bancos a partir del JSON que tiene poca data)////////////////
-        public Banco(string nombre, DbGeography unaCoordenada, List<string> serviciosJSON) :base(nombre, unaCoordenada)
+        public Banco(string nombre, DbGeography unaCoordenada, List<string> serviciosJSON) : base(nombre, unaCoordenada)
         {
             nombreDePOI = nombre;
             coordenada = unaCoordenada;
@@ -58,13 +59,13 @@ namespace TPDDSGrupo44.Models
         }
         ////////////////Constructor generico////////////////
         public Banco(DbGeography unaCoordenada, string calle, int numeroAltura, int piso,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, 
-           List<PalabraClave> palabrasClave,string nombreDePOI, List<HorarioAbierto> horarioAbierto, 
-           List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios) 
-            : base (unaCoordenada,calle, numeroAltura, piso, codigoPostal, localidad, barrio, provincia, pais, entreCalles,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles,
+           List<PalabraClave> palabrasClave, string nombreDePOI, List<HorarioAbierto> horarioAbierto,
+           List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
+            : base(unaCoordenada, calle, numeroAltura, piso, codigoPostal, localidad, barrio, provincia, pais, entreCalles,
                   palabrasClave, nombreDePOI, horarioAbierto, horarioFeriado, 0)
 
-          {
+        {
             this.coordenada = unaCoordenada;
             this.calle = calle;
             this.numeroAltura = numeroAltura;
@@ -80,7 +81,7 @@ namespace TPDDSGrupo44.Models
             this.horarioAbierto = horarioAbierto;
             this.horarioFeriado = horarioFeriado;
             this.servicios = servicios;
-        
+
         }
 
         ////////////////Funcion manhattan////////////////
@@ -111,7 +112,22 @@ namespace TPDDSGrupo44.Models
 
 
 
-        //--------------- ABM BANCO --------------------
+        ////////////////Metodos para la ABM////////////////
+
+
+        public static List<Banco> MostrarTodosLosBancos()
+        {
+
+            List<Banco> bancos;
+            using (var db = new BuscAR())
+            {
+                bancos = (from p in db.Bancos
+                          orderby p.nombreDePOI
+                          select p).ToList();
+            }
+            return bancos;
+        }
+
         public static void agregarBanco(Banco banco)
         {
             using (var db = new BuscAR())
@@ -143,22 +159,76 @@ namespace TPDDSGrupo44.Models
             }
         }
 
-        
-
-        public static Banco buscarBanco(string id)
+        public static Banco buscarBanco2(int id)
         {
-            int idBanco = Convert.ToInt32(id);
+
             Banco banco;
             using (var db = new BuscAR())
             {
-                 banco = db.Bancos.Where(b => b.id == idBanco).Single();
-                
+                banco = db.Bancos.Where(p => p.id == id).Single();
+
+            }
+            return banco;
+        }
+        public static Banco buscarBancoPorId(int id)
+        {
+            Banco banco;
+            using (var db = new BuscAR())
+            {
+               banco = db.Bancos.Include("palabrasClave").Include("horarioAbierto").Where(p => p.id == id).Single();
+
             }
             return banco;
         }
 
+        public static Banco buscarBanco(int id)
+        {
 
-        public static void actualizar(int id,DbGeography coordenada,string calle, int numeroAltura, int piso,int codigoPostal, string localidad, string barrio, 
+            Banco banco;
+            using (var db = new BuscAR())
+            {
+                banco = db.Bancos.Include("palabrasClave").Include("servicios").Where(p => p.id == id).Single();
+
+            }
+            return banco;
+        }
+
+        public static void eliminarPalabrasClaves(int id)
+        {
+            using (var db = new BuscAR())
+            {
+
+                Banco banco = db.Bancos.Where(p => p.id == id).Single();
+                banco.palabrasClave.Clear();
+                db.SaveChanges();
+            }
+        }
+
+        public static void eliminarHorarios(int id)
+        {
+            using (var db = new BuscAR())
+            {
+
+                Banco banco = db.Bancos.Where(p => p.id == id).Single();
+                banco.horarioAbierto.Clear();
+                banco.horarioFeriado.Clear();
+                db.SaveChanges();
+            }
+        }
+
+        public static void eliminarServicios(int id)
+        {
+            using (var db = new BuscAR())
+            {
+
+                Banco banco = db.Bancos.Where(p => p.id == id).Single();
+                banco.servicios.Clear();
+
+                db.SaveChanges();
+            }
+        }
+
+        public static void actualizar(int id, DbGeography coordenada, string calle, int numeroAltura, int piso, int codigoPostal, string localidad, string barrio,
             string provincia, string pais, string entreCalles, string nombreDePOI, List<PalabraClave> palabrasClave,
             List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
         {
@@ -185,40 +255,44 @@ namespace TPDDSGrupo44.Models
             }
         }
 
-        public static void eliminarPalabrasClaves(int id)
+
+        public static Banco agregarHorariosAServicios(FormCollection collection, int id)
         {
+            Banco banco;
             using (var db = new BuscAR())
             {
+                banco = db.Bancos.Include("servicios").Where(p => p.id == id).Single();
+                ServicioBanco servicioBanco = new ServicioBanco();
+                servicioBanco.nombre = collection["nombre"];
 
-                Banco banco = db.Bancos.Where(p => p.id == id).Single();
-                banco.palabrasClave.Clear();
+                List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
+                horariosAbierto = funcParce(collection["abreLunes"], collection["cierraLunes"], horariosAbierto, DayOfWeek.Monday);
+                horariosAbierto = funcParce(collection["abreMartes"], collection["cierraMartes"], horariosAbierto, DayOfWeek.Tuesday);
+                horariosAbierto = funcParce(collection["abreMiercoles"], collection["cierraMiercoles"], horariosAbierto, DayOfWeek.Wednesday);
+                horariosAbierto = funcParce(collection["abreJueves"], collection["cierraJueves"], horariosAbierto, DayOfWeek.Thursday);
+                horariosAbierto = funcParce(collection["abreViernes"], collection["cierraViernes"], horariosAbierto, DayOfWeek.Friday);
+                horariosAbierto = funcParce(collection["abreSabado"], collection["cierraSabado"], horariosAbierto, DayOfWeek.Saturday);
+                horariosAbierto = funcParce(collection["abreDomingo"], collection["cierraDomingo"], horariosAbierto, DayOfWeek.Sunday);
+                servicioBanco.horarioAbierto = horariosAbierto;
+
+                banco.servicios.Add(servicioBanco);
                 db.SaveChanges();
             }
+            return banco;
         }
 
-        public static void eliminarHorarios(int id)
+        private static List<HorarioAbierto> funcParce(string horarioApertura, string horarioCierre, List<HorarioAbierto> listHorarios, DayOfWeek dia)
         {
-            using (var db = new BuscAR())
-            {
+            TimeSpan apertura;
+            TimeSpan.TryParse(horarioApertura, out apertura);
+            TimeSpan cierre;
+            TimeSpan.TryParse(horarioCierre, out cierre);
 
-                Banco banco = db.Bancos.Where(p => p.id == id).Single();
-                banco.horarioAbierto.Clear();
-                banco.horarioFeriado.Clear();
-                db.SaveChanges();
-            }
+            HorarioAbierto horarios = new HorarioAbierto(dia, apertura.Hours, cierre.Hours);
+
+            listHorarios.Add(horarios);
+            return listHorarios;
         }
-        public static void eliminarServicios(int id)
-        {
-            using (var db = new BuscAR())
-            {
-
-                Banco banco = db.Bancos.Include("palabrasClave").Where(p => p.id == id).Single();
-                banco.servicios.Clear();
-         
-                db.SaveChanges();
-            }
-        }
-
 
 
 

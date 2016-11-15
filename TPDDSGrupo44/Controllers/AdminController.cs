@@ -191,16 +191,8 @@ namespace TPDDSGrupo44.Controllers
         {
             if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Consultar POI").ToList().Count() > 0)
             {
-                List<ParadaDeColectivo> paradas;
-                using (var db = new BuscAR())
-                {
-                    paradas = (from p in db.Paradas
-                               orderby p.nombreDePOI
-                               select p).ToList();
-                }
-
+                List<ParadaDeColectivo> paradas = ParadaDeColectivo.MostrarTodasLasParadas();
                 return View(paradas);
-
             }
             else
             {
@@ -257,11 +249,7 @@ namespace TPDDSGrupo44.Controllers
         {
             if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Baja POI").ToList().Count() > 0)
             {
-                ParadaDeColectivo parada;
-                using (var db = new BuscAR())
-                {
-                    parada = db.Paradas.Include("palabrasClave").Where(p => p.id == id).Single();
-                }
+                ParadaDeColectivo parada = ParadaDeColectivo.buscarParadaPorId(id);
                 return View(parada);
             }
             else
@@ -300,11 +288,7 @@ namespace TPDDSGrupo44.Controllers
         {
             if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Editar POI").ToList().Count() > 0)
             {
-                ParadaDeColectivo parada;
-                using (var db = new BuscAR())
-                {
-                    parada = db.Paradas.Include("palabrasClave").Where(p => p.id == id).Single();
-                }
+                ParadaDeColectivo parada = ParadaDeColectivo.buscarParadaPorId(id);
                 return View(parada);
             }
             else
@@ -358,14 +342,7 @@ namespace TPDDSGrupo44.Controllers
         {
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Consultar POI").ToList().Count() > 0)
             {
-                List<Banco> bancos;
-                using (var db = new BuscAR())
-                {
-                    bancos = (from p in db.Bancos
-                              orderby p.nombreDePOI
-                              select p).ToList();
-                }
-
+                List<Banco> bancos = Banco.MostrarTodosLosBancos();
                 return View(bancos);
             }
             else
@@ -386,18 +363,16 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-        // POST: Default/Create
+        // POST: Default/Create"
         [HttpPost]
         public ActionResult CreateBanco(FormCollection collection)
         {
             try
             {
-
                 if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
                 {
                     DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Longitude"] + " " + collection["coordenada.Latitude"] + ")");
                     List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
-
                     List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
                     horariosAbierto = funcParce(collection["abreLunes"], collection["cierraLunes"], horariosAbierto, DayOfWeek.Monday);
                     horariosAbierto = funcParce(collection["abreMartes"], collection["cierraMartes"], horariosAbierto, DayOfWeek.Tuesday);
@@ -407,11 +382,7 @@ namespace TPDDSGrupo44.Controllers
                     horariosAbierto = funcParce(collection["abreSabado"], collection["cierraSabado"], horariosAbierto, DayOfWeek.Saturday);
                     horariosAbierto = funcParce(collection["abreDomingo"], collection["cierraDomingo"], horariosAbierto, DayOfWeek.Sunday);
                     List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
-
-
                     List<ServicioBanco> servicios = new List<ServicioBanco>();
-
-
                     Banco banco = new Banco(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                           Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["codigoPostal"]), collection["localidad"],
                           collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
@@ -437,11 +408,7 @@ namespace TPDDSGrupo44.Controllers
         {
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Baja POI").ToList().Count() > 0)
             {
-                Banco banco;
-                using (var db = new BuscAR())
-                {
-                    banco = db.Bancos.Include("palabrasClave").Include("servicios").Where(p => p.id == id).Single();
-                }
+                Banco banco = Banco.buscarBanco2(id);
                 return View(banco);
             }
             else
@@ -477,11 +444,8 @@ namespace TPDDSGrupo44.Controllers
         {
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Editar POI").ToList().Count() > 0)
             {
-                Banco banco;
-                using (var db = new BuscAR())
-                {
-                    banco = db.Bancos.Include("palabrasClave").Where(p => p.id == id).Single();
-                }
+                Banco banco= Banco.buscarBancoPorId(id);
+
                 return View(banco);
             }
             else
@@ -498,22 +462,15 @@ namespace TPDDSGrupo44.Controllers
             {
                 if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Editar POI").ToList().Count() > 0)
                 {
-                    Banco banco = Banco.buscarBanco(collection["id"]);
+                    int id = Convert.ToInt32(collection["id"]);
+                    Banco banco = Banco.buscarBancoPorId(id);
                     if (Request.Form["eliminarServicios"] != null)
                     {
-                        using (var db = new BuscAR())
-                        {
-                            banco = db.Bancos.Include("palabrasClave").Where(p => p.id == banco.id).Single();
-                            banco.servicios.Clear();
-                            db.SaveChanges();
-                        }
+                      Banco.eliminarServicios(id);
                       return View(banco);
                     }
-
-                    int id = Convert.ToInt16(collection["id"]);
                     Banco.eliminarPalabrasClaves(id);
                     List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
-
                     DbGeography coordenada = actualizarCoordenada(collection["coordenada.Latitude"], collection["coordenada.Longitude"]);
 
                     Banco.eliminarHorarios(id);
@@ -526,21 +483,18 @@ namespace TPDDSGrupo44.Controllers
                     horariosAbierto = funcParce(collection["abreSabado"], collection["cierraSabado"], horariosAbierto, DayOfWeek.Saturday);
                     horariosAbierto = funcParce(collection["abreDomingo"], collection["cierraDomingo"], horariosAbierto, DayOfWeek.Sunday);
                     List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
-
                     List<ServicioBanco> servicios = new List<ServicioBanco>();
-
+        
                     Banco.actualizar(id, coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]), Convert.ToInt32(collection["piso"]),
                       Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], collection["provincia"],
                       collection["pais"], collection["entreCalles"], collection["nombreDePOI"], palabrasClave, horariosAbierto, horariosFeriado, servicios);
-
-                   
-
-
+                     
 
                     if (Request.Form["siguiente"] != null)
                     {
-                     return RedirectToAction("CreateServBancos", banco);
+                        return RedirectToAction("CreateServBancos", banco);
                     }
+
 
 
 
@@ -586,27 +540,8 @@ namespace TPDDSGrupo44.Controllers
                     {
                         return RedirectToAction("ABMBanco", "Admin");
                     }
-                    Banco banco;
-                    using (var db = new BuscAR())
-                    {
-                        banco = db.Bancos.Where(p => p.id == id).Single();
-                        ServicioBanco servicioBanco = new ServicioBanco();
-                        servicioBanco.nombre = collection["nombre"];
 
-                        List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
-                        horariosAbierto = funcParce(collection["abreLunes"], collection["cierraLunes"], horariosAbierto, DayOfWeek.Monday);
-                        horariosAbierto = funcParce(collection["abreMartes"], collection["cierraMartes"], horariosAbierto, DayOfWeek.Tuesday);
-                        horariosAbierto = funcParce(collection["abreMiercoles"], collection["cierraMiercoles"], horariosAbierto, DayOfWeek.Wednesday);
-                        horariosAbierto = funcParce(collection["abreJueves"], collection["cierraJueves"], horariosAbierto, DayOfWeek.Thursday);
-                        horariosAbierto = funcParce(collection["abreViernes"], collection["cierraViernes"], horariosAbierto, DayOfWeek.Friday);
-                        horariosAbierto = funcParce(collection["abreSabado"], collection["cierraSabado"], horariosAbierto, DayOfWeek.Saturday);
-                        horariosAbierto = funcParce(collection["abreDomingo"], collection["cierraDomingo"], horariosAbierto, DayOfWeek.Sunday);
-                        servicioBanco.horarioAbierto = horariosAbierto;
-
-
-                        banco.servicios.Add(servicioBanco);
-                        db.SaveChanges();
-                    }
+                    Banco banco = Banco.agregarHorariosAServicios(collection, id);
 
                     if (Request.Form["terminar"] != null)
                     {

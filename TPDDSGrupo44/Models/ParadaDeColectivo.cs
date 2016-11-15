@@ -110,6 +110,34 @@ namespace TPDDSGrupo44.Models
         }
 
 
+        ////////////////Metodos para la ABM////////////////
+
+        public static ParadaDeColectivo buscarParadaPorId(int id)
+        {
+            ParadaDeColectivo parada;
+
+            using (var db = new BuscAR())
+            {
+                parada = db.Paradas.Include("palabrasClave").Where(p => p.id == id).Single();
+            }
+            return parada;
+
+
+        }
+
+        public static List<ParadaDeColectivo> MostrarTodasLasParadas() {
+
+            List<ParadaDeColectivo> paradas;
+
+            using (var db = new BuscAR())
+            {
+                paradas = (from p in db.Paradas
+                           orderby p.nombreDePOI
+                           select p).ToList();
+            }
+            return paradas;
+        }
+
 
         public static void agregarParada(ParadaDeColectivo parada)
         {
@@ -139,18 +167,17 @@ namespace TPDDSGrupo44.Models
 
         public static void eliminarPalabrasClaves(int id)
         {
+            ParadaDeColectivo parada;
             using (var db = new BuscAR())
             {
 
-                ParadaDeColectivo parada = db.Paradas.Where(p => p.id == id).Single();
+                parada = db.Paradas.Where(p => p.id == id).Single();
                 parada.palabrasClave.Clear();
                 db.SaveChanges();
             }
 
 
         }
-
-
 
         public static void actualizar(int id, DbGeography unaCoordenada,string calle, int numeroAltura, int codigoPostal, string localidad, string barrio, string provincia, string pais,
             string entreCalles, List<PalabraClave> palabrasClave, string nombreDePOI)
