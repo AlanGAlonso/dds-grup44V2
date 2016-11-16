@@ -1,0 +1,112 @@
+﻿
+@model TPDDSGrupo44.ViewModels.ServCGPViewModel
+
+@{
+    ViewBag.Title = "CreateServCGP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2> Crear servicio de CGP</h2>
+
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @using (Html.BeginForm("CreateServCGP", "Admin", FormMethod.Post))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.idCGP)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group col-md-12">
+
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    <label>Lunes</label>
+                </div>
+                <div class="col-md-9">
+                    De <input class="form-control" name="abreLunes" type="time"> a <input class="form-control" name="cierraLunes" type="time">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    <label>Martes</label>
+                </div>
+                <div class="col-md-9">
+                    De <input class="form-control" name="abreMartes" type="time"> a <input class="form-control" name="cierraMartes" type="time">
+                </div>
+            </div>
+
+
+
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    <label>Miercoles</label>
+                </div>
+                <div class="col-md-9">
+                    De <input class="form-control" name="abreMiercoles" type="time"> a <input class="form-control" name="cierraMiercoles" type="time">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    <label>Jueves</label>
+                </div>
+                <div class="col-md-9">
+                    De <input class="form-control" name="abreJueves" type="time"> a <input class="form-control" name="cierraJueves" type="time">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    <label>Viernes</label>
+                </div>
+                <div class="col-md-9">
+                    De <input class="form-control" name="abreViernes" type="time"> a <input class="form-control" name="cierraViernes" type="time">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    <label>Sabado</label>
+                </div>
+                <div class="col-md-9">
+                    De <input class="form-control" name="abreSabado" type="time"> a <input class="form-control" name="cierraSabado" type="time">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    <label>Domingo</label>
+                </div>
+                <div class="col-md-9">
+                    De <input class="form-control" name="abreDomingo" type="time"> a <input class="form-control" name="cierraDomingo" type="time">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Agregar Otro Servicio" class="btn btn-default" name="siguiente" />
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Finalizar" class="btn btn-default" name="terminar" />
+            </div>
+        </div>
+    }
+</div>

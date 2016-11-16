@@ -227,6 +227,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ActionWithPermissions.cs" />
+    <Compile Include="Migrations\201611161959502_InitialCreate.cs" />
+    <Compile Include="Migrations\201611161959502_InitialCreate.Designer.cs">
+      <DependentUpon>201611161959502_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
     <Compile Include="Models\ActualizacionLocalComercial.cs" />
@@ -263,6 +267,7 @@
     <Compile Include="ViewModels\SearchsPerDayViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\ServBViewModel.cs" />
+    <Compile Include="ViewModels\ServCGPViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -351,6 +356,7 @@
     <Content Include="Scripts\json\BancJson.json" />
     <Content Include="Scripts\json\CGPjson.json" />
     <Content Include="Scripts\json\DispositivoTactiljson.json" />
+    <Content Include="Views\Admin\CreateServCGP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -360,6 +366,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201611161959502_InitialCreate.resx">
+      <DependentUpon>201611161959502_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

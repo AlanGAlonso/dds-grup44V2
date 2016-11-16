@@ -512,7 +512,6 @@ namespace TPDDSGrupo44.Controllers
             }
 }
 
-
         
         public ActionResult CreateServBancos(Banco banco)
         {
@@ -576,14 +575,7 @@ namespace TPDDSGrupo44.Controllers
         {
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Consultar POI").ToList().Count() > 0)
             {
-                List<CGP> cgp;
-                using (var db = new BuscAR())
-                {
-                    cgp = (from p in db.CGPs
-                           orderby p.nombreDePOI
-                           select p).ToList();
-                }
-
+                List<CGP> cgp = CGP.buscarCGPs();
                 return View(cgp);
             }
             else
@@ -617,8 +609,13 @@ namespace TPDDSGrupo44.Controllers
                     List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
 
                     List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
-                    //HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
-                    //horariosAbierto.Add(horarios);
+                    horariosAbierto = funcParce(collection["abreLunes"], collection["cierraLunes"], horariosAbierto, DayOfWeek.Monday);
+                    horariosAbierto = funcParce(collection["abreMartes"], collection["cierraMartes"], horariosAbierto, DayOfWeek.Tuesday);
+                    horariosAbierto = funcParce(collection["abreMiercoles"], collection["cierraMiercoles"], horariosAbierto, DayOfWeek.Wednesday);
+                    horariosAbierto = funcParce(collection["abreJueves"], collection["cierraJueves"], horariosAbierto, DayOfWeek.Thursday);
+                    horariosAbierto = funcParce(collection["abreViernes"], collection["cierraViernes"], horariosAbierto, DayOfWeek.Friday);
+                    horariosAbierto = funcParce(collection["abreSabado"], collection["cierraSabado"], horariosAbierto, DayOfWeek.Saturday);
+                    horariosAbierto = funcParce(collection["abreDomingo"], collection["cierraDomingo"], horariosAbierto, DayOfWeek.Sunday);
                     List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
                     List<ServicioCGP> servicios = new List<ServicioCGP>();
 
@@ -630,7 +627,7 @@ namespace TPDDSGrupo44.Controllers
 
                     CGP.agregarCGP(cgp);
 
-                    return RedirectToAction("ABMCGP");
+                    return RedirectToAction("CreateServCGP",cgp);
                 }
                 else
                 {
@@ -647,11 +644,7 @@ namespace TPDDSGrupo44.Controllers
         {
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Baja POI").ToList().Count() > 0)
             {
-                CGP cgp;
-                using (var db = new BuscAR())
-                {
-                    cgp = db.CGPs.Include("palabrasClave").Where(p => p.id == id).Single();
-                }
+                CGP cgp = CGP.buscarCGPDelete(id);
                 return View(cgp);
             }
             else
@@ -688,11 +681,7 @@ namespace TPDDSGrupo44.Controllers
         {
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Editar POI").ToList().Count() > 0)
             {
-                CGP cgp;
-                using (var db = new BuscAR())
-                {
-                    cgp = db.CGPs.Include("palabrasClave").Where(p => p.id == id).Single();
-                }
+                CGP cgp = CGP.buscarCGPEdit(id);
                 return View(cgp);
             }
             else
@@ -711,15 +700,29 @@ namespace TPDDSGrupo44.Controllers
                 {
 
                     int id = Convert.ToInt16(collection["id"]);
+                    CGP cgp =   CGP.buscarCGPEdit(id);
+
+                    if (Request.Form["eliminarServicios"] != null)
+                    {
+                        CGP.eliminarServicios(id);
+                        return View(cgp);
+                    }
+
                     CGP.eliminarPalabrasClaves(id);
-                    DbGeography coordenada = actualizarCoordenada(collection["coordenada.Latitude"], collection["coordenada.Longitude"]);
+
                     List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
+                    DbGeography coordenada = actualizarCoordenada(collection["coordenada.Latitude"], collection["coordenada.Longitude"]);
 
+                    CGP.eliminarHorarios(id);
                     List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
-                    //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
-                    //         horariosAbierto.Add(horarios);
+                    horariosAbierto = funcParce(collection["abreLunes"], collection["cierraLunes"], horariosAbierto, DayOfWeek.Monday);
+                    horariosAbierto = funcParce(collection["abreMartes"], collection["cierraMartes"], horariosAbierto, DayOfWeek.Tuesday);
+                    horariosAbierto = funcParce(collection["abreMiercoles"], collection["cierraMiercoles"], horariosAbierto, DayOfWeek.Wednesday);
+                    horariosAbierto = funcParce(collection["abreJueves"], collection["cierraJueves"], horariosAbierto, DayOfWeek.Thursday);
+                    horariosAbierto = funcParce(collection["abreViernes"], collection["cierraViernes"], horariosAbierto, DayOfWeek.Friday);
+                    horariosAbierto = funcParce(collection["abreSabado"], collection["cierraSabado"], horariosAbierto, DayOfWeek.Saturday);
+                    horariosAbierto = funcParce(collection["abreDomingo"], collection["cierraDomingo"], horariosAbierto, DayOfWeek.Sunday);
                     List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
-
                     List<ServicioCGP> servicios = new List<ServicioCGP>();
 
                     CGP.actualizar(id, coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
@@ -729,6 +732,10 @@ namespace TPDDSGrupo44.Controllers
                           servicios, Convert.ToInt32(collection["zonaDelimitadaPorLaComuna"]), horariosAbierto, horariosFeriado);
 
 
+                    if (Request.Form["siguiente"] != null)
+                    {
+                        return RedirectToAction("CreateServCGP", cgp);
+                    }
 
                     return RedirectToAction("ABMCGP");
                 }
@@ -736,6 +743,60 @@ namespace TPDDSGrupo44.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        public ActionResult CreateServCGP(CGP cgp)
+        {
+            if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
+            {
+                ServCGPViewModel viewModel = new ServCGPViewModel(cgp.id);
+
+                return View(viewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CreateServCGP(FormCollection collection, int id)
+        {
+            try
+            {
+
+                if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Alta POI").ToList().Count() > 0)
+                {
+                    if (Request.Form["terminar"] != null && (collection["nombre"] == null))
+                    {
+                        return RedirectToAction("ABMCGP", "Admin");
+                    }
+
+                    CGP cgp = CGP.agregarHorariosAServicios(collection, id);
+
+                    if (Request.Form["terminar"] != null)
+                    {
+                        return RedirectToAction("ABMCGP", "Admin");
+                    }
+                    else
+                    {
+                        ServCGPViewModel viewModel = new ServCGPViewModel(cgp.id);
+                        return RedirectToAction("CreateServCGP", "Admin", viewModel);
+                    }
+
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+
             }
             catch
             {

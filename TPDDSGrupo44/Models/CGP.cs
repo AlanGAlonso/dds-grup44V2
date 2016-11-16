@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
 using System.Linq;
+using System.Web.Mvc;
 using TPDDSGrupo44.DataModels;
 
 namespace TPDDSGrupo44.Models
@@ -193,9 +194,6 @@ namespace TPDDSGrupo44.Models
             }
         }
 
-
-
-
         public static void eliminarPalabrasClaves(int id)
         {
             using (var db = new BuscAR())
@@ -207,5 +205,101 @@ namespace TPDDSGrupo44.Models
             }
         }
 
+
+        public static List<CGP> buscarCGPs()
+        {
+            List<CGP> cgp;
+            using (var db = new BuscAR())
+            {
+                cgp = (from p in db.CGPs
+                       orderby p.nombreDePOI
+                       select p).ToList();
+            }
+            return cgp;
+        }
+
+        public static CGP agregarHorariosAServicios(FormCollection collection, int id)
+        {
+            CGP cgp;
+            using (var db = new BuscAR())
+            {
+                cgp = db.CGPs.Include("servicios").Where(p => p.id == id).Single();
+                ServicioCGP servicioCGP = new ServicioCGP();
+                servicioCGP.nombre = collection["nombre"];
+
+                List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
+                horariosAbierto = funcParce(collection["abreLunes"], collection["cierraLunes"], horariosAbierto, DayOfWeek.Monday);
+                horariosAbierto = funcParce(collection["abreMartes"], collection["cierraMartes"], horariosAbierto, DayOfWeek.Tuesday);
+                horariosAbierto = funcParce(collection["abreMiercoles"], collection["cierraMiercoles"], horariosAbierto, DayOfWeek.Wednesday);
+                horariosAbierto = funcParce(collection["abreJueves"], collection["cierraJueves"], horariosAbierto, DayOfWeek.Thursday);
+                horariosAbierto = funcParce(collection["abreViernes"], collection["cierraViernes"], horariosAbierto, DayOfWeek.Friday);
+                horariosAbierto = funcParce(collection["abreSabado"], collection["cierraSabado"], horariosAbierto, DayOfWeek.Saturday);
+                horariosAbierto = funcParce(collection["abreDomingo"], collection["cierraDomingo"], horariosAbierto, DayOfWeek.Sunday);
+                servicioCGP.horarioAbierto = horariosAbierto;
+
+                cgp.servicios.Add(servicioCGP);
+                db.SaveChanges();
+            }
+            return cgp;
+
+        }
+
+
+
+        private static List<HorarioAbierto> funcParce(string horarioApertura, string horarioCierre, List<HorarioAbierto> listHorarios, DayOfWeek dia)
+        {
+            TimeSpan apertura;
+            TimeSpan.TryParse(horarioApertura, out apertura);
+            TimeSpan cierre;
+            TimeSpan.TryParse(horarioCierre, out cierre);
+
+            HorarioAbierto horarios = new HorarioAbierto(dia, apertura.Hours, cierre.Hours);
+
+            listHorarios.Add(horarios);
+            return listHorarios;
+        }
+
+
+        public static CGP buscarCGPDelete(int id)
+        {
+            CGP cgp;
+            using (var db = new BuscAR())
+            {
+                cgp = db.CGPs.Include("palabrasClave").Where(p => p.id == id).Single();
+            }
+            return cgp;
+        }
+        public static CGP buscarCGPEdit(int id)
+        {
+            CGP cgp;
+            using (var db = new BuscAR())
+            {
+                cgp = db.CGPs.Include("palabrasClave").Include("horarioAbierto").Where(p => p.id == id).Single();
+
+            }
+            return cgp;
+        }
+
+        public static void eliminarHorarios(int id)
+        {
+            using (var db = new BuscAR())
+            {
+
+                CGP cgp = db.CGPs.Where(p => p.id == id).Single();
+                cgp.horarioAbierto.Clear();
+                cgp.horarioFeriado.Clear();
+                db.SaveChanges();
+            }
+        }
+        public static void eliminarServicios(int id)
+        {
+            using (var db = new BuscAR())
+            {
+
+                CGP cgp = db.CGPs.Where(p => p.id == id).Single();
+                cgp.servicios.Clear();
+                db.SaveChanges();
+            }
+        }
     }
 }
