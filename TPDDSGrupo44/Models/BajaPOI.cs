@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Script.Serialization;
@@ -32,7 +31,7 @@ namespace TPDDSGrupo44.Models
 
                     foreach (JsonBajaPOI p in listbp)
                     {
-                        SearchViewModel modeloVista = MotorDeBusqueda.buscar(p.id.ToString());
+                        SearchViewModel modeloVista = MotorDeBusqueda.buscar(p.id.ToString(), SearchViewModel.Instance);
 
                         if (modeloVista.paradasEncontradas.Count > 0)
                         {

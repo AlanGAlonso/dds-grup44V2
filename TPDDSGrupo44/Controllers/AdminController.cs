@@ -28,7 +28,8 @@ namespace TPDDSGrupo44.Controllers
         {
             if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Reportes").ToList().Count() > 0)
             {
-                return View(recuperarBusquedas());
+                //return View(recuperarBusquedas());
+                return View(new SearchsPerDayViewModel());
             }
             else
             {
@@ -170,6 +171,7 @@ namespace TPDDSGrupo44.Controllers
                 {
                     Configuracion config = db.Configuraciones.Single();
                     config.duracionMaximaBusquedas = Convert.ToInt32(collection["duracionMaximaBusquedas"]);
+                    config.generarLog = Convert.ToBoolean(collection["generarLog"]);
                     BaseViewModel.configuracion = config;
 
                     db.SaveChanges();

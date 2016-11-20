@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TPDDSGrupo44.DataModels.Busqueda>
+﻿@model TPDDSGrupo44.ViewModels.SearchsPerDayViewModel
 
 @{
     ViewBag.Title = "Búsquedas por Día";
@@ -6,12 +6,14 @@
 }
 
 <h2>Búsquedas por Día</h2>
-
-<p>Todas las búsquedas</p>
 <table class="table">
 
-
-    @foreach (var group in Model.GroupBy(item => item.fecha)) {
+    <tr>
+        <th>Día</th>
+        <th>Cantidad de búsquedas</th>
+    </tr>
+    @foreach (var group in Model.busquedasPorDia)
+        {
 
     <tr>
         <td>

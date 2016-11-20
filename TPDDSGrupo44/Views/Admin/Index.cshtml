@@ -9,7 +9,7 @@
 
 <nav>@Html.ActionLink("Busquedas por Día", "SearchPerDay", "Admin") | @Html.ActionLink("Resultados por Búsqueda", "ResultsPerSearch", "Admin") </nav>
 
-<p>Todas las búsquedas</p>
+<h3>Todas las búsquedas</h3>
 <table class="table">
     <tr>
         <th>
@@ -33,7 +33,7 @@
             @Html.DisplayFor(modelItem => item.cantidadDeResultados)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.fecha)
+            @Html.DisplayFor(modelItem => item.fecha.Date)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.duracionDeBusqueda)

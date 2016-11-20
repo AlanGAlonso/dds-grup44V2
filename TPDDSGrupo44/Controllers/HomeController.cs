@@ -12,7 +12,7 @@ namespace TPDDSGrupo44.Controllers
 
         public ActionResult Index()
         {
-            SearchViewModel modeloVista = new SearchViewModel();
+            SearchViewModel modeloVista = SearchViewModel.Instance;
             return View(modeloVista);
         }
 
@@ -28,7 +28,7 @@ namespace TPDDSGrupo44.Controllers
 
             try
             {
-                SearchViewModel modeloVista = MotorDeBusqueda.buscar(palabraBusqueda);
+                SearchViewModel modeloVista = MotorDeBusqueda.buscar(palabraBusqueda, SearchViewModel.Instance);
                 int resultados = modeloVista.bancosEncontrados.Count() + modeloVista.bancosEncontradosCerca.Count() + modeloVista.cgpsEncontrados.Count() + modeloVista.localesEncontrados.Count() + modeloVista.localesEncontradosCerca.Count() + modeloVista.paradasEncontradas.Count() + modeloVista.paradasEncontradasCerca.Count();
                 if (resultados == 0)
                 {

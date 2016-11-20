@@ -23,7 +23,8 @@ namespace TPDDSGrupo44.Migrations
             context.Configuraciones.AddOrUpdate(c => c.duracionMaximaBusquedas,
             new Configuracion
             {
-                duracionMaximaBusquedas = 30
+                duracionMaximaBusquedas = 30,
+                generarLog = true
             });
 
             //ROLES

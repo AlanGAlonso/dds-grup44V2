@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TPDDSGrupo44.DataModels;
@@ -20,7 +19,7 @@ namespace TPDDSGrupo44.Controllers
             List<PuntoDeInteres> puntos = new List<PuntoDeInteres>();
 
             
-                    modelo = MotorDeBusqueda.buscar(id);
+                    modelo = MotorDeBusqueda.buscar(id,SearchViewModel.Instance);
                     puntos.AddRange(modelo.bancosEncontrados);
                     puntos.AddRange(modelo.bancosEncontradosCerca);
                     puntos.AddRange(modelo.cgpsEncontrados);

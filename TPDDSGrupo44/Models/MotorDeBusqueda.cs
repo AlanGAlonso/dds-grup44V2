@@ -13,14 +13,12 @@ namespace TPDDSGrupo44.Models
 
         public MotorDeBusqueda() { }
 
-        public static SearchViewModel buscar(string palabraBusqueda)
+        public static SearchViewModel buscar(string palabraBusqueda, SearchViewModel modeloVista)
         {
             Stopwatch contador = new Stopwatch();
             contador.Start();
             using (var db = new BuscAR())
             {
-
-                SearchViewModel modeloVista = new SearchViewModel();
 
                 //Defino ubicación actual (UTN/CAMPUS)
                 DispositivoTactil dispositivoTactil = BaseViewModel.terminal;
@@ -41,9 +39,7 @@ namespace TPDDSGrupo44.Models
                 modeloVista.resultados = modeloVista.bancosEncontrados.Count() + modeloVista.bancosEncontradosCerca.Count() + modeloVista.cgpsEncontrados.Count() + modeloVista.localesEncontrados.Count() + modeloVista.localesEncontradosCerca.Count() + modeloVista.paradasEncontradas.Count() + modeloVista.paradasEncontradasCerca.Count();
 
                 if (dispositivoTactil.funcionalidades.Where(f => f.nombre == "Loggear Búsquedas").ToList().Count() != 0) {
-                    Busqueda busqueda = new Busqueda(palabraBusqueda, modeloVista.resultados, DateTime.Today, dispositivoTactil, contador.Elapsed);
-                    db.Busquedas.Add(busqueda);
-                    db.SaveChanges();
+                    Busqueda.registrarBusqueda(palabraBusqueda, modeloVista.resultados, dispositivoTactil, contador.Elapsed);
                 }
 
 

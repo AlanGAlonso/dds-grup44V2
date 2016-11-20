@@ -17,12 +17,12 @@
     $("#password").on("blur", function () {
         //validación Contraseña 1
         if (dni) {
-        if ($(this).val().length >= 5) {
-            password = true;
-        } else {
-            password = false;
-            alert("La contraseña debe tener al menos 5 caracteres.");
-        }
+            if ($(this).val().length >= 5) {
+                password = true;
+            } else {
+                password = false;
+                alert("La contraseña debe tener al menos 5 caracteres.");
+            }
         }
         validar();
     });

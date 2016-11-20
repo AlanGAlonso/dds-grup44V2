@@ -16,7 +16,8 @@ namespace TPDDSGrupo44.ViewModels
         public List<LocalComercial> localesEncontrados { get; set; }
         public List<LocalComercial> localesEncontradosCerca { get; set; }
         public int resultados { get; set; }
-        public new DispositivoTactil terminal { get; set; }
+
+        private static SearchViewModel instance;
 
         public SearchViewModel() : base ()
         {
@@ -36,5 +37,25 @@ namespace TPDDSGrupo44.ViewModels
             resultados = 0;
         }
 
+        public static new SearchViewModel Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new SearchViewModel();
+                }
+                instance.paradasEncontradas = new List<ParadaDeColectivo>();
+                instance.paradasEncontradasCerca = new List<ParadaDeColectivo>();
+                instance.bancosEncontrados = new List<Banco>();
+                instance.bancosEncontradosCerca = new List<Banco>();
+                instance.cgpsEncontrados = new List<CGP>();
+                instance.cgpsEncontradosCerca = new List<CGP>();
+                instance.localesEncontrados = new List<LocalComercial>();
+                instance.localesEncontradosCerca = new List<LocalComercial>();
+                instance.resultados = 0;
+                return instance;
+            }
+        }
     }
 }

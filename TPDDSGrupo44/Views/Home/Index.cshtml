@@ -12,15 +12,15 @@
     @if (Model != null)
     {
         <script>
-    $(document).ready(function() {
-                var text = "@Model.terminal.nombre";
+            $(document).ready(function () {
+                var text = "@TPDDSGrupo44.ViewModels.BaseViewModel.terminal.nombre";
                 var place = {
-            lat: parseFloat(@Model.terminal.coordenada.Latitude),
-        lng: parseFloat(@Model.terminal.coordenada.Longitude)
-        };
+                    lat: parseFloat(@TPDDSGrupo44.ViewModels.BaseViewModel.terminal.coordenada.Latitude),
+                    lng: parseFloat(@TPDDSGrupo44.ViewModels.BaseViewModel.terminal.coordenada.Longitude)
+                };
 
-            initMap(place, text);
-    });
+                initMap(place, text);
+            });
         </script>
     }
         

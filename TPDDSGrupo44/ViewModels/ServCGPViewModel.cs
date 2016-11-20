@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using TPDDSGrupo44.Models;
 
 namespace TPDDSGrupo44.ViewModels
