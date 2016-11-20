@@ -227,9 +227,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ActionWithPermissions.cs" />
-    <Compile Include="Migrations\201611201932485_InitialCreate.cs" />
-    <Compile Include="Migrations\201611201932485_InitialCreate.Designer.cs">
-      <DependentUpon>201611201932485_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201611202141006_InitialCreate.cs" />
+    <Compile Include="Migrations\201611202141006_InitialCreate.Designer.cs">
+      <DependentUpon>201611202141006_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
@@ -292,6 +292,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\common.js" />
+    <Content Include="Scripts\createParada.js" />
+    <Content Include="Scripts\EditParada.js" />
     <Content Include="Scripts\index.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -307,6 +309,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\register.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -350,6 +353,9 @@
     <Content Include="Views\Admin\CreateServBancos.cshtml" />
     <Content Include="Views\Admin\ABMTerminal.cshtml" />
     <Content Include="Views\Admin\EditTerminal.cshtml" />
+    <Content Include="Scripts\json\BancJson.json" />
+    <Content Include="Scripts\json\CGPjson.json" />
+    <Content Include="Scripts\json\DispositivoTactiljson.json" />
     <Content Include="Views\Admin\CreateServCGP.cshtml" />
     <Content Include="Views\User\LogIn.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
@@ -364,8 +370,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611201932485_InitialCreate.resx">
-      <DependentUpon>201611201932485_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611202141006_InitialCreate.resx">
+      <DependentUpon>201611202141006_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
