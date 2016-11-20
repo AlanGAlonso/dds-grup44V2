@@ -27,15 +27,21 @@ $(document).ready(function () {
 
     $("#agregar").on("click", function () {
         var ultimoArg = $(".argumento:not(.bloqueado)");
-        ultimoArg.addClass("bloqueado");
-        ultimoArg.attr("disabled", "disabled");
-        var idUltimoArg = parseInt(ultimoArg.attr("name").split("-")[1]);
-        $("#palabraClave").val($("#palabraClave").val() + ultimoArg.val() + ",");
 
-        var proxArg = idUltimoArg + 1;
-        ultimoArg.after("<span class='ion-ios-close-outline delete-arg' id='argumento-" + idUltimoArg + "'></span>");
-        $("#argumentos").prepend("<input type='text' class='argumento' autofocus placeholder='¿Qué buscás?' name='argumento-" + proxArg + "' style='display:none'/><br>");
-        $("input[name='argumento-" + proxArg + "']").slideDown(500);
+        if (ultimoArg.val() != "") {
+            ultimoArg.addClass("bloqueado");
+            ultimoArg.attr("disabled", "disabled");
+            var idUltimoArg = parseInt(ultimoArg.attr("name").split("-")[1]);
+            $("#palabraClave").val($("#palabraClave").val() + ultimoArg.val() + ",");
+            ultimoArg.after("<span class='ion-ios-close-outline delete-arg' id='argumento-" + idUltimoArg + "'></span>");
+
+            var proxArg = idUltimoArg + 1;
+        
+            $("#argumentos").prepend("<input type='text' class='argumento' autofocus placeholder='¿Qué buscás?' name='argumento-" + proxArg + "' style='display:none'/><br>");
+            $("input[name='argumento-" + proxArg + "']").slideDown(500);
+        } else {
+            alert("Por favor, ingresá un argumento de búsqueda.")
+        }
     });
 
     $("#argumentos").on("click",".delete-arg", function () {
