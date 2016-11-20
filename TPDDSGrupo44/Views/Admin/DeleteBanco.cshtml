@@ -9,13 +9,21 @@
 
 <h3>¿Esta seguro que quiere eliminar este POI?</h3>
 <div>
-    <h4>Banco</h4>
+   
     <hr />
     <dl class="dl-horizontal">
 
+        <dt>
+            @Html.Label("Nombre del POI")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreDePOI)
+        </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.calle)
+            <label>Calle</label>
+
         </dt>
 
         <dd>
@@ -23,7 +31,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.numeroAltura)
+            <label>Altura</label>
         </dt>
 
         <dd>
@@ -31,7 +39,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.piso)
+            <label>Piso</label>       
         </dt>
 
         <dd>
@@ -39,7 +47,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.unidad)
+            <label>Unidad</label> 
         </dt>
 
         <dd>
@@ -47,7 +55,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.codigoPostal)
+            <label>Codigo Postal</label> 
         </dt>
 
         <dd>
@@ -55,7 +63,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.localidad)
+            <label>Localidad</label> 
         </dt>
 
         <dd>
@@ -63,7 +71,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.barrio)
+            <label>Barrio</label> 
         </dt>
 
         <dd>
@@ -71,7 +79,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.provincia)
+            <label>Provincia</label> 
         </dt>
 
         <dd>
@@ -79,7 +87,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.pais)
+            <label>Pais</label> 
         </dt>
 
         <dd>
@@ -87,19 +95,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.entreCalles)
+            <label>Entre Calles</label> 
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.entreCalles)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.nombreDePOI)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.nombreDePOI)
         </dd>
 
     </dl>

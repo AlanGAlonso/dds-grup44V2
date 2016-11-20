@@ -10,13 +10,21 @@
 
 <h3>¿Esta seguro que quiere eliminar este POI?</h3>
 <div>
-    <h4>CGP</h4>
+
     <hr />
 
     <dl class="dl-horizontal">
 
         <dt>
-            @Html.DisplayNameFor(model => model.calle)
+            @Html.Label("Nombre del POI")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreDePOI)
+        </dd>
+
+        <dt>
+            <label>Calle</label> 
         </dt>
 
         <dd>
@@ -24,7 +32,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.numeroAltura)
+            <label>Altura</label>
         </dt>
 
         <dd>
@@ -32,7 +40,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.codigoPostal)
+            <label>Codigo Postal</label>         
         </dt>
 
         <dd>
@@ -40,7 +48,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.localidad)
+            <label>Localidad</label> 
         </dt>
 
         <dd>
@@ -48,7 +56,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.barrio)
+            <label>Barrio</label>         
         </dt>
 
         <dd>
@@ -56,7 +64,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.provincia)
+            <label>Provincia</label> 
         </dt>
 
         <dd>
@@ -64,7 +72,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.pais)
+            <label>Pais</label> 
         </dt>
 
         <dd>
@@ -72,20 +80,14 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.entreCalles)
+            <label>Entre Calles</label> 
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.entreCalles)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.nombreDePOI)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.nombreDePOI)
-        </dd>
 
 
     </dl>

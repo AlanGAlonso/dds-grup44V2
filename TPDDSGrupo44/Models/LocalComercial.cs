@@ -210,10 +210,14 @@ namespace TPDDSGrupo44.Models
             LocalComercial localComercial = busquedaParaEdit(id);
             using (var db = new BuscAR())
             {
-            localComercial.rubro.nombre = nombre;
-            localComercial.rubro.radioDeCercania = Convert.ToInt32(radioDeCercania);
-            db.SaveChanges();
+                Rubro rub=db.Rubros.Where(p => p.Id == localComercial.rubro.Id).Single();
+
+                rub.nombre = nombre;
+                rub.radioDeCercania = Convert.ToInt32(radioDeCercania);
+                db.SaveChanges();
             }
+ 
+
         }
 
         public static void eliminarHorarios(int id)
