@@ -24,6 +24,7 @@ namespace TPDDSGrupo44.DataModels
             CGP cgp = new CGP();
 
             cgp.nombreDePOI = "Sede Comunal " + comuna;
+            cgp.numeroDeComuna = comuna;
             cgp.palabrasClave = new List<PalabraClave>();
             cgp.palabrasClave.Add(new PalabraClave("CGP"));
             cgp.palabrasClave.Add(new PalabraClave(cgp.nombreDePOI));
