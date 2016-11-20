@@ -210,6 +210,7 @@ new DispositivoTactil
                 entreCalles = "Saraza y Dellepiane Sur",
                 palabrasClave = new List<PalabraClave> {
                     new PalabraClave("Colectivo"),
+                    new PalabraClave("114"),
                     new PalabraClave("Bondi") },
                 coordenada = DbGeography.FromText("POINT(-34.659690 -58.468764)"),
 
@@ -238,6 +239,7 @@ new ParadaDeColectivo
     entreCalles = "Av Derqui y Dellepiane Norte",
     palabrasClave = new List<PalabraClave> {
                     new PalabraClave("Colectivo"),
+                    new PalabraClave("36"),
                     new PalabraClave("Bondi") },
     coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)"),
     horarioAbierto = new List<HorarioAbierto>
