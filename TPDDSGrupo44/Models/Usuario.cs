@@ -90,7 +90,7 @@ namespace TPDDSGrupo44.Models
 
 
         //ACTUALIZAR DATOS
-        public bool actualizarDatos(string nombre, string passwordActual, string passwordNueva, string passwordNueva2, int dni, string email)
+        public bool actualizarDatos(string nombre, string passwordActual, string passwordNueva, string passwordNueva2,  string email)
         {
             using (var db = new BuscAR())
             {
@@ -105,11 +105,9 @@ namespace TPDDSGrupo44.Models
 
                 Usuario usuario = db.Usuarios.Find(id);
                 usuario.email = email;
-                usuario.dni = dni;
                 usuario.nombre = nombre;
 
                 this.email = email;
-                this.dni = dni;
                 this.nombre = nombre;
 
                 if (passwordActual != "" && passwordNueva != "")

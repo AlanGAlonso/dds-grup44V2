@@ -25,7 +25,7 @@ namespace TPDDSGrupo44.Controllers
         {
             if (BaseViewModel.usuario != null)
             {
-                BaseViewModel.usuario.actualizarDatos(usuario["nombre"], usuario["contraseniaActual"], usuario["contraseniaNueva"], usuario["contraseniaNueva2"], Convert.ToInt32(usuario["dni"]), usuario["email"]);
+                BaseViewModel.usuario.actualizarDatos(usuario["nombre"], usuario["contraseniaActual"], usuario["contraseniaNueva"], usuario["contraseniaNueva2"], usuario["email"]);
                 return View(BaseViewModel.usuario);
             }
             else

@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
 
     var dni, password, password2, nombre, email;
+    $("input[type='submit']").prop("disabled", true);
 
     //validación DNI
     $("#dni").on("blur", function () {
@@ -68,9 +69,9 @@
     function validar() {
 
         if (dni && password && password2 && nombre && email) {
-            $("[type='sumbit']").prop("disabled", false);
+            $("input[type='submit']").prop("disabled", false);
         } else {
-            $("[type='sumbit']").attr("disabled");
+            $("input[type='submit']").prop("disabled", true);
         }
 
     }
