@@ -813,14 +813,7 @@ namespace TPDDSGrupo44.Controllers
         {
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Consultar POI").ToList().Count() > 0)
             {
-                List<LocalComercial> localComercial;
-                using (var db = new BuscAR())
-                {
-                    localComercial = (from p in db.Locales
-                                      orderby p.nombreDePOI
-                                      select p).ToList();
-                }
-
+                List<LocalComercial> localComercial =LocalComercial.buscarTodosLosLocales();
                 return View(localComercial);
             }
             else
@@ -864,7 +857,7 @@ namespace TPDDSGrupo44.Controllers
 
                     Rubro rubro = new Rubro();
                     rubro.nombre = collection["rubro"];
-                    //rubro.radioDeCercania = Convert.ToInt32(collection["radioDeCercania"]);
+                    rubro.radioDeCercania = Convert.ToInt32(collection["radioDeCercania"]);
 
                     LocalComercial localComercial = new LocalComercial(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                       Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
@@ -930,11 +923,7 @@ namespace TPDDSGrupo44.Controllers
         {
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Editar POI").ToList().Count() > 0)
             {
-                LocalComercial localComercial;
-                using (var db = new BuscAR())
-                {
-                    localComercial = db.Locales.Include("palabrasClave").Where(p => p.id == id).Single();
-                }
+                LocalComercial localComercial = LocalComercial.busquedaParaEdit (id);   
                 return View(localComercial);
             }
             else
@@ -956,18 +945,24 @@ namespace TPDDSGrupo44.Controllers
                     List<PalabraClave> palabrasClave = parsearListaDePalabras(collection["palabrasClave"]);
                     DbGeography coordenada = actualizarCoordenada(collection["coordenada.Latitude"], collection["coordenada.Longitude"]);
 
-
+                    LocalComercial.eliminarHorarios(id);
                     List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
-                    //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
-                    //         horariosAbierto.Add(horarios);
+                    horariosAbierto = funcParce(collection["abreLunes"], collection["cierraLunes"], horariosAbierto, DayOfWeek.Monday);
+                    horariosAbierto = funcParce(collection["abreMartes"], collection["cierraMartes"], horariosAbierto, DayOfWeek.Tuesday);
+                    horariosAbierto = funcParce(collection["abreMiercoles"], collection["cierraMiercoles"], horariosAbierto, DayOfWeek.Wednesday);
+                    horariosAbierto = funcParce(collection["abreJueves"], collection["cierraJueves"], horariosAbierto, DayOfWeek.Thursday);
+                    horariosAbierto = funcParce(collection["abreViernes"], collection["cierraViernes"], horariosAbierto, DayOfWeek.Friday);
+                    horariosAbierto = funcParce(collection["abreSabado"], collection["cierraSabado"], horariosAbierto, DayOfWeek.Saturday);
+                    horariosAbierto = funcParce(collection["abreDomingo"], collection["cierraDomingo"], horariosAbierto, DayOfWeek.Sunday);
                     List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
 
-                    Rubro rubro = new Rubro();
+                    LocalComercial.modificarRubro(id, collection["rubro.nombre"], collection["rubro.radioDeCercania"]);
+
 
                     LocalComercial.actualizar(id, coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]), Convert.ToInt32(collection["piso"]),
                       Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"],
                       collection["provincia"], collection["pais"], collection["entreCalles"], collection["nombreDePOI"],
-                      palabrasClave, horariosAbierto, horariosFeriado, rubro);
+                      palabrasClave, horariosAbierto, horariosFeriado);
 
 
                     return RedirectToAction("ABMLocalComercial");
@@ -985,18 +980,7 @@ namespace TPDDSGrupo44.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+       
 
 
 

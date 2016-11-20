@@ -36,11 +36,11 @@ namespace TPDDSGrupo44.Models
 
 
         ////////////////Constructor vacio////////////////
-        public LocalComercial():base () { }
+        public LocalComercial() : base() { }
 
 
         ////////////////Constructor Viejo(Usado en controlador////////////////
-        public LocalComercial(string nombre, DbGeography unaCoordenada, Rubro rubro) 
+        public LocalComercial(string nombre, DbGeography unaCoordenada, Rubro rubro)
         : base(nombre, unaCoordenada)
         {
             this.rubro = rubro;
@@ -49,8 +49,8 @@ namespace TPDDSGrupo44.Models
         }
 
         public LocalComercial(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, 
-           List<PalabraClave> palabrasClave, string nombreDePOI, List<HorarioAbierto> horarioAbierto, 
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles,
+           List<PalabraClave> palabrasClave, string nombreDePOI, List<HorarioAbierto> horarioAbierto,
            List<HorarioAbierto> horarioFeriados,
            Rubro rubro)
             : base(unaCoordenada, calle, numeroAltura, piso, codigoPostal, localidad, barrio, provincia, pais, entreCalles,
@@ -77,12 +77,12 @@ namespace TPDDSGrupo44.Models
 
 
         //E4 - JM - Constructor para actualización asincrónica
-        public LocalComercial (string nombre, List<PalabraClave> palabras) : base ()
+        public LocalComercial(string nombre, List<PalabraClave> palabras) : base()
         {
             nombreDePOI = nombre;
             palabrasClave = palabras;
         }
-        
+
 
 
         ////////////////Funcion manhattan////////////
@@ -130,6 +130,7 @@ namespace TPDDSGrupo44.Models
                 local.palabrasClave.Clear();
                 local.horarioAbierto.Clear();
                 local.horarioFeriado.Clear();
+                local.rubro = null;
 
                 db.Locales.Remove(local);
                 db.SaveChanges();
@@ -138,10 +139,10 @@ namespace TPDDSGrupo44.Models
 
         }
 
-        public static void actualizar(int id,DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
+        public static void actualizar(int id, DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles,
-           string nombreDePOI, List<PalabraClave> palabrasClave,  List<HorarioAbierto> horarioAbierto,
-           List<HorarioAbierto> horarioFeriados,Rubro rubro)
+           string nombreDePOI, List<PalabraClave> palabrasClave, List<HorarioAbierto> horarioAbierto,
+           List<HorarioAbierto> horarioFeriados)
         {
             using (var db = new BuscAR())
             {
@@ -162,7 +163,7 @@ namespace TPDDSGrupo44.Models
                 local.nombreDePOI = nombreDePOI;
                 local.horarioAbierto = horarioAbierto;
                 local.horarioFeriado = horarioFeriados;
-                local.rubro = rubro;
+             
 
                 db.SaveChanges();
             }
@@ -180,5 +181,55 @@ namespace TPDDSGrupo44.Models
         }
 
 
+        public static List<LocalComercial> buscarTodosLosLocales()
+        {
+            List<LocalComercial> localesComerciales;
+            using (var db = new BuscAR())
+            {
+                localesComerciales = (from p in db.Locales
+                                      orderby p.nombreDePOI
+                                      select p).ToList();
+            }
+            return localesComerciales;
+        }
+
+        public static LocalComercial busquedaParaEdit(int id)
+        {
+            LocalComercial localComercial;
+            using (var db = new BuscAR())
+            {
+                localComercial = db.Locales.Include("palabrasClave").Include("rubro").Include("horarioAbierto").Where(p => p.id == id).Single();
+            }
+            return localComercial;
+        }
+
+
+
+        public static void modificarRubro(int id,string nombre,string radioDeCercania)
+        {
+            LocalComercial localComercial = busquedaParaEdit(id);
+            using (var db = new BuscAR())
+            {
+            localComercial.rubro.nombre = nombre;
+            localComercial.rubro.radioDeCercania = Convert.ToInt32(radioDeCercania);
+            db.SaveChanges();
+            }
+        }
+
+        public static void eliminarHorarios(int id)
+        {
+            using (var db = new BuscAR())
+            {
+                LocalComercial local = db.Locales.Where(p => p.id == id).Single();
+                local.horarioAbierto.Clear();
+                local.horarioFeriado.Clear();
+                db.SaveChanges();
+            }
+        }
+
+
+
     }
+
+
 }
