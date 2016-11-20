@@ -27,262 +27,274 @@
     </div>
 </section>
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Post))
-{
-    <input type="text" placeholder="¿Qué buscás?" name="palabraClave">
-    <button type="submit">Buscar</button>
-}
 
-<div class="result @ViewBag.Search">
-    @if (Model != null)
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
     {
-        if (Model.paradasEncontradas.Count() != 0 || Model.paradasEncontradasCerca.Count() != 0)
-        {
-            <h2>Paradas de Colectivo</h2>
-        }
-        foreach (var punto in Model.paradasEncontradasCerca)
-        {
-            <div class="poi">
-                <h3><span class="ion-android-bus"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
-                @punto.calle @punto.numeroAltura
-                <div class="detalles">
-                    <h4><span class="ion-android-time"></span> Horarios</h4>
-                    Siempre disponible.
-                </div>
+        <div class="row">
+        <div class="form-group col-md-4" id="argumentos">
+            <input type="text" class="argumento" placeholder="¿Qué buscás?" name="argumento-1"/>
+        </div>
+        <div class="form-group col-md-4">
+            <button id="agregar" type="button">Agregar</button>
+        </div>
+        <div class="form-group col-md-4">
+                <input type="hidden" placeholder="¿Qué buscás?" name="palabraClave" id="palabraClave">
+                <button type="submit" class="call-to-action">Buscar</button>
+        </div>
             </div>
-        }
+            }
 
-        foreach (var punto in Model.paradasEncontradas)
-        {
-            <div class="poi">
-                <h3><span class="ion-android-bus"></span> @punto.nombreDePOI</h3>
-                @punto.calle @punto.numeroAltura
-                <div class="detalles">
-                    <h4><span class="ion-android-time"></span> Horarios</h4>
-                    Siempre disponible.
-                </div>
-            </div>
-        }
-
-        if (Model.bancosEncontrados.Count() != 0 || Model.bancosEncontradosCerca.Count() != 0)
-        {
-            <h2>Banco</h2>
-        }
-        foreach (var punto in Model.bancosEncontradosCerca)
-        {
-            <div class="poi">
-                <h3><span class="ion-android-lock"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
-                @punto.calle @punto.numeroAltura
-                <div class="detalles">
-                    @if (punto.horarioAbierto.Count() != 0)
+            <div class="result @ViewBag.Search">
+                @if (Model != null)
+                {
+                    if (Model.paradasEncontradas.Count() != 0 || Model.paradasEncontradasCerca.Count() != 0)
                     {
-                        <h4><span class="ion-android-time"></span> Horarios</h4>
-                        <ul>
-                            @foreach (var horario in punto.horarioAbierto)
-                            {
-                                <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
-                            }
-                        </ul>
+                        <h2>Paradas de Colectivo</h2>
                     }
-                    <h4>Servicios</h4>
-                    <ul>
-                        @foreach (var servicio in punto.servicios)
-                        {
-                            <li>
-                                @servicio.nombre
-                                @if (servicio.horarioAbierto.Count() != 0)
+                    foreach (var punto in Model.paradasEncontradasCerca)
+                    {
+                        <div class="poi">
+                            <h3><span class="ion-android-bus"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
+                            @punto.calle @punto.numeroAltura
+                            <div class="detalles">
+                                <h4><span class="ion-android-time"></span> Horarios</h4>
+                                Siempre disponible.
+                            </div>
+                        </div>
+                    }
+
+                    foreach (var punto in Model.paradasEncontradas)
+                    {
+                        <div class="poi">
+                            <h3><span class="ion-android-bus"></span> @punto.nombreDePOI</h3>
+                            @punto.calle @punto.numeroAltura
+                            <div class="detalles">
+                                <h4><span class="ion-android-time"></span> Horarios</h4>
+                                Siempre disponible.
+                            </div>
+                        </div>
+                    }
+
+                    if (Model.bancosEncontrados.Count() != 0 || Model.bancosEncontradosCerca.Count() != 0)
+                    {
+                        <h2>Banco</h2>
+                    }
+                    foreach (var punto in Model.bancosEncontradosCerca)
+                    {
+                        <div class="poi">
+                            <h3><span class="ion-android-lock"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
+                            @punto.calle @punto.numeroAltura
+                            <div class="detalles">
+                                @if (punto.horarioAbierto.Count() != 0)
                                 {
+                                    <h4><span class="ion-android-time"></span> Horarios</h4>
                                     <ul>
-                                        @foreach (var horario in servicio.horarioAbierto)
+                                        @foreach (var horario in punto.horarioAbierto)
                                         {
                                             <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
                                         }
                                     </ul>
                                 }
-                            </li>
-                        }
-                    </ul>
+                                <h4>Servicios</h4>
+                                <ul>
+                                    @foreach (var servicio in punto.servicios)
+                                    {
+                                        <li>
+                                            @servicio.nombre
+                                            @if (servicio.horarioAbierto.Count() != 0)
+                                            {
+                                                <ul>
+                                                    @foreach (var horario in servicio.horarioAbierto)
+                                                    {
+                                                        <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                                    }
+                                                </ul>
+                                            }
+                                        </li>
+                                    }
+                                </ul>
 
-                </div>
-            </div>
-        }
-
-        foreach (var punto in Model.bancosEncontrados)
-        {
-            <div class="poi">
-                <h3><span class="ion-android-lock"></span> @punto.nombreDePOI</h3>
-                @punto.calle @punto.numeroAltura
-                <div class="detalles">
-                    @if (punto.horarioAbierto.Count() != 0)
-                    {
-                        <h4><span class="ion-android-time"></span> Horarios</h4>
-                        <ul>
-                            @foreach (var horario in punto.horarioAbierto)
-                            {
-                                <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
-                            }
-                        </ul>
+                            </div>
+                        </div>
                     }
 
-@if (punto.servicios.Count() > 0)
-{
-                    <h4>Servicios</h4>
-                    <ul>
-                        @foreach (var servicio in punto.servicios)
-                        {
-                            <li>
-                                @servicio.nombre
-                                @if (servicio.horarioAbierto.Count() != 0)
+                    foreach (var punto in Model.bancosEncontrados)
+                    {
+                        <div class="poi">
+                            <h3><span class="ion-android-lock"></span> @punto.nombreDePOI</h3>
+                            @punto.calle @punto.numeroAltura
+                            <div class="detalles">
+                                @if (punto.horarioAbierto.Count() != 0)
                                 {
+                                    <h4><span class="ion-android-time"></span> Horarios</h4>
                                     <ul>
-                                        @foreach (var horario in servicio.horarioAbierto)
+                                        @foreach (var horario in punto.horarioAbierto)
                                         {
                                             <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
                                         }
                                     </ul>
                                 }
-                            </li>
-                        }
-                    </ul>
-}
-                </div>
-            </div>
-        }
 
-        if (Model.localesEncontrados.Count() != 0 || Model.localesEncontradosCerca.Count() != 0)
-        {
-            <h2>Locales Comerciales</h2>
-        }
-        foreach (var punto in Model.localesEncontradosCerca)
-        {
-            <div class="poi">
-                <h3><span class="ion-android-cart"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
-                @punto.calle @punto.numeroAltura
-                <div class="detalles">
-                    <h4>Rubro</h4>
-                    @punto.rubro.nombre
-                    <h4><span class="ion-android-time"></span> Horarios</h4>
-                    <ul>
-                        @foreach (var horario in punto.horarioAbierto)
-                    {
-                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        }
-
-        foreach (var punto in Model.localesEncontrados)
-        {
-            <div class="poi">
-                <h3><span class="ion-android-cart"></span> @punto.nombreDePOI</h3>
-                @punto.calle @punto.numeroAltura
-                <div class="detalles">
-                    <h4>Rubro</h4>
-                    @punto.rubro.nombre
-
-@if (punto.horarioAbierto.Count() > 0)
-{
-                    <h4><span class="ion-android-time"></span> Horarios</h4>
-                    <ul>
-                        @foreach (var horario in punto.horarioAbierto)
+                                @if (punto.servicios.Count() > 0)
                         {
-                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
-                        }
-                    </ul>
-}
-
-                </div>
-            </div>
-        }
-
-        if (Model.cgpsEncontrados.Count() != 0 || Model.cgpsEncontradosCerca.Count() != 0)
-        {
-            <h2>CGPs</h2>
-        }
-        foreach (var punto in Model.cgpsEncontradosCerca)
-        {
-            <div class="poi">
-                <h3><span class="ion-android-clipboard"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
-                @punto.calle @punto.numeroAltura
-                <div class="detalles">
-
-@if (punto.horarioAbierto.Count() > 0)
-{
-                    <h4><span class="ion-android-time"></span> Horarios</h4>
-                    <ul>
-                        @foreach (var horario in punto.horarioAbierto)
-                        {
-                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
-                        }
-                    </ul>
-}
-
-@if (punto.servicios.Count() > 0)
-{
-                    <h4>Servicios</h4>
-                    <ul>
-                        @foreach (var servicio in punto.servicios)
-                        {
-                            <li>
-                                @servicio.nombre
-                                <ul>
-                                    @foreach (var horario in servicio.horarioAbierto)
-                                    {
-                                        <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
-                                    }
-                                </ul>
-                            </li>
-                        }
-                    </ul>
-}
-                </div>
-            </div>
-        }
-
-        foreach (var punto in Model.cgpsEncontrados)
-        {
-            <div class="poi">
-                <h3><span class="ion-android-clipboard"></span> @punto.nombreDePOI</h3>
-                @punto.calle @punto.numeroAltura
-                <div class="detalles">
-                    @if (punto.horarioAbierto.Count() > 0) { 
-                    <h4><span class="ion-android-time"></span> Horarios</h4>
-                    <ul>
-                        @foreach (var horario in punto.horarioAbierto)
-                    {
-                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
-                        }
-                    </ul>
+                                    <h4>Servicios</h4>
+                                    <ul>
+                                        @foreach (var servicio in punto.servicios)
+                                        {
+                                            <li>
+                                                @servicio.nombre
+                                                @if (servicio.horarioAbierto.Count() != 0)
+                                                {
+                                                    <ul>
+                                                        @foreach (var horario in servicio.horarioAbierto)
+                                                        {
+                                                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                                        }
+                                                    </ul>
+                                                }
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </div>
+                        </div>
                     }
 
-@if (punto.servicios.Count() > 0)
-{
-                    <h4>Servicios</h4>
-                    <ul>
-                        @foreach (var servicio in punto.servicios)
-                        {
-                            <li>
-                                @servicio.nombre
+                    if (Model.localesEncontrados.Count() != 0 || Model.localesEncontradosCerca.Count() != 0)
+                    {
+                        <h2>Locales Comerciales</h2>
+                    }
+                    foreach (var punto in Model.localesEncontradosCerca)
+                    {
+                        <div class="poi">
+                            <h3><span class="ion-android-cart"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
+                            @punto.calle @punto.numeroAltura
+                            <div class="detalles">
+                                <h4>Rubro</h4>
+                                @punto.rubro.nombre
+                                <h4><span class="ion-android-time"></span> Horarios</h4>
                                 <ul>
-                                    @foreach (var horario in servicio.horarioAbierto)
+                                    @foreach (var horario in punto.horarioAbierto)
                                     {
                                         <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
                                     }
                                 </ul>
-                            </li>
-                        }
-                    </ul>
-}
+                            </div>
+                        </div>
+                    }
 
-                </div>
+                    foreach (var punto in Model.localesEncontrados)
+                    {
+                        <div class="poi">
+                            <h3><span class="ion-android-cart"></span> @punto.nombreDePOI</h3>
+                            @punto.calle @punto.numeroAltura
+                            <div class="detalles">
+                                <h4>Rubro</h4>
+                                @punto.rubro.nombre
+
+                                @if (punto.horarioAbierto.Count() > 0)
+                        {
+                                    <h4><span class="ion-android-time"></span> Horarios</h4>
+                                    <ul>
+                                        @foreach (var horario in punto.horarioAbierto)
+                                        {
+                                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                        }
+                                    </ul>
+                                }
+
+                            </div>
+                        </div>
+                    }
+
+                    if (Model.cgpsEncontrados.Count() != 0 || Model.cgpsEncontradosCerca.Count() != 0)
+                    {
+                        <h2>CGPs</h2>
+                    }
+                    foreach (var punto in Model.cgpsEncontradosCerca)
+                    {
+                        <div class="poi">
+                            <h3><span class="ion-android-clipboard"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
+                            @punto.calle @punto.numeroAltura
+                            <div class="detalles">
+
+                                @if (punto.horarioAbierto.Count() > 0)
+                        {
+                                    <h4><span class="ion-android-time"></span> Horarios</h4>
+                                    <ul>
+                                        @foreach (var horario in punto.horarioAbierto)
+                                        {
+                                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                        }
+                                    </ul>
+                                }
+
+                                @if (punto.servicios.Count() > 0)
+                        {
+                                    <h4>Servicios</h4>
+                                    <ul>
+                                        @foreach (var servicio in punto.servicios)
+                                        {
+                                            <li>
+                                                @servicio.nombre
+                                                <ul>
+                                                    @foreach (var horario in servicio.horarioAbierto)
+                                                    {
+                                                        <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                    foreach (var punto in Model.cgpsEncontrados)
+                    {
+                        <div class="poi">
+                            <h3><span class="ion-android-clipboard"></span> @punto.nombreDePOI</h3>
+                            @punto.calle @punto.numeroAltura
+                            <div class="detalles">
+                                @if (punto.horarioAbierto.Count() > 0)
+                        {
+                                    <h4><span class="ion-android-time"></span> Horarios</h4>
+                                    <ul>
+                                        @foreach (var horario in punto.horarioAbierto)
+                                        {
+                                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                        }
+                                    </ul>
+                                }
+
+                                @if (punto.servicios.Count() > 0)
+                        {
+                                    <h4>Servicios</h4>
+                                    <ul>
+                                        @foreach (var servicio in punto.servicios)
+                                        {
+                                            <li>
+                                                @servicio.nombre
+                                                <ul>
+                                                    @foreach (var horario in servicio.horarioAbierto)
+                                                    {
+                                                        <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+
+                            </div>
+                        </div>
+                    }
+
+                }
+
+                <p>@ViewBag.SearchText</p>
+
             </div>
-        }
 
-    }
-
-    <p>@ViewBag.SearchText</p>
-
-</div>
-
-<div id="map"></div>
+            <div id="map"></div>

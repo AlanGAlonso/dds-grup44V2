@@ -28,10 +28,12 @@ namespace TPDDSGrupo44.Models
                 List<string> palabrasClave = palabraBusqueda.Split(new char[] { ',' }).ToList();
                 foreach (string p in palabrasClave)
                 {
-                    modeloVista = buscarParada(modeloVista, palabraBusqueda, dispositivoTactil, db);
-                    modeloVista = buscarLocal(modeloVista, palabraBusqueda, dispositivoTactil, db);
-                    modeloVista = buscarBanco(modeloVista, palabraBusqueda, dispositivoTactil, db);
-                    modeloVista = buscarCGP(modeloVista, palabraBusqueda, dispositivoTactil, db);
+                    if (p != "") { 
+                    modeloVista = buscarParada(modeloVista, p, dispositivoTactil, db);
+                    modeloVista = buscarLocal(modeloVista, p, dispositivoTactil, db);
+                    modeloVista = buscarBanco(modeloVista, p, dispositivoTactil, db);
+                    modeloVista = buscarCGP(modeloVista, p, dispositivoTactil, db);
+                    }
                 }
 
                 contador.Stop();
