@@ -73,16 +73,17 @@ namespace TPDDSGrupo44.Models
                 List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Include("palabrasClave").Include("horarioAbierto").Include("horarioFeriado").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).Count() != 0).ToList();
                 foreach (ParadaDeColectivo punto in resultadosBusqueda)
                 {
-
-                    if (punto.estaCerca(dispositivoTactil.coordenada))
-                    {
-                        modeloVista.paradasEncontradasCerca.Add(punto);
+                    if (modeloVista.paradasEncontradas.Find(p => p.id == punto.id) == null &&
+                        modeloVista.paradasEncontradasCerca.Find(p => p.id == punto.id) == null) { 
+                        if (punto.estaCerca(dispositivoTactil.coordenada))
+                        {
+                                modeloVista.paradasEncontradasCerca.Add(punto);
+                        }
+                        else
+                        {
+                            modeloVista.paradasEncontradas.Add(punto);
+                        }
                     }
-                    else
-                    {
-                        modeloVista.paradasEncontradas.Add(punto);
-                    }
-
                 }
 
             }
@@ -102,13 +103,17 @@ namespace TPDDSGrupo44.Models
                     List<LocalComercial> resultadosBusqueda = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Where(b => b.rubro.nombre.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
                     foreach (LocalComercial punto in resultadosBusqueda)
                     {
-                        if (punto.estaCerca(dispositivoTactil.coordenada))
+                        if (modeloVista.localesEncontrados.Find(p => p.id == punto.id) == null &&
+                        modeloVista.localesEncontradosCerca.Find(p => p.id == punto.id) == null)
                         {
-                            modeloVista.localesEncontradosCerca.Add(punto);
-                        }
-                        else
-                        {
-                            modeloVista.localesEncontrados.Add(punto);
+                            if (punto.estaCerca(dispositivoTactil.coordenada))
+                            {
+                                modeloVista.localesEncontradosCerca.Add(punto);
+                            }
+                            else
+                            {
+                                modeloVista.localesEncontrados.Add(punto);
+                            }
                         }
                     }
 
@@ -120,16 +125,20 @@ namespace TPDDSGrupo44.Models
                 {
                     foreach (LocalComercial punto in resultadosBusquedaLocales)
                     {
-                        if (!modeloVista.localesEncontrados.Any(l => l.id == punto.id)
-                        && !modeloVista.localesEncontradosCerca.Any(l => l.id == punto.id))
+                        if (modeloVista.localesEncontrados.Find(p => p.id == punto.id) == null &&
+                           modeloVista.localesEncontradosCerca.Find(p => p.id == punto.id) == null)
                         {
-                            if (punto.estaCerca(dispositivoTactil.coordenada))
+                            if (!modeloVista.localesEncontrados.Any(l => l.id == punto.id)
+                        && !modeloVista.localesEncontradosCerca.Any(l => l.id == punto.id))
                             {
-                                modeloVista.localesEncontradosCerca.Add(punto);
-                            }
-                            else
-                            {
-                                modeloVista.localesEncontrados.Add(punto);
+                                if (punto.estaCerca(dispositivoTactil.coordenada))
+                                {
+                                    modeloVista.localesEncontradosCerca.Add(punto);
+                                }
+                                else
+                                {
+                                    modeloVista.localesEncontrados.Add(punto);
+                                }
                             }
                         }
                     }
@@ -156,13 +165,17 @@ namespace TPDDSGrupo44.Models
                 {
                     foreach (Banco punto in resultadosBusquedaBancos)
                     {
-                        if (punto.estaCerca(dispositivoTactil.coordenada))
+                        if (modeloVista.bancosEncontrados.Find(p => p.id == punto.id) == null &&
+                        modeloVista.bancosEncontradosCerca.Find(p => p.id == punto.id) == null)
                         {
-                            modeloVista.bancosEncontradosCerca.Add(punto);
-                        }
-                        else
-                        {
-                            modeloVista.bancosEncontrados.Add(punto);
+                            if (punto.estaCerca(dispositivoTactil.coordenada))
+                            {
+                                modeloVista.bancosEncontradosCerca.Add(punto);
+                            }
+                            else
+                            {
+                                modeloVista.bancosEncontrados.Add(punto);
+                            }
                         }
                     }
                 }
@@ -185,13 +198,17 @@ namespace TPDDSGrupo44.Models
                 {
                     foreach (CGP punto in resultadosBusquedaCGP)
                     {
-                        if (punto.estaCerca(dispositivoTactil.coordenada))
+                        if (modeloVista.cgpsEncontrados.Find(p => p.id == punto.id) == null &&
+                        modeloVista.cgpsEncontradosCerca.Find(p => p.id == punto.id) == null)
                         {
-                            modeloVista.cgpsEncontradosCerca.Add(punto);
-                        }
-                        else
-                        {
-                            modeloVista.cgpsEncontrados.Add(punto);
+                            if (punto.estaCerca(dispositivoTactil.coordenada))
+                            {
+                                modeloVista.cgpsEncontradosCerca.Add(punto);
+                            }
+                            else
+                            {
+                                modeloVista.cgpsEncontrados.Add(punto);
+                            }
                         }
                     }
                 }

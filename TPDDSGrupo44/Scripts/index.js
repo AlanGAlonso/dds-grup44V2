@@ -16,6 +16,8 @@ function initMap(place, text) {
 
 $(document).ready(function () {
 
+    $("[type='submit']").prop("disabled", true);
+
     $("input.argumento").on("keyup", function () {
         if ($(this).val()) {
             $("#agregar").addClass("call-to-action");
@@ -42,12 +44,28 @@ $(document).ready(function () {
         } else {
             alert("Por favor, ingresá un argumento de búsqueda.")
         }
+
+        if ($(".bloqueado").length > 0) {
+            $("[type='submit']").prop("disabled", false);
+            $("[type='submit']").addClass("call-to-action");
+        } else {
+            $("[type='submit']").prop("disabled", true);
+            $("[type='submit']").removeClass("call-to-action");
+        }
     });
 
     $("#argumentos").on("click",".delete-arg", function () {
         var idUltimoArg = $(this).attr("id").split("-")[1];
         $(this).remove();
-        $("input[name='argumento-" + idUltimoArg + "']").remove();
+        $("input[name='argumento-" + idUltimoArg + "'], input[name='argumento-" + idUltimoArg + "']+br").remove();
+
+        if ($(".bloqueado").length > 0) {
+            $("[type='submit']").prop("disabled", false);
+            $("[type='submit']").addClass("call-to-action");
+        } else {
+            $("[type='submit']").prop("disabled", true);
+            $("[type='submit']").removeClass("call-to-action");
+        }
     });
 
     $(".poi").on("click", function () {
