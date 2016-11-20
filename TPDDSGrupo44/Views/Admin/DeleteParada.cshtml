@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DeleteParada</h2>
+<h2>Eliminar Parada</h2>
 
-<h3>¿Esta seguro que quiere eliminar esta parada?</h3>
+<h3>¿Esta seguro que quiere eliminar este POI?</h3>
 <div>
     <hr />
 
@@ -93,7 +93,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
             @Html.ActionLink("Volver a la lista", "ABMParada", "Admin")
         </div>
     }

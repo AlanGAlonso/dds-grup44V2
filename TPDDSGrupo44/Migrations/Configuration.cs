@@ -26,14 +26,14 @@ namespace TPDDSGrupo44.Migrations
                 duracionMaximaBusquedas = 30
             });
 
-                //ROLES
+            //ROLES
 
-                context.Roles.AddOrUpdate(r => r.nombre,
-            new Rol
+            context.Roles.AddOrUpdate(r => r.nombre,
+        new Rol
+        {
+            nombre = "Administrador",
+            funcionalidades = new List<FuncionalidadUsuario>()
             {
-                nombre = "Administrador",
-                funcionalidades = new List<FuncionalidadUsuario>()
-                {
                     new ActualizacionLocalComercial
                     {
                         nombre = "Actualizar Local Comercial Asinc",
@@ -89,20 +89,20 @@ namespace TPDDSGrupo44.Migrations
                         nombre = "Terminales",
                         lote = 1
                     }
-                }
-            },
-            new Rol
+            }
+        },
+        new Rol
+        {
+            nombre = "Terminal",
+            funcionalidades = new List<FuncionalidadUsuario>()
             {
-                nombre = "Terminal",
-                funcionalidades = new List<FuncionalidadUsuario>()
-                {
                     new FuncionalidadUsuario
                     {
                         nombre = "Trámite",
                         lote = 1
                     }
-                }
-            });
+            }
+        });
 
             context.SaveChanges();
 
@@ -137,30 +137,30 @@ namespace TPDDSGrupo44.Migrations
 
 
             // FUNCIONALIDADES DE TERMINALES
-     /*     context.FuncionalidadesTerminales.AddOrUpdate(f => f.nombre,
-                    new FuncionalidadDispositivoTactil
-                    {
-                        nombre = "Parada"
-                    },
-                    new FuncionalidadDispositivoTactil
-                    {
-                        nombre = "Banco"
-                    },
-                    new FuncionalidadDispositivoTactil {
-                        nombre = "CGP"
-                    },
-                    new FuncionalidadDispositivoTactil
-                    {
-                        nombre = "Locales"
-                    }
-                    ,
-                    new FuncionalidadDispositivoTactil
-                    {
-                        nombre = "Loggear Búsquedas"
-                    }
-                );
-            context.SaveChanges();*/
-            
+            /*     context.FuncionalidadesTerminales.AddOrUpdate(f => f.nombre,
+                           new FuncionalidadDispositivoTactil
+                           {
+                               nombre = "Parada"
+                           },
+                           new FuncionalidadDispositivoTactil
+                           {
+                               nombre = "Banco"
+                           },
+                           new FuncionalidadDispositivoTactil {
+                               nombre = "CGP"
+                           },
+                           new FuncionalidadDispositivoTactil
+                           {
+                               nombre = "Locales"
+                           }
+                           ,
+                           new FuncionalidadDispositivoTactil
+                           {
+                               nombre = "Loggear Búsquedas"
+                           }
+                       );
+                   context.SaveChanges();*/
+
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego terminales
             context.Terminales.AddOrUpdate(d => d.nombre,
             new DispositivoTactil
@@ -198,9 +198,11 @@ new DispositivoTactil
             p => p.nombreDePOI,
             new ParadaDeColectivo
             {
+
                 nombreDePOI = "114",
                 calle = "Mozart",
                 numeroAltura = 2389,
+                codigoPostal = 1428,
                 localidad = "Ciudad Autónoma de Buenos Aires",
                 barrio = "Lugano",
                 provincia = "Ciudad Autónoma de Buenos Aires",
@@ -210,7 +212,7 @@ new DispositivoTactil
                     new PalabraClave("Colectivo"),
                     new PalabraClave("Bondi") },
                 coordenada = DbGeography.FromText("POINT(-34.659690 -58.468764)"),
-                
+
                 horarioAbierto = new List<HorarioAbierto>
     {
         new HorarioAbierto(System.DayOfWeek.Monday, 0, 24),
@@ -228,6 +230,7 @@ new ParadaDeColectivo
     nombreDePOI = "36",
     calle = "Av Escalada",
     numeroAltura = 2680,
+    codigoPostal = 1428,
     localidad = "Ciudad Autónoma de Buenos Aires",
     barrio = "Lugano",
     provincia = "Ciudad Autónoma de Buenos Aires",
@@ -253,44 +256,82 @@ new ParadaDeColectivo
             context.SaveChanges();
 
 
-
-            //Horarios de locales
-            List<HorarioAbierto> horarios = new List<HorarioAbierto>();
-            horarios.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 21));
-            horarios.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 21));
-            horarios.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 21));
-            horarios.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 8, 21));
-            horarios.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 21));
-            horarios.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 8, 21));
-            horarios.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-
             List<HorarioAbierto> feriados = new List<HorarioAbierto>();
             feriados.Add(new HorarioAbierto(1, 1, 0, 0));
             feriados.Add(new HorarioAbierto(9, 7, 10, 16));
+
+
+
+
+
+
+
+
 
             //Locales
             context.Locales.AddOrUpdate(
             l => l.nombreDePOI,
             new LocalComercial
             {
+
                 nombreDePOI = "Librería CEIT",
                 coordenada = DbGeography.FromText("POINT(-34.659492 -58.467906)"),
+                calle = "Cramer",
+                numeroAltura = 2701,
+                piso = 2,
+                unidad = 3,
+                codigoPostal = 1428,
+                localidad = "Ciudad Autónoma de Buenos Aires",
+                barrio = "Lugano",
+                provincia = "Ciudad Autónoma de Buenos Aires",
+                pais = "Argentina",
+                entreCalles = "Av Derqui y Dellepiane Norte",
                 rubro = new Rubro("librería escolar", 5),
                 palabrasClave = new List<PalabraClave> {
                     new PalabraClave("CEIT"),
                     new PalabraClave("Librería") },
-                horarioAbierto = horarios,
+                horarioAbierto = new List<HorarioAbierto>
+                {
+                 new HorarioAbierto(System.DayOfWeek.Monday, 1, 1),
+                 new HorarioAbierto(System.DayOfWeek.Tuesday, 2, 2),
+                 new HorarioAbierto(System.DayOfWeek.Wednesday, 3, 3),
+                 new HorarioAbierto(System.DayOfWeek.Thursday, 4, 4),
+                 new HorarioAbierto(System.DayOfWeek.Friday, 5, 5),
+                 new HorarioAbierto(System.DayOfWeek.Saturday, 6, 6),
+                 new HorarioAbierto(System.DayOfWeek.Sunday, 7,7)
+                }
                 //horarioFeriados = feriados
             },
-new LocalComercial
-{
-    nombreDePOI = "Kiosco Las Flores",
-    coordenada = DbGeography.FromText("POINT(-34.634015 -58.482805)"),
-    palabrasClave = new List<PalabraClave> {
-                    new PalabraClave("Las Flores"),
-                    new PalabraClave("Kiosco") },
-    rubro = new Rubro("kiosco de diarios", 5)
-});
+
+                new LocalComercial
+                {
+                    nombreDePOI = "Kiosco Las Flores",
+                    coordenada = DbGeography.FromText("POINT(-34.634015 -58.482805)"),
+                    calle = "Cramer",
+                    numeroAltura = 2710,
+                    piso = 1,
+                    unidad = 4,
+                    codigoPostal = 1428,
+                    localidad = "Ciudad Autónoma de Buenos Aires",
+                    barrio = "Lugano",
+                    provincia = "Ciudad Autónoma de Buenos Aires",
+                    pais = "Argentina",
+                    entreCalles = "Av Derqui y Dellepiane Norte",
+                    rubro = new Rubro("Kiosco", 5),
+                    palabrasClave = new List<PalabraClave> {
+                    new PalabraClave("Kiosco"),
+                    new PalabraClave("Flores") },
+                    horarioAbierto = new List<HorarioAbierto>
+                {
+                 new HorarioAbierto(System.DayOfWeek.Monday, 8, 8),
+                 new HorarioAbierto(System.DayOfWeek.Tuesday, 9, 9),
+                 new HorarioAbierto(System.DayOfWeek.Wednesday, 10, 1),
+                 new HorarioAbierto(System.DayOfWeek.Thursday, 10, 2),
+                 new HorarioAbierto(System.DayOfWeek.Friday, 10, 3),
+                 new HorarioAbierto(System.DayOfWeek.Saturday, 10, 4),
+                 new HorarioAbierto(System.DayOfWeek.Sunday, 10, 5)
+                }
+                });
 
             context.SaveChanges();
 
@@ -299,26 +340,43 @@ new LocalComercial
 
 
 
+
+
+
             //CGPs
             context.CGPs.AddOrUpdate(
-            c => c.nombreDePOI,
-            new CGP
-            {
-                nombreDePOI = "Sede Comunal 8",
-                calle = "Av Coronel Roca",
-                numeroAltura = 5252,
-                codigoPostal = 1439,
-                localidad = "Ciudad Autónoma de Buenos Aires",
-                barrio = "Lugano",
-                provincia = "Ciudad Autónoma de Buenos Aires",
-                pais = "Argentina",
-                entreCalles = "Av Escalda y Av General Paz",
-                coordenada = DbGeography.FromText("POINT(-34.6862397 -58.4606666)"),
-                palabrasClave = new List<PalabraClave> {
+                c => c.nombreDePOI,
+                new CGP
+                {
+                    nombreDePOI = "Sede Comunal 8",
+                    calle = "Av Coronel Roca",
+                    numeroAltura = 5252,
+                    codigoPostal = 1439,
+                    piso = 2,
+                    unidad = 3,
+                    numeroDeComuna = 8,
+                    localidad = "Ciudad Autónoma de Buenos Aires",
+                    barrio = "Lugano",
+                    provincia = "Ciudad Autónoma de Buenos Aires",
+                    pais = "Argentina",
+                    entreCalles = "Av Escalda y Av General Paz",
+                    coordenada = DbGeography.FromText("POINT(-34.6862397 -58.4606666)"),
+                    horarioAbierto = new List<HorarioAbierto>
+                    {
+                 new HorarioAbierto(System.DayOfWeek.Monday, 7, 16),
+                 new HorarioAbierto(System.DayOfWeek.Tuesday, 7, 16),
+                 new HorarioAbierto(System.DayOfWeek.Wednesday, 7, 16),
+                 new HorarioAbierto(System.DayOfWeek.Thursday, 7, 16),
+                 new HorarioAbierto(System.DayOfWeek.Friday, 7, 15),
+                 new HorarioAbierto(System.DayOfWeek.Saturday, 7, 12),
+                 new HorarioAbierto(System.DayOfWeek.Sunday, 7, 12)
+                    },
+
+                    palabrasClave = new List<PalabraClave> {
                     new PalabraClave("Sede Comunal 8"),
                     new PalabraClave("CGP") },
-                zonaDelimitadaPorLaComuna = 50,
-                servicios = new List<ServicioCGP>()
+                    zonaDelimitadaPorLaComuna = 50,
+                    servicios = new List<ServicioCGP>()
                 {
                      new ServicioCGP()
                     {
@@ -371,63 +429,33 @@ new LocalComercial
                                               }
 
                                     },
-                horarioAbierto = new List<HorarioAbierto>()
-                    {
-                     new HorarioAbierto()
-                    {
-                         dia = System.DayOfWeek.Monday,
-                        horarioInicio = 8,
-                        horarioFin = 18
-                                             },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Tuesday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Wednesday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Thursday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Friday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Saturday,
-    horarioInicio = 0,
-    horarioFin = 0
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Sunday,
-    horarioInicio = 0,
-    horarioFin = 0
-                         }
-                    }
-            },
+
+                },
 new CGP
 {
     nombreDePOI = "Sede Comunal 10",
     calle = "Bacacay",
     numeroAltura = 3968,
     codigoPostal = 1407,
+    piso = 2,
+    unidad = 3,
+    numeroDeComuna = 10,
     localidad = "Ciudad Autónoma de Buenos Aires",
     barrio = "Vélez Sarsfield",
     provincia = "Ciudad Autónoma de Buenos Aires",
     pais = "Argentina",
     entreCalles = "Mercedes y Av Chivilcoy",
+    horarioAbierto = new List<HorarioAbierto>
+                    {
+                 new HorarioAbierto(System.DayOfWeek.Monday, 7, 16),
+                 new HorarioAbierto(System.DayOfWeek.Tuesday, 7, 16),
+                 new HorarioAbierto(System.DayOfWeek.Wednesday, 7, 16),
+                 new HorarioAbierto(System.DayOfWeek.Thursday, 7, 16),
+                 new HorarioAbierto(System.DayOfWeek.Friday, 7, 15),
+                 new HorarioAbierto(System.DayOfWeek.Saturday, 7, 12),
+                 new HorarioAbierto(System.DayOfWeek.Sunday, 7, 12)
+                    },
+
     palabrasClave = new List<PalabraClave> {
         new PalabraClave("Sede Comunal 10"),
         new PalabraClave("CGP") },
@@ -492,18 +520,42 @@ new CGP
 
 
 
+
             //Bancos
             context.Bancos.AddOrUpdate(
-            b => b.nombreDePOI,
-            new Banco
-            {
-                nombreDePOI = "Banco Provincia",
-                coordenada = DbGeography.FromText("POINT( 34.660979  58.469821)"),
-                palabrasClave = new List<PalabraClave> {
+                b => b.nombreDePOI,
+                new Banco
+                {
+                    nombreDePOI = "Banco Provincia",
+                    coordenada = DbGeography.FromText("POINT( 34.660979  58.469821)"),
+
+                    calle = "Cramer",
+                    numeroAltura = 2701,
+                    piso = 9,
+                    codigoPostal = 1428,
+                    localidad = "Ciudad Autónoma de Buenos Aires",
+                    barrio = "Vélez Sarsfield",
+                    provincia = "Ciudad Autónoma de Buenos Aires",
+                    pais = "Argentina",
+                    entreCalles = "Mercedes y Av Chivilcoy",
+                    horarioAbierto = new List<HorarioAbierto>
+                        {
+                 new HorarioAbierto(System.DayOfWeek.Monday, 0, 24),
+                 new HorarioAbierto(System.DayOfWeek.Tuesday, 0, 24),
+                 new HorarioAbierto(System.DayOfWeek.Wednesday, 0, 24),
+                 new HorarioAbierto(System.DayOfWeek.Thursday, 0, 24),
+                 new HorarioAbierto(System.DayOfWeek.Friday, 0, 24),
+                 new HorarioAbierto(System.DayOfWeek.Saturday, 0, 24),
+                 new HorarioAbierto(System.DayOfWeek.Sunday, 0, 24)
+                        },
+
+
+
+                    palabrasClave = new List<PalabraClave> {
                     new PalabraClave("Banco"),
                     new PalabraClave("Provincia") },
-                servicios = new List<ServicioBanco>()
-                {
+                    servicios = new List<ServicioBanco>()
+                    {
                      new ServicioBanco()
                     {
                          nombre = "Extracción",
@@ -554,18 +606,39 @@ new CGP
                                          }
                                               }
 
-                                    },
-                horarioAbierto = horarios
-            },
-            new Banco
-            {
-                nombreDePOI = "Banco Francés",
-                coordenada = DbGeography.FromText("POINT( 34.6579153  58.4791142)"),
-                palabrasClave = new List<PalabraClave> {
+                                        },
+                },
+                new Banco
+                {
+                    nombreDePOI = "Banco Francés",
+                    coordenada = DbGeography.FromText("POINT( 34.6579153  58.4791142)"),
+
+                    calle = "Cramer",
+                    numeroAltura = 2701,
+                    piso = 9,
+                    codigoPostal = 1428,
+                    localidad = "Ciudad Autónoma de Buenos Aires",
+                    barrio = "Vélez Sarsfield",
+                    provincia = "Ciudad Autónoma de Buenos Aires",
+                    pais = "Argentina",
+                    entreCalles = "Mercedes y Av Chivilcoy",
+                    horarioAbierto = new List<HorarioAbierto>
+                        {
+                 new HorarioAbierto(System.DayOfWeek.Monday, 0, 24),
+                 new HorarioAbierto(System.DayOfWeek.Tuesday, 0, 24),
+                 new HorarioAbierto(System.DayOfWeek.Wednesday, 0, 24),
+                 new HorarioAbierto(System.DayOfWeek.Thursday, 0, 24),
+                 new HorarioAbierto(System.DayOfWeek.Friday, 0, 24),
+                 new HorarioAbierto(System.DayOfWeek.Saturday, 0, 24),
+                 new HorarioAbierto(System.DayOfWeek.Sunday, 0, 24)
+                        },
+
+
+                    palabrasClave = new List<PalabraClave> {
                     new PalabraClave("Banco"),
                     new PalabraClave("Francés") },
-                servicios = new List<ServicioBanco>()
-                {
+                    servicios = new List<ServicioBanco>()
+                    {
                      new ServicioBanco()
                     {
                          nombre = "Depósito",
@@ -616,53 +689,8 @@ new CGP
                                          }
                                               }
 
-                                    },
-                horarioAbierto = new List<HorarioAbierto>()
-                    {
-                     new HorarioAbierto()
-                    {
-                         dia = System.DayOfWeek.Monday,
-                        horarioInicio = 8,
-                        horarioFin = 18
-                                             },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Tuesday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Wednesday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Thursday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Friday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Saturday,
-    horarioInicio = 0,
-    horarioFin = 0
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Sunday,
-    horarioInicio = 0,
-    horarioFin = 0
-                         }
-                    }
-            });
+                                        },
+                });
 
             context.SaveChanges();
 
