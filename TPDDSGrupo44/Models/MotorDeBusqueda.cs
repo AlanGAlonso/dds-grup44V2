@@ -58,10 +58,6 @@ namespace TPDDSGrupo44.Models
         }
 
 
-
-
-
-
         private static SearchViewModel buscarParada(SearchViewModel modeloVista, string palabraBusqueda, 
             DispositivoTactil dispositivoTactil, BuscAR db) {
 
@@ -73,8 +69,8 @@ namespace TPDDSGrupo44.Models
                 List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Include("palabrasClave").Include("horarioAbierto").Include("horarioFeriado").Where(b => b.palabrasClave.Where(p => p.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).Count() != 0).ToList();
                 foreach (ParadaDeColectivo punto in resultadosBusqueda)
                 {
-                    if (modeloVista.paradasEncontradas.Find(p => p.id == punto.id) == null &&
-                        modeloVista.paradasEncontradasCerca.Find(p => p.id == punto.id) == null) { 
+                    if (modeloVista.paradasEncontradas.Find(p => p == punto) == null &&
+                        modeloVista.paradasEncontradasCerca.Find(p => p == punto) == null) { 
                         if (punto.estaCerca(dispositivoTactil.coordenada))
                         {
                                 modeloVista.paradasEncontradasCerca.Add(punto);
@@ -103,8 +99,8 @@ namespace TPDDSGrupo44.Models
                     List<LocalComercial> resultadosBusqueda = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Where(b => b.rubro.nombre.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
                     foreach (LocalComercial punto in resultadosBusqueda)
                     {
-                        if (modeloVista.localesEncontrados.Find(p => p.id == punto.id) == null &&
-                        modeloVista.localesEncontradosCerca.Find(p => p.id == punto.id) == null)
+                        if (modeloVista.localesEncontrados.Find(p => p == punto) == null &&
+                        modeloVista.localesEncontradosCerca.Find(p => p == punto) == null)
                         {
                             if (punto.estaCerca(dispositivoTactil.coordenada))
                             {
@@ -125,12 +121,9 @@ namespace TPDDSGrupo44.Models
                 {
                     foreach (LocalComercial punto in resultadosBusquedaLocales)
                     {
-                        if (modeloVista.localesEncontrados.Find(p => p.id == punto.id) == null &&
-                           modeloVista.localesEncontradosCerca.Find(p => p.id == punto.id) == null)
+                        if (modeloVista.localesEncontrados.Find(p => p == punto) == null &&
+                           modeloVista.localesEncontradosCerca.Find(p => p == punto) == null)
                         {
-                            if (!modeloVista.localesEncontrados.Any(l => l.id == punto.id)
-                        && !modeloVista.localesEncontradosCerca.Any(l => l.id == punto.id))
-                            {
                                 if (punto.estaCerca(dispositivoTactil.coordenada))
                                 {
                                     modeloVista.localesEncontradosCerca.Add(punto);
@@ -140,7 +133,7 @@ namespace TPDDSGrupo44.Models
                                     modeloVista.localesEncontrados.Add(punto);
                                 }
                             }
-                        }
+                        
                     }
                 }
             }
@@ -165,8 +158,8 @@ namespace TPDDSGrupo44.Models
                 {
                     foreach (Banco punto in resultadosBusquedaBancos)
                     {
-                        if (modeloVista.bancosEncontrados.Find(p => p.id == punto.id) == null &&
-                        modeloVista.bancosEncontradosCerca.Find(p => p.id == punto.id) == null)
+                        if (modeloVista.bancosEncontrados.Find(p => p == punto) == null &&
+                        modeloVista.bancosEncontradosCerca.Find(p => p == punto) == null)
                         {
                             if (punto.estaCerca(dispositivoTactil.coordenada))
                             {
@@ -198,8 +191,8 @@ namespace TPDDSGrupo44.Models
                 {
                     foreach (CGP punto in resultadosBusquedaCGP)
                     {
-                        if (modeloVista.cgpsEncontrados.Find(p => p.id == punto.id) == null &&
-                        modeloVista.cgpsEncontradosCerca.Find(p => p.id == punto.id) == null)
+                        if (modeloVista.cgpsEncontrados.Find(p => p == punto) == null &&
+                        modeloVista.cgpsEncontradosCerca.Find(p => p == punto) == null)
                         {
                             if (punto.estaCerca(dispositivoTactil.coordenada))
                             {
