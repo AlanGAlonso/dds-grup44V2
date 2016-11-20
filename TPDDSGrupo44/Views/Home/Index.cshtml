@@ -2,6 +2,8 @@
     ViewBag.Title = "¡Buscá puntos!";
 }
 
+
+@using System.Globalization
 @model TPDDSGrupo44.ViewModels.SearchViewModel
 
 @Scripts.Render("~/scripts/index.js")
@@ -110,9 +112,13 @@
                                 {
                                     <h4><span class="ion-android-time"></span> Horarios</h4>
                                     <ul>
+                                        @{ CultureInfo ci = new CultureInfo("Es-Es");}
+
+                                      
+
                                         @foreach (var horario in punto.horarioAbierto)
                                         {
-                                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                            <li>ci.DateTimeFormat.GetDayName(@horario.dia) abierto de @horario.horarioInicio a @horario.horarioFin</li>
                                         }
                                     </ul>
                                 }
@@ -125,14 +131,18 @@
                                             @if (servicio.horarioAbierto.Count() != 0)
                                             {
                                                 <ul>
+                                                    @{CultureInfo ci1 = new CultureInfo("Es-Es");}
+                                                    @{TextInfo myTI = new CultureInfo("Es-Es", false).TextInfo;}
+                                                  
+
                                                     @foreach (var horario in servicio.horarioAbierto)
                                                     {
-                                                        <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                                        <li> @(myTI.ToTitleCase((ci1.DateTimeFormat.GetDayName(horario.dia)).ToString())) abierto de @horario.horarioInicio a @horario.horarioFin</li>
                                                     }
                                                 </ul>
-                                            }
-                                        </li>
-                                    }
+                                                        }
+                                                        </li>
+                                                        }
                                 </ul>
 
                             </div>
@@ -156,9 +166,15 @@
                                 {
                                     <h4><span class="ion-android-time"></span> Horarios</h4>
                                     <ul>
+                                       
+                                        @{ CultureInfo ci1 = new CultureInfo("Es-Es");}
+                                        @{TextInfo myTI = new CultureInfo("Es-Es", false).TextInfo;}
+                                      
                                         @foreach (var horario in punto.horarioAbierto)
                                         {
-                                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                            
+
+                                            <li> @(myTI.ToTitleCase((ci1.DateTimeFormat.GetDayName(horario.dia)).ToString())) abierto de @horario.horarioInicio a @horario.horarioFin</li>
                                         }
                                     </ul>
                                 }
@@ -174,9 +190,13 @@
                                                 @if (servicio.horarioAbierto.Count() != 0)
                                                 {
                                                     <ul>
+
+                                                        @{CultureInfo ci1 = new CultureInfo("Es-Es");}
+                                                        @{TextInfo myTI = new CultureInfo("Es-Es", false).TextInfo;}
+                                                       
                                                         @foreach (var horario in servicio.horarioAbierto)
                                                         {
-                                                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                                            <li> @(myTI.ToTitleCase((ci1.DateTimeFormat.GetDayName(horario.dia)).ToString())) abierto de @horario.horarioInicio a @horario.horarioFin</li>
                                                         }
                                                     </ul>
                                                 }
@@ -209,9 +229,12 @@
                                 @punto.rubro.nombre
                                 <h4><span class="ion-android-time"></span> Horarios</h4>
                                 <ul>
+                                    @{CultureInfo ci1 = new CultureInfo("Es-Es");}
+                                    @{TextInfo myTI = new CultureInfo("Es-Es", false).TextInfo;}
+                                
                                     @foreach (var horario in punto.horarioAbierto)
                                     {
-                                        <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                        <li> @(myTI.ToTitleCase((ci1.DateTimeFormat.GetDayName(horario.dia)).ToString())) abierto de @horario.horarioInicio a @horario.horarioFin</li>
                                     }
                                 </ul>
                             </div>
@@ -238,9 +261,12 @@
                         {
                                     <h4><span class="ion-android-time"></span> Horarios</h4>
                                     <ul>
+                                        @{CultureInfo ci1 = new CultureInfo("Es-Es");}
+                                        @{TextInfo myTI = new CultureInfo("Es-Es", false).TextInfo;}
+
                                         @foreach (var horario in punto.horarioAbierto)
                                         {
-                                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                            <li> @(myTI.ToTitleCase((ci1.DateTimeFormat.GetDayName(horario.dia)).ToString())) abierto de @horario.horarioInicio a @horario.horarioFin</li>
                                         }
                                     </ul>
                                 }
@@ -276,9 +302,12 @@
                         {
                                     <h4><span class="ion-android-time"></span> Horarios</h4>
                                     <ul>
+                                        @{CultureInfo ci1 = new CultureInfo("Es-Es");}
+                                        @{TextInfo myTI = new CultureInfo("Es-Es", false).TextInfo;}
+
                                         @foreach (var horario in punto.horarioAbierto)
                                         {
-                                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                            <li> @(myTI.ToTitleCase((ci1.DateTimeFormat.GetDayName(horario.dia)).ToString())) abierto de @horario.horarioInicio a @horario.horarioFin</li>
                                         }
                                     </ul>
                                 }
@@ -292,9 +321,12 @@
                                             <li>
                                                 @servicio.nombre
                                                 <ul>
+                                                    @{CultureInfo ci1 = new CultureInfo("Es-Es");}
+                                                    @{TextInfo myTI = new CultureInfo("Es-Es", false).TextInfo;}
+                                                 
                                                     @foreach (var horario in servicio.horarioAbierto)
                                                     {
-                                                        <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                                        <li> @(myTI.ToTitleCase((ci1.DateTimeFormat.GetDayName(horario.dia)).ToString())) abierto de @horario.horarioInicio a @horario.horarioFin</li>
                                                     }
                                                 </ul>
                                             </li>
@@ -320,16 +352,19 @@
 
                             @if (punto.numeroDeComuna != 0)
                             {
-                                <span>Comuna @punto.numeroDeComuna </span>
+                                <span> (Comuna @punto.numeroDeComuna) </span>
                             }
                             <div class="detalles">
                                 @if (punto.horarioAbierto.Count() > 0)
                         {
                                     <h4><span class="ion-android-time"></span> Horarios</h4>
                                     <ul>
+                                        @{CultureInfo ci1 = new CultureInfo("Es-Es");}
+                                        @{TextInfo myTI = new CultureInfo("Es-Es", false).TextInfo;}
+
                                         @foreach (var horario in punto.horarioAbierto)
                                         {
-                                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                            <li> @(myTI.ToTitleCase((ci1.DateTimeFormat.GetDayName(horario.dia)).ToString())) abierto de @horario.horarioInicio a @horario.horarioFin</li>
                                         }
                                     </ul>
                                 }
@@ -343,9 +378,11 @@
                                             <li>
                                                 @servicio.nombre
                                                 <ul>
+                                                    @{CultureInfo ci1 = new CultureInfo("Es-Es");}
+                                                    @{TextInfo myTI = new CultureInfo("Es-Es", false).TextInfo;}
                                                     @foreach (var horario in servicio.horarioAbierto)
                                                     {
-                                                        <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                                        <li> @(myTI.ToTitleCase((ci1.DateTimeFormat.GetDayName(horario.dia)).ToString())) abierto de @horario.horarioInicio a @horario.horarioFin</li>
                                                     }
                                                 </ul>
                                             </li>
