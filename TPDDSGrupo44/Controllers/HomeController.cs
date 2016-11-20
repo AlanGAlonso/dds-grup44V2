@@ -12,7 +12,8 @@ namespace TPDDSGrupo44.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            SearchViewModel modeloVista = new SearchViewModel();
+            return View(modeloVista);
         }
 
         [HttpPost]

@@ -166,7 +166,7 @@ namespace TPDDSGrupo44.Migrations
             new DispositivoTactil
             {
                 nombre = "UTN FRBA Lugano",
-                coordenada = DbGeography.FromText("POINT(-34.6597047 -58.4688947)"),
+                coordenada = DbGeography.FromText("POINT(-58.4688947 -34.6597047)"),
                 funcionalidades = new List<FuncionalidadDispositivoTactil>
                 {
                     new FuncionalidadDispositivoTactil("Parada"),
@@ -178,7 +178,7 @@ namespace TPDDSGrupo44.Migrations
 new DispositivoTactil
 {
     nombre = "Teatro Gran Rivadavia",
-    coordenada = DbGeography.FromText("POINT(-34.6349293 -58.4853798)"),
+    coordenada = DbGeography.FromText("POINT(-58.4853798 -34.6349293)"),
     funcionalidades = new List<FuncionalidadDispositivoTactil>
                 {
                     new FuncionalidadDispositivoTactil("Parada"),
@@ -212,7 +212,7 @@ new DispositivoTactil
                     new PalabraClave("Colectivo"),
                     new PalabraClave("114"),
                     new PalabraClave("Bondi") },
-                coordenada = DbGeography.FromText("POINT(-34.659690 -58.468764)"),
+                coordenada = DbGeography.FromText("POINT(-58.468764 -34.659690)"),
 
                 horarioAbierto = new List<HorarioAbierto>
     {
@@ -241,7 +241,7 @@ new ParadaDeColectivo
                     new PalabraClave("Colectivo"),
                     new PalabraClave("36"),
                     new PalabraClave("Bondi") },
-    coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)"),
+    coordenada = DbGeography.FromText("POINT(-58.473300 -34.662325)"),
     horarioAbierto = new List<HorarioAbierto>
     {
         new HorarioAbierto(System.DayOfWeek.Monday, 0, 24),
@@ -277,7 +277,7 @@ new ParadaDeColectivo
             {
 
                 nombreDePOI = "Librería CEIT",
-                coordenada = DbGeography.FromText("POINT(-34.659492 -58.467906)"),
+                coordenada = DbGeography.FromText("POINT(-58.467906 -34.659492)"),
                 calle = "Cramer",
                 numeroAltura = 2701,
                 piso = 2,
@@ -308,7 +308,7 @@ new ParadaDeColectivo
                 new LocalComercial
                 {
                     nombreDePOI = "Kiosco Las Flores",
-                    coordenada = DbGeography.FromText("POINT(-34.634015 -58.482805)"),
+                    coordenada = DbGeography.FromText("POINT(-58.482805 -34.634015)"),
                     calle = "Cramer",
                     numeroAltura = 2710,
                     piso = 1,
@@ -362,7 +362,7 @@ new ParadaDeColectivo
                     provincia = "Ciudad Autónoma de Buenos Aires",
                     pais = "Argentina",
                     entreCalles = "Av Escalda y Av General Paz",
-                    coordenada = DbGeography.FromText("POINT(-34.6862397 -58.4606666)"),
+                    coordenada = DbGeography.FromText("POINT(-58.4606666 -34.6862397)"),
                     horarioAbierto = new List<HorarioAbierto>
                     {
                  new HorarioAbierto(System.DayOfWeek.Monday, 7, 16),
@@ -461,7 +461,7 @@ new CGP
     palabrasClave = new List<PalabraClave> {
         new PalabraClave("Sede Comunal 10"),
         new PalabraClave("CGP") },
-    coordenada = DbGeography.FromText("POINT(-34.6318411 -58.4857468)"),
+    coordenada = DbGeography.FromText("POINT(-58.4857468 -34.6318411)"),
     zonaDelimitadaPorLaComuna = 10,
     servicios = new List<ServicioCGP>()
                 {
@@ -529,7 +529,7 @@ new CGP
                 new Banco
                 {
                     nombreDePOI = "Banco Provincia",
-                    coordenada = DbGeography.FromText("POINT( 34.660979  58.469821)"),
+                    coordenada = DbGeography.FromText("POINT(-58.469821 -34.660979)"),
 
                     calle = "Cramer",
                     numeroAltura = 2701,
@@ -613,7 +613,7 @@ new CGP
                 new Banco
                 {
                     nombreDePOI = "Banco Francés",
-                    coordenada = DbGeography.FromText("POINT( 34.6579153  58.4791142)"),
+                    coordenada = DbGeography.FromText("POINT(-58.4791142 -34.6579153)"),
 
                     calle = "Cramer",
                     numeroAltura = 2701,

@@ -23,7 +23,7 @@ namespace TPDDSGrupo44.Models
                 SearchViewModel modeloVista = new SearchViewModel();
 
                 //Defino ubicación actual (UTN/CAMPUS)
-                DispositivoTactil dispositivoTactil = db.Terminales.Include("funcionalidades").Where(i => i.nombre == "UTN FRBA Lugano").Single();
+                DispositivoTactil dispositivoTactil = BaseViewModel.terminal;
                 
                 List<string> palabrasClave = palabraBusqueda.Split(new char[] { ',' }).ToList();
                 foreach (string p in palabrasClave)

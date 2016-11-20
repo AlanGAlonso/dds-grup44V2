@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using TPDDSGrupo44.DataModels;
 using TPDDSGrupo44.Models;
 
 namespace TPDDSGrupo44.ViewModels
@@ -14,9 +16,15 @@ namespace TPDDSGrupo44.ViewModels
         public List<LocalComercial> localesEncontrados { get; set; }
         public List<LocalComercial> localesEncontradosCerca { get; set; }
         public int resultados { get; set; }
+        public new DispositivoTactil terminal { get; set; }
 
         public SearchViewModel() : base ()
         {
+
+            using (var db = new BuscAR())
+            {
+                terminal = db.Terminales.Include("funcionalidades").Where(i => i.nombre == "UTN FRBA Lugano").Single();
+            }
             paradasEncontradas = new List<ParadaDeColectivo>();
             paradasEncontradasCerca = new List<ParadaDeColectivo>();
             bancosEncontrados = new List<Banco>();

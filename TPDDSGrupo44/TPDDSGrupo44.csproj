@@ -227,9 +227,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ActionWithPermissions.cs" />
-    <Compile Include="Migrations\201611201811112_InitialCreate.cs" />
-    <Compile Include="Migrations\201611201811112_InitialCreate.Designer.cs">
-      <DependentUpon>201611201811112_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201611201932485_InitialCreate.cs" />
+    <Compile Include="Migrations\201611201932485_InitialCreate.Designer.cs">
+      <DependentUpon>201611201932485_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
@@ -350,9 +350,6 @@
     <Content Include="Views\Admin\CreateServBancos.cshtml" />
     <Content Include="Views\Admin\ABMTerminal.cshtml" />
     <Content Include="Views\Admin\EditTerminal.cshtml" />
-    <Content Include="Scripts\json\BancJson.json" />
-    <Content Include="Scripts\json\CGPjson.json" />
-    <Content Include="Scripts\json\DispositivoTactiljson.json" />
     <Content Include="Views\Admin\CreateServCGP.cshtml" />
     <Content Include="Views\User\LogIn.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
@@ -367,8 +364,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611201811112_InitialCreate.resx">
-      <DependentUpon>201611201811112_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611201932485_InitialCreate.resx">
+      <DependentUpon>201611201932485_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

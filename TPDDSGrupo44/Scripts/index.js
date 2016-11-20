@@ -1,5 +1,4 @@
-﻿/*
-function initMap(place, text) {
+﻿function initMap(place, text) {
     var mapDiv = document.getElementById('map');
     var map = new google.maps.Map(mapDiv, {
         center: place,
@@ -12,7 +11,7 @@ function initMap(place, text) {
     });
 
     marker.setMap(map);
-}*/
+}
 
 $(document).ready(function () {
 
@@ -73,6 +72,17 @@ $(document).ready(function () {
         $(".poi").not($(this)).removeClass("selected");
         $(this).children(".detalles").slideToggle(500);
         $(this).toggleClass("selected")
+
+        if ($(this).hasClass("selected")) {
+            var text = $(this).children("h3").text();
+            var place = {
+                lat: parseFloat($(this).find(".latitude").text()),
+                lng: parseFloat($(this).find(".longitude").text())
+            };
+            
+            initMap(place, text);
+        }
+
     });
 
 

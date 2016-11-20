@@ -71,7 +71,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .result {
     border-radius: 5px;
-    margin: 10px 0;
+    height: 350px;
+    overflow: auto;
 }
 
 .ok {
@@ -116,6 +117,11 @@ h1, h2, h3, h4, h5, h6 {
     padding: 10px 0;
 }
 
+.poi .coordinate {
+    font-size: 0.7em;
+    display: none;
+}
+
 .delete-arg {
     cursor: pointer;
     color: #ddd;
@@ -128,7 +134,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /*map*/
 #map {
-    width: 100%; 
     border-radius: 5px;
     height: 350px;
 }

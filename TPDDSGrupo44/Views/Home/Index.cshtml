@@ -8,17 +8,22 @@
 
 @Scripts.Render("~/scripts/index.js")
 
-<script>
 
-    $(document).ready(function () {
-        var location = {
-            lat: @ViewBag.Latitud ,
-            lng: @ViewBag.Longitud };
-        initMap(location, "@ViewBag.TextoLugar" );
+    @if (Model != null)
+    {
+        <script>
+    $(document).ready(function() {
+                var text = "@Model.terminal.nombre";
+                var place = {
+            lat: parseFloat(@Model.terminal.coordenada.Latitude),
+        lng: parseFloat(@Model.terminal.coordenada.Longitude)
+        };
+
+            initMap(place, text);
     });
-
-</script>
-
+        </script>
+    }
+        
 
 <section class="featured">
     <div class="content-wrapper">
@@ -46,7 +51,11 @@
             </div>
             }
 
-            <div class="result @ViewBag.Search">
+
+<div class="row">
+<div class="form-group col-md-6" id="map"></div>
+
+            <div class="result form-group col-md-6 @ViewBag.Search">
                 @if (Model != null)
                 {
                     if (Model.paradasEncontradas.Count() != 0 || Model.paradasEncontradasCerca.Count() != 0)
@@ -57,6 +66,10 @@
                     {
                         <div class="poi">
                             <h3><span class="ion-android-bus"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
+                            @if (punto.coordenada != null)
+                            {
+                                <div class="coordinate"><span class="latitude">@punto.coordenada.Latitude</span>; <span class="longitude">@punto.coordenada.Longitude</span></div>
+                            }
                             @if (punto.calle.IsEmpty() || punto.numeroAltura == 0)
                             {
                                 <span>Dirección no encontrada.</span>
@@ -76,6 +89,10 @@
                     {
                         <div class="poi">
                             <h3><span class="ion-android-bus"></span> @punto.nombreDePOI</h3>
+                            @if (punto.coordenada != null)
+                            {
+                                <div class="coordinate"><span class="latitude">@punto.coordenada.Latitude</span>; <span class="longitude">@punto.coordenada.Longitude</span></div>
+                            }
                             @if (punto.calle.IsEmpty() || punto.numeroAltura == 0)
                             {
                                 <span>Dirección no encontrada.</span>
@@ -99,6 +116,10 @@
                     {
                         <div class="poi">
                             <h3><span class="ion-android-lock"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
+                            @if (punto.coordenada != null)
+                            {
+                                <div class="coordinate"><span class="latitude">@punto.coordenada.Latitude</span>; <span class="longitude">@punto.coordenada.Longitude</span></div>
+                            }
                             @if (punto.calle.IsEmpty() || punto.numeroAltura == 0)
                             {
                                 <span>Dirección no encontrada.</span>
@@ -153,6 +174,10 @@
                     {
                         <div class="poi">
                             <h3><span class="ion-android-lock"></span> @punto.nombreDePOI</h3>
+                            @if (punto.coordenada != null)
+                            {
+                                <div class="coordinate"><span class="latitude">@punto.coordenada.Latitude</span>; <span class="longitude">@punto.coordenada.Longitude</span></div>
+                            }
                             @if (punto.calle.IsEmpty() || punto.numeroAltura == 0)
                             {
                                 <span>Dirección no encontrada.</span>
@@ -216,6 +241,10 @@
                     {
                         <div class="poi">
                             <h3><span class="ion-android-cart"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
+                            @if (punto.coordenada != null)
+                            {
+                                <div class="coordinate"><span class="latitude">@punto.coordenada.Latitude</span>; <span class="longitude">@punto.coordenada.Longitude</span></div>
+                            }
                             @if (punto.calle.IsEmpty() || punto.numeroAltura == 0)
                             {
                                 <span>Dirección no encontrada.</span>
@@ -245,6 +274,10 @@
                     {
                         <div class="poi">
                             <h3><span class="ion-android-cart"></span> @punto.nombreDePOI</h3>
+                            @if (punto.coordenada != null)
+                            {
+                                <div class="coordinate"><span class="latitude">@punto.coordenada.Latitude</span>; <span class="longitude">@punto.coordenada.Longitude</span></div>
+                            }
                             @if (punto.calle.IsEmpty() || punto.numeroAltura == 0)
                             {
                                 <span>Dirección no encontrada.</span>
@@ -283,6 +316,10 @@
                     {
                         <div class="poi">
                             <h3><span class="ion-android-clipboard"></span> @punto.nombreDePOI <span>(cercano)</span></h3>
+                            @if (punto.coordenada != null)
+                            {
+                                <div class="coordinate"><span class="latitude">@punto.coordenada.Latitude</span>; <span class="longitude">@punto.coordenada.Longitude</span></div>
+                            }
                             @if (punto.calle.IsEmpty() || punto.numeroAltura == 0)
                             {
                                 <span>Dirección no encontrada</span>
@@ -341,6 +378,10 @@
                     {
                         <div class="poi">
                             <h3><span class="ion-android-clipboard"></span> @punto.nombreDePOI</h3>
+                            @if (punto.coordenada != null)
+                            {
+                                <div class="coordinate"><span class="latitude">@punto.coordenada.Latitude</span>; <span class="longitude">@punto.coordenada.Longitude</span></div>
+                            }
                             @if (punto.calle.IsEmpty() || punto.numeroAltura == 0)
                             {
                                 <span>Dirección no encontrada.</span>
@@ -399,5 +440,4 @@
                 <p>@ViewBag.SearchText</p>
 
             </div>
-
-            <div id="map"></div>
+    </div>

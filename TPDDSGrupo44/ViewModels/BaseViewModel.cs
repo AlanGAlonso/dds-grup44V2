@@ -10,11 +10,13 @@ namespace TPDDSGrupo44.ViewModels
         public static Usuario usuario { get; set; }
         public static Configuracion configuracion { get; set; }
         private static BaseViewModel instance;
+        public static DispositivoTactil terminal { get; set; }
 
         public BaseViewModel() {
 
             using (var db = new BuscAR())
             {
+                terminal = db.Terminales.Include("funcionalidades").Where(i => i.nombre == "UTN FRBA Lugano").Single();
                 configuracion = db.Configuraciones.Single();
             }    
 
