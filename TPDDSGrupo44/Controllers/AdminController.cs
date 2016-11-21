@@ -28,7 +28,6 @@ namespace TPDDSGrupo44.Controllers
         {
             if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Reportes").ToList().Count() > 0)
             {
-                //return View(recuperarBusquedas());
                 return View(new SearchsPerDayViewModel());
             }
             else
@@ -41,7 +40,8 @@ namespace TPDDSGrupo44.Controllers
         {
             if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Reportes").ToList().Count() > 0)
             {
-                return View(recuperarBusquedas());
+                //return View(recuperarBusquedas());
+                return View(new SearchsPerResultViewModel());
             }
             else
             {

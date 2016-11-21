@@ -12,6 +12,7 @@ namespace TPDDSGrupo44.DataModels
         public int Id { get; set; }
         public string textoBuscado { get; set; }
         public int cantidadDeResultados { get; set; }
+        [DisplayFormat(DataFormatString = "{dd-mm-yyyy}")]
         public DateTime fecha { get; set; }
         public string usuario { get; set; }
         public DispositivoTactil terminal { get; set; }
@@ -19,9 +20,6 @@ namespace TPDDSGrupo44.DataModels
 
         ////////////////Constructor vacio////////////////
         public Busqueda () { }
-
-
-
 
         public Busqueda(string texto, int resultados, DateTime fechaBusqueda, TimeSpan duracion)
         {

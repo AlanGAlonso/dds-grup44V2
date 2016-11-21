@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TPDDSGrupo44.DataModels.Busqueda>
+﻿@model TPDDSGrupo44.ViewModels.SearchsPerResultViewModel
 
 @{
     ViewBag.Title = "Resultados Por Búsqueda";
@@ -9,34 +9,35 @@
 
 <table class="table">
 
-
-    @foreach (var group in Model.GroupBy(item => item.terminal))
+    <tr>
+        <th>Terminal</th>
+        <th>Fecha</th>
+        <th>Cantidad de resultados</th>
+    </tr>
+    @foreach (var group in Model.busquedasPorResultados)
     {
 
         <tr>
             <td>
                 <strong>
                 @Html.Encode(group.Key.nombre)
-                    </strong>
-</td><td></td>
+                </strong>
+            </td>
+            <td>Todas las fechas</td>
             <td>
-                @group.Sum(i => i.cantidadDeResultados)
+                @group.Value.Sum(g => g.Value)
             </td>
         </tr>
-        foreach (var group2 in Model.GroupBy(item => new { item.terminal, item.fecha }))
+        foreach (var group2 in group.Value)
         {
-            if (group.Key == group2.Key.terminal)
-            {
             <tr><td></td>
                 <td>
-                    @Html.Encode(group2.Key.fecha)
+                    @Html.Encode(group2.Key.Date.ToString("dd-mm-yyyy"))
                 </td>
                 <td>
-                   @group2.Sum(i => i.cantidadDeResultados)
+                   @group2.Value
                 </td>
             </tr>
-
-            }
 
         }
     }
