@@ -16,7 +16,12 @@ namespace TPDDSGrupo44.Controllers
         {
             if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Reportes").ToList().Count() > 0)
             {
-                return View(recuperarBusquedas());
+                List<Busqueda> busquedas;
+                using (var db = new BuscAR())
+                {
+                    busquedas = db.Busquedas.Include("terminal").ToList();
+                }
+                return View(busquedas);
             }
             else
             {
@@ -40,7 +45,6 @@ namespace TPDDSGrupo44.Controllers
         {
             if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Reportes").ToList().Count() > 0)
             {
-                //return View(recuperarBusquedas());
                 return View(new SearchsPerResultViewModel());
             }
             else
@@ -49,16 +53,30 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-        private List<Busqueda> recuperarBusquedas()
-        {
-            List<Busqueda> busquedas;
-            using (var db = new BuscAR())
-            {
-                busquedas = db.Busquedas.Include("terminal").ToList();
-            }
 
-            return busquedas;
+
+        // PROCESOS ASINCRÓNICOS
+        public ActionResult AsynchronusProcedures()
+        {
+            if (ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Actualizar Local Comercial Asinc"
+                                                                             || f.nombre == "Agregar Acciones Asinc"
+                                                                             || f.nombre == "Proceso Múltiple Asinc"
+                                                                             || f.nombre == "Baja POIs Asinc").ToList().Count() > 0)
+            {
+                List<ActualizacionAsincronica> actualizacion;
+                using (var db = new BuscAR())
+                {
+                    actualizacion = db.FuncionalidadesUsuarios.OfType<ActualizacionAsincronica>().ToList();
+                }
+                return View(actualizacion);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
+
+
 
         // TERMINALES
 

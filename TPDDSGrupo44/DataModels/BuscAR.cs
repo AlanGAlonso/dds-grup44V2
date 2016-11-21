@@ -44,7 +44,7 @@ namespace TPDDSGrupo44.DataModels
         public virtual DbSet<HorarioAbierto> Horarios { get; set; }
         public virtual DbSet<ServicioCGP> ServiciosCPG { get; set; }
 
-        public System.Data.Entity.DbSet<TPDDSGrupo44.Models.BajaPOI> FuncionalidadUsuarios { get; set; }
+        public DbSet<FuncionalidadUsuario> FuncionalidadesUsuarios { get; set; }
     }
 
 }

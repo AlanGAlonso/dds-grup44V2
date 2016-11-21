@@ -27,6 +27,95 @@ namespace TPDDSGrupo44.Migrations
                 generarLog = true
             });
 
+
+
+            // FUNCIONALIDADES DE TERMINALES
+            /*    
+              context.FuncionalidadesTerminales.AddOrUpdate(f => f.nombre,
+                           new FuncionalidadDispositivoTactil
+                           {
+                               nombre = "Parada"
+                           },
+                           new FuncionalidadDispositivoTactil
+                           {
+                               nombre = "Banco"
+                           },
+                           new FuncionalidadDispositivoTactil {
+                               nombre = "CGP"
+                           },
+                           new FuncionalidadDispositivoTactil
+                           {
+                               nombre = "Locales"
+                           }
+                           ,
+                           new FuncionalidadDispositivoTactil
+                           {
+                               nombre = "Loggear Búsquedas"
+                           }
+                       );
+                   context.SaveChanges();
+
+
+            context.FuncionalidadesUsuarios.AddOrUpdate(fu => fu.nombre,
+                new ActualizacionLocalComercial
+                    {
+                        nombre = "Actualizar Local Comercial Asinc",
+                        lote = 1
+                    },
+                    new AgregarAcciones
+                    {
+                        nombre = "Agregar Acciones Asinc",
+                        lote = 1
+                    },
+                    new ProcesoMultiple
+                    {
+                        nombre = "Proceso Múltiple Asinc",
+                        lote = 1
+                    },
+                    new BajaPOI
+                    {
+                        nombre = "Baja POIs Asinc",
+                        lote = 1
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Alta POI",
+                        lote = 1
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Baja POI",
+                        lote = 1
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Editar POI",
+                        lote = 1
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Consultar POI",
+                        lote = 1
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Reportes",
+                        lote = 1
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Configuracion",
+                        lote = 1
+                    },
+                    new FuncionalidadUsuario
+                    {
+                        nombre = "Terminales",
+                        lote = 1
+                    }
+                );
+                context.SaveChanges();
+            */
+
             //ROLES
 
             context.Roles.AddOrUpdate(r => r.nombre,
@@ -137,30 +226,7 @@ namespace TPDDSGrupo44.Migrations
             context.SaveChanges();
 
 
-            // FUNCIONALIDADES DE TERMINALES
-            /*     context.FuncionalidadesTerminales.AddOrUpdate(f => f.nombre,
-                           new FuncionalidadDispositivoTactil
-                           {
-                               nombre = "Parada"
-                           },
-                           new FuncionalidadDispositivoTactil
-                           {
-                               nombre = "Banco"
-                           },
-                           new FuncionalidadDispositivoTactil {
-                               nombre = "CGP"
-                           },
-                           new FuncionalidadDispositivoTactil
-                           {
-                               nombre = "Locales"
-                           }
-                           ,
-                           new FuncionalidadDispositivoTactil
-                           {
-                               nombre = "Loggear Búsquedas"
-                           }
-                       );
-                   context.SaveChanges();*/
+            
 
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego terminales
             context.Terminales.AddOrUpdate(d => d.nombre,
