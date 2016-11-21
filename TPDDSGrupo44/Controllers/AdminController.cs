@@ -66,7 +66,7 @@ namespace TPDDSGrupo44.Controllers
                 List<ActualizacionAsincronica> actualizacion;
                 using (var db = new BuscAR())
                 {
-                    actualizacion = db.FuncionalidadesUsuarios.OfType<ActualizacionAsincronica>().ToList();
+                    actualizacion = db.FuncionalidadesUsuarios.OfType<ActualizacionAsincronica>().GroupBy(f => f.nombre).Select(f => f.FirstOrDefault()).ToList();
                 }
                 return View(actualizacion);
             }

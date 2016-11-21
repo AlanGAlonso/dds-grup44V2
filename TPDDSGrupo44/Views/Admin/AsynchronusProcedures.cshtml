@@ -7,7 +7,8 @@
 
 <script>
     function redirect(dropDownValue) {
-        window.location.href = '/Admin/AsynchronusProcedures/' + dropDownValue;
+        $(".process:not(#" + dropDownValue.replace(/ /g, "") + ")").slideUp(500);
+        $("#" + dropDownValue.replace(/ /g, "")).slideDown(500);
     }
 </script>
 
@@ -19,7 +20,7 @@
         <label class="control-label">Selecciona un proceso:</label>
     </div>
     <div class="col-md-9">
-        <select class="form-control" <!--onchange="redirect(this.value)"-->>
+        <select class="form-control" onchange="redirect(this.value)">
             <option>Selecciona un proceso</option>
             @foreach (var proceso in Model)
             {
@@ -33,4 +34,31 @@
     </div>
 
 
-</table>
+<div class="row">
+    @foreach (var proceso in Model)
+    {
+        if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == proceso.nombre).ToList().Count() > 0)
+        {
+            <div class="process" id="@proceso.nombre.Replace(" ", "")">
+                <h3>@proceso.nombre</h3>
+
+                @if (proceso.nombre == "Actualizar Local Comercial Asinc")
+                {   
+                    <div class="col-md-3">
+                        <label class="control-label">Selecciona un archivo:</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="file" name="file" class="form-control" placeholder="Elija el archivo desde su dispositivo" />
+                    </div>
+                } else if (proceso.nombre == "Agregar Acciones Asinc")
+                {
+
+                }
+
+            </div>
+        }
+    }
+    <button type="submit">Ejecutar</button>
+
+</div>
+

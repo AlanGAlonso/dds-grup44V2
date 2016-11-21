@@ -30,7 +30,7 @@ namespace TPDDSGrupo44.Migrations
 
 
             // FUNCIONALIDADES DE TERMINALES
-            /*    
+            /*
               context.FuncionalidadesTerminales.AddOrUpdate(f => f.nombre,
                            new FuncionalidadDispositivoTactil
                            {
