@@ -79,17 +79,43 @@ namespace TPDDSGrupo44.Controllers
         [HttpPost]
         public ActionResult AsynchronusProcedures(FormCollection form)
         {
+
+            List<ActualizacionAsincronica> actualizaciones;
+            using (var db = new BuscAR())
+            {
+                actualizaciones = db.FuncionalidadesUsuarios.OfType<ActualizacionAsincronica>().GroupBy(f => f.nombre).Select(f => f.FirstOrDefault()).ToList();
+            }
+
             ActualizacionAsincronica actualizacion = ViewModels.BaseViewModel.usuario.rol.funcionalidades.OfType<ActualizacionAsincronica>().Where(f => f.nombre == form["process"]).Single();
             if (actualizacion != null)
             {
                 if (form["process"] == "Actualizar Local Comercial Asinc")
                 {
                     actualizacion.actualizar(form["file"]);
-                } else { 
+                }
+                else if (form["process"] == "Proceso Múltiple Asinc")
+                {
+                    ProcesoMultiple proceso = ViewModels.BaseViewModel.usuario.rol.funcionalidades.OfType<ProcesoMultiple>().Where(f => f == actualizacion).Single(); 
+                    foreach (ActualizacionAsincronica a in actualizaciones)
+                    {
+                        if (form["mp" + a.nombre.Replace(" ", "")] != "") { 
+                            if (a.nombre != "Actualizar Local Comercial Asinc") { 
+                                proceso.actualizaciones.Add(a, "");
+                            }
+                            else
+                            {
+                                proceso.actualizaciones.Add(a, form["file2"]);
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
                     actualizacion.actualizar();
                 }
 
-                return RedirectToAction("AsynchronusProcedures", "Admin");
+                return View(actualizaciones);
             }
             else
             {

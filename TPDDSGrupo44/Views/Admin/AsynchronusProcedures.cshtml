@@ -91,7 +91,7 @@
                         {
                             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == p.nombre && f.nombre != proceso.nombre).ToList().Count() > 0)
                             {
-                                <input type="checkbox" name="multipleProcess" value="@p.nombre" id="process-@p.id" onchange="selectLabel('process-@p.id')"/> <label for="process-@p.id">@p.nombre</label><br />
+                                <input type="checkbox" name="mp-@p.nombre.Replace(" ","")" value="@p.nombre" id="process-@p.id" onchange="selectLabel('process-@p.id')"/> <label for="process-@p.id">@p.nombre</label><br />
                                 if (p.nombre == "Actualizar Local Comercial Asinc")
                                 {
                                     <div class="row process-@p.id" style="display: none;">
@@ -99,7 +99,7 @@
                                             <label class="control-label">Selecciona un archivo:</label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="file" name="file" class="form-control" placeholder="Elija el archivo de actualización de Locales Comerciales" />
+                                            <input type="file" name="file2" class="form-control" placeholder="Elija el archivo de actualización de Locales Comerciales" />
                                         </div>
                                     </div>
                                 }
