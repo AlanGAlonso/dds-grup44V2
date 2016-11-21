@@ -8,17 +8,19 @@ namespace TPDDSGrupo44.Models
     public class ActualizacionLocalComercial : ActualizacionAsincronica
     {
 
+        public string archivo { get; set; }
+
         public ActualizacionLocalComercial() : base () {
         }
 
-        public override void actualizar() {
+        public override void actualizar(string archivo) {
             using (var db = new BuscAR())
             {
                 LogAction log = new LogAction("Actualizar Local Comercial Asinc", BaseViewModel.usuario.nombre);
 
                 try { 
-                    //abrir archivo. tendría que recibirlo por parámetro... corregir!
-                    System.IO.StreamReader reader = System.IO.File.OpenText("filename.txt");
+
+                    System.IO.StreamReader reader = System.IO.File.OpenText(archivo);
                     string line;
                     //traigo linea por linea, leyendo y parseando
                     while ((line = reader.ReadLine()) != null)

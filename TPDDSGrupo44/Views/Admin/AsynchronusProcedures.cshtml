@@ -1,64 +1,123 @@
 ﻿@model IEnumerable<TPDDSGrupo44.Models.ActualizacionAsincronica>
 
 @{
-    ViewBag.Title = "Procesos Asincrónicos";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Procesos Asincrónicos";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <script>
-    function redirect(dropDownValue) {
-        $(".process:not(#" + dropDownValue.replace(/ /g, "") + ")").slideUp(500);
-        $("#" + dropDownValue.replace(/ /g, "")).slideDown(500);
-    }
+	function redirect(dropDownValue) {
+		$(".process:not(#" + dropDownValue.replace(/ /g, "") + ")").slideUp(500);
+		$("#" + dropDownValue.replace(/ /g, "")).slideDown(500);
+	}
+
+	function selectLabel(id) {
+	    $("." + id).slideDown(500);
+	}
 </script>
 
 
 <h2>Procesos Asincrónicos</h2>
 <p>Aquí puedes ejecutar procesos asincrónicos que actualizan la información de BuscAR.</p>
+
+@using (Html.BeginForm("AsynchronusProcedures", "Admin", FormMethod.Post)) { 
 <div class="row">
-    <div class="col-md-3">
-        <label class="control-label">Selecciona un proceso:</label>
-    </div>
-    <div class="col-md-9">
-        <select class="form-control" onchange="redirect(this.value)">
-            <option>Selecciona un proceso</option>
-            @foreach (var proceso in Model)
-            {
-                if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == proceso.nombre).ToList().Count() > 0)
-                {
-                    <option value="@proceso.nombre">@proceso.nombre</option>
-                }
-            }
-        </select>
-        </div>
-    </div>
+	<div class="col-md-3">
+		<label class="control-label">Selecciona un proceso:</label>
+	</div>
+	<div class="col-md-9">
+		<select class="form-control" onchange="redirect(this.value)" name="process">
+			<option>Selecciona un proceso</option>
+			@foreach (var proceso in Model)
+			{
+				if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == proceso.nombre).ToList().Count() > 0)
+				{
+					<option value="@proceso.nombre">@proceso.nombre</option>
+				}
+			}
+		</select>
+		</div>
+	</div>
 
 
 <div class="row">
-    @foreach (var proceso in Model)
-    {
-        if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == proceso.nombre).ToList().Count() > 0)
+		@foreach (var proceso in Model)
         {
-            <div class="process" id="@proceso.nombre.Replace(" ", "")">
-                <h3>@proceso.nombre</h3>
+            if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == proceso.nombre).ToList().Count() > 0)
+            {
+				<div class="process" id="@proceso.nombre.Replace(" ", "")">
+					<h3>@proceso.nombre</h3>
 
-                @if (proceso.nombre == "Actualizar Local Comercial Asinc")
-                {   
-                    <div class="col-md-3">
-                        <label class="control-label">Selecciona un archivo:</label>
-                    </div>
-                    <div class="col-md-9">
-                        <input type="file" name="file" class="form-control" placeholder="Elija el archivo desde su dispositivo" />
-                    </div>
-                } else if (proceso.nombre == "Agregar Acciones Asinc")
-                {
+					@if (proceso.nombre == "Actualizar Local Comercial Asinc")
+                    {
+						<div class="col-md-3">
+							<label class="control-label">Selecciona un archivo:</label>
+						</div>
+						<div class="col-md-9">
+							<input type="file" name="file" class="form-control" placeholder="Elija el archivo de actualización de Locales Comerciales" />
+						</div>
+						<div class="form-group">
+                            <div class="col-md-offset-10 col-md-2">
+                                <button type="submit">Ejecutar</button>
+                            </div>
+							</div>
 
-                }
+                    }
+                    else if (proceso.nombre == "Baja POIs Asinc")
+                    {
+								<p>Si ejecutas este proceso, llamaremos a los servicios REST del Gobierno de la Ciudad de Buenos Aires para dar de baja los puntos de interés correspondientes.</p>
 
-            </div>
+								<div class="form-group">
+                                    <div class="col-md-offset-10 col-md-2">
+                                        <button type="submit">Ejecutar</button>
+                                    </div>
+								</div>
+
+                    }
+                    else if (proceso.nombre == "Agregar Acciones Asinc")
+                    {
+
+						<div class="form-group">
+                            <div class="col-md-offset-10 col-md-2">
+                                <button type="submit">Ejecutar</button>
+                            </div>
+						</div>
+
+                    }
+                    else if (proceso.nombre == "Proceso Múltiple Asinc")
+                    {
+                        <p>Seleccione qué procesos desea ejecutar:</p>
+                        foreach (var p in Model)
+                        {
+                            if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == p.nombre && f.nombre != proceso.nombre).ToList().Count() > 0)
+                            {
+                                <input type="checkbox" name="multipleProcess" value="@p.nombre" id="process-@p.id" onchange="selectLabel('process-@p.id')"/> <label for="process-@p.id">@p.nombre</label><br />
+                                if (p.nombre == "Actualizar Local Comercial Asinc")
+                                {
+                                    <div class="row process-@p.id" style="display: none;">
+                                        <div class="col-md-3">
+                                            <label class="control-label">Selecciona un archivo:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="file" name="file" class="form-control" placeholder="Elija el archivo de actualización de Locales Comerciales" />
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                        }
+						<div class="form-group">
+							<div class="col-md-offset-10 col-md-2">
+								<button type="submit">Ejecutar</button>
+							</div>
+						</div>
+                    }
+
+							</div>
+            }
         }
-    }
-    <button type="submit">Ejecutar</button>
 
-</div>
+						</div>
 
+
+}

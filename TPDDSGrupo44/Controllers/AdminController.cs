@@ -72,7 +72,28 @@ namespace TPDDSGrupo44.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LogIn", "User");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AsynchronusProcedures(FormCollection form)
+        {
+            ActualizacionAsincronica actualizacion = ViewModels.BaseViewModel.usuario.rol.funcionalidades.OfType<ActualizacionAsincronica>().Where(f => f.nombre == form["process"]).Single();
+            if (actualizacion != null)
+            {
+                if (form["process"] == "Actualizar Local Comercial Asinc")
+                {
+                    actualizacion.actualizar(form["file"]);
+                } else { 
+                    actualizacion.actualizar();
+                }
+
+                return RedirectToAction("AsynchronusProcedures", "Admin");
+            }
+            else
+            {
+                return RedirectToAction("LogIn", "User");
             }
         }
 

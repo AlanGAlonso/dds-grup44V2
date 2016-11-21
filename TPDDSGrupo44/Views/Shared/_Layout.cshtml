@@ -61,6 +61,13 @@
                                             <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu">
+                                            @if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == "Actualizar Local Comercial Asinc"
+                             || f.nombre == "Agregar Acciones Asinc"
+                             || f.nombre == "Proceso Múltiple Asinc"
+                             || f.nombre == "Baja POIs Asinc").ToList().Count() > 0)
+                                            {
+                                                <li>@Html.ActionLink(" Procesos Asincrónicos", "AsynchronusProcedures", new { controller = "Admin" }, new { @class = "ion-ios-stopwatch-outline" })</li>
+                                            }
                                             @Html.ActionPermissions("Terminales", "ABMTerminal", "Admin", "Terminales", "ion-ios-navigate-outline")
                                             @Html.ActionPermissions("Reportes", "Index", "Admin", "Reportes", "ion-ios-paper-outline")
                                             @Html.ActionPermissions("Configuración", "Settings", "Admin", "Configuracion", "ion-ios-settings")
