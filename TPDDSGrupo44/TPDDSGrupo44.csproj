@@ -288,8 +288,14 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\common.js" />
+    <Content Include="Scripts\createBanco.js" />
+    <Content Include="Scripts\createCGP.js" />
+    <Content Include="Scripts\createLocal.js" />
     <Content Include="Scripts\createParada.js" />
-    <Content Include="Scripts\EditParada.js" />
+    <Content Include="Scripts\editBanco.js" />
+    <Content Include="Scripts\editCGP.js" />
+    <Content Include="Scripts\editLocal.js" />
+    <Content Include="Scripts\editParada.js" />
     <Content Include="Scripts\index.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
