@@ -11,7 +11,17 @@
     var inirubro = $("[name='rubro']").val();
     var iniradioDeCercania = $("[name='radioDeCercania']").val();
 
+   
+
+
+
     $("input[type='submit']").prop("disabled", true);
+
+
+    $("input").not("#coordenada_Latitude").not("#coordenada_Longitude").not("#calle").not("#numeroAltura").not("#nombreDePOI").not("[name='palabrasClave']").
+        not("[name='rubro']").not("[name='radioDeCercania']").on("blur", function () {
+        validar();
+    });
 
 
     // validacion coordenada_Latitude

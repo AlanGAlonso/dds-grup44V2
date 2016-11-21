@@ -14,6 +14,14 @@
     $("input[type='submit']").prop("disabled", true);
 
 
+    $("input").not("#coordenada_Latitude").not("#coordenada_Longitude").not("#calle").not("#numeroAltura").not("#nombreDePOI").not("[name='palabrasClave']").
+    not("#zonaDelimitadaPorLaComuna").not("#numeroDeComuna").on("blur", function () {
+        validar();
+    });
+
+
+
+
     // validacion coordenada_Latitude
     $("#coordenada_Latitude").on("blur", function () {
         if ($(this).val().length > 0) {
