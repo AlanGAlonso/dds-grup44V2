@@ -111,6 +111,10 @@ namespace TPDDSGrupo44.Migrations
                     {
                         nombre = "Terminales",
                         lote = 1
+                    },new FuncionalidadUsuario
+                    {
+                        nombre = "Trámite",
+                        lote = 1
                     }
                 );
                 context.SaveChanges();

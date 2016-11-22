@@ -260,6 +260,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\EditTerminalViewModel.cs" />
+    <Compile Include="ViewModels\AsynchronusProceduresViewModel.cs" />
     <Compile Include="ViewModels\SearchsPerResultViewModel.cs" />
     <Compile Include="ViewModels\SearchsPerDayViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />

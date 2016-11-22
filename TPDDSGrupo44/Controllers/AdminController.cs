@@ -64,12 +64,8 @@ namespace TPDDSGrupo44.Controllers
                                                                              || f.nombre == "Proceso Múltiple Asinc"
                                                                              || f.nombre == "Baja POIs Asinc").ToList().Count() > 0)
             {
-                List<ActualizacionAsincronica> actualizacion;
-                using (var db = new BuscAR())
-                {
-                    actualizacion = db.FuncionalidadesUsuarios.OfType<ActualizacionAsincronica>().GroupBy(f => f.nombre).Select(f => f.FirstOrDefault()).ToList();
-                }
-                return View(actualizacion);
+                AsynchronusProceduresViewModel viewModel = new AsynchronusProceduresViewModel();
+                return View(viewModel);
             }
             else
             {
@@ -81,11 +77,7 @@ namespace TPDDSGrupo44.Controllers
         public ActionResult AsynchronusProcedures(FormCollection form)
         {
 
-            List<ActualizacionAsincronica> actualizaciones;
-            using (var db = new BuscAR())
-            {
-                actualizaciones = db.FuncionalidadesUsuarios.OfType<ActualizacionAsincronica>().GroupBy(f => f.nombre).Select(f => f.FirstOrDefault()).ToList();
-            }
+            AsynchronusProceduresViewModel viewModel = new AsynchronusProceduresViewModel();
 
             ActualizacionAsincronica actualizacion = ViewModels.BaseViewModel.usuario.rol.funcionalidades.OfType<ActualizacionAsincronica>().Where(f => f.nombre == form["process"]).Single();
             if (actualizacion != null)
@@ -104,18 +96,58 @@ namespace TPDDSGrupo44.Controllers
                         }
                     }
                 }
+                else if (form["process"] == "Agregar Acciones Asinc")
+                {
+                    AgregarAcciones proceso = ViewModels.BaseViewModel.usuario.rol.funcionalidades.OfType<AgregarAcciones>().Where(f => f == actualizacion).Single();
+                    string funcionalidadesUsuarios = "";
+                    foreach (FuncionalidadUsuario a in viewModel.funcionalidadesUsuarios)
+                    {
+                        
+                        if (form["fu-" + a.nombre.Replace(" ", "")] != "" && form["fu-" + a.nombre.Replace(" ", "")] != null)
+                        {
+                            funcionalidadesUsuarios += a.nombre + ",";
+                        }
+                    }
+                    if (form["undo"] != "" && form["undo"] != null)
+                    {
+                        proceso.deshacer();
+                    }
+                    proceso.actualizar(funcionalidadesUsuarios);
+
+                }
                 else if (form["process"] == "Proceso Múltiple Asinc")
                 {
-                    ProcesoMultiple proceso = ViewModels.BaseViewModel.usuario.rol.funcionalidades.OfType<ProcesoMultiple>().Where(f => f == actualizacion).Single(); 
-                    foreach (ActualizacionAsincronica a in actualizaciones)
+                    ProcesoMultiple proceso = ViewModels.BaseViewModel.usuario.rol.funcionalidades.OfType<ProcesoMultiple>().Where(f => f == actualizacion).Single();
+                    foreach (ActualizacionAsincronica a in viewModel.actualizaciones)
                     {
-                        if (form["mp" + a.nombre.Replace(" ", "")] != "") { 
-                            if (a.nombre != "Actualizar Local Comercial Asinc") { 
-                                proceso.actualizaciones.Add(a, "");
+                        if (form["mp-" + a.nombre.Replace(" ", "")] != "" && form["mp-" + a.nombre.Replace(" ", "")] != null)
+                        {
+                            if (a.nombre == "Actualizar Local Comercial Asinc")
+                            {
+                                proceso.actualizaciones.Add(a, form["file2"]);
+                            }
+                            else if (a.nombre == "Agregar Acciones Asinc")
+                            {
+                                AgregarAcciones p = ViewModels.BaseViewModel.usuario.rol.funcionalidades.OfType<AgregarAcciones>().Where(f => f == actualizacion).Single();
+                                string funcionalidadesUsuarios = "";
+                                foreach (FuncionalidadUsuario f in viewModel.funcionalidadesUsuarios)
+                                {
+
+                                    if (form["fu-" + f.nombre.Replace(" ", "")+"-2"] != "" && form["fu-" + f.nombre.Replace(" ", "") + "-2"] != null)
+                                    {
+                                        funcionalidadesUsuarios += f.nombre + ",";
+                                    }
+                                }
+                                if (form["undo2"] != "" && form["undo2"] != null)
+                                {
+                                    p.deshacer();
+                                }
+                                p.actualizar(funcionalidadesUsuarios);
+
                             }
                             else
                             {
-                                proceso.actualizaciones.Add(a, form["file2"]);
+                                proceso.actualizaciones.Add(a, ""); 
                             }
                         }
                     }
@@ -125,8 +157,7 @@ namespace TPDDSGrupo44.Controllers
                 {
                     actualizacion.actualizar();
                 }
-
-                return View(actualizaciones);
+                return View(viewModel);
             }
             else
             {

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TPDDSGrupo44.Models.ActualizacionAsincronica>
+﻿@model TPDDSGrupo44.ViewModels.AsynchronusProceduresViewModel 
 
 @{
 	ViewBag.Title = "Procesos Asincrónicos";
@@ -28,7 +28,7 @@
 	<div class="col-md-9">
 		<select class="form-control" onchange="redirect(this.value)" name="process">
 			<option>Selecciona un proceso</option>
-			@foreach (var proceso in Model)
+			@foreach (var proceso in Model.actualizaciones)
 			{
 				if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == proceso.nombre).ToList().Count() > 0)
 				{
@@ -41,7 +41,7 @@
 
 
 <div class="row">
-		@foreach (var proceso in Model)
+		@foreach (var proceso in Model.actualizaciones)
         {
             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == proceso.nombre).ToList().Count() > 0)
             {
@@ -76,8 +76,15 @@
                     }
                     else if (proceso.nombre == "Agregar Acciones Asinc")
                     {
-
+                        <p>Cuidado: ejecutar este proceso agregará las acciones seleccionadas a todos los usuarios.</p>
+                        foreach (var f in Model.funcionalidadesUsuarios)
+                        { 
+                            <input type="checkbox" name="fu-@f.nombre.Replace(" ","")" value="@f.nombre" id="functionality-@f.id" /> <label for="functionality-@f.id">@f.nombre</label><br />
+                        }
 						<div class="form-group">
+                            <div class="col-md-offset-8 col-md-4">
+                                <input type="checkbox" name="undo" id="undo"/> <label for="undo">Deshacer la última acción</label><br />
+                            </div>
                             <div class="col-md-offset-10 col-md-2">
                                 <button type="submit">Ejecutar</button>
                             </div>
@@ -87,7 +94,7 @@
                     else if (proceso.nombre == "Proceso Múltiple Asinc")
                     {
                         <p>Seleccione qué procesos desea ejecutar:</p>
-                        foreach (var p in Model)
+                        foreach (var p in Model.actualizaciones)
                         {
                             if (TPDDSGrupo44.ViewModels.BaseViewModel.usuario.rol.funcionalidades.Where(f => f.nombre == p.nombre && f.nombre != proceso.nombre).ToList().Count() > 0)
                             {
@@ -102,6 +109,20 @@
                                             <input type="file" name="file2" class="form-control" placeholder="Elija el archivo de actualización de Locales Comerciales" />
                                         </div>
                                     </div>
+                                }
+                                else if (proceso.nombre == "Agregar Acciones Asinc")
+                                {
+                                    <p>Cuidado: ejecutar este proceso agregará las acciones seleccionadas a todos los usuarios.</p>
+                                    foreach (var f in Model.funcionalidadesUsuarios)
+                                    {
+                                        <input type="checkbox" name="fu-@f.nombre.Replace(" ","")-2" value="@f.nombre" id="functionality-@f.id-2" /> <label for="functionality-@f.id-2">@f.nombre</label><br />
+                                    }
+                                    <div class="form-group">
+                                        <div class="col-md-offset-8 col-md-4">
+                                            <input type="checkbox" name="undo2" id="undo" /> <label for="undo2">Deshacer la última acción</label><br />
+                                        </div>
+                                    </div>
+
                                 }
                             }
 

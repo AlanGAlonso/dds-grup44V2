@@ -6,12 +6,14 @@
 }
 
 <h2>Búsquedas por Día</h2>
+@Html.ActionLink("Volver al reporte de búsqueda","Index", "Admin")
 <table class="table">
 
     <tr>
         <th>Día</th>
         <th>Cantidad de búsquedas</th>
     </tr>
+
     @foreach (var group in Model.busquedasPorDia)
         {
 

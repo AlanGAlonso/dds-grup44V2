@@ -22,8 +22,10 @@ namespace TPDDSGrupo44.Models
             List<FuncionalidadUsuario> func = new List<FuncionalidadUsuario>();
             foreach (string v in values)
             {
-                func.Add(new FuncionalidadUsuario(v));
-            }
+                        if (v != "") { 
+                            func.Add(new FuncionalidadUsuario(v));
+                        }
+                    }
             
 
                 
@@ -33,14 +35,17 @@ namespace TPDDSGrupo44.Models
                     foreach (Rol r in roles)
                     {
                         int lote = r.funcionalidades.Aggregate((i1, i2) => i1.lote > i2.lote ? i1 : i2).lote + 1;
-                        foreach (FuncionalidadUsuario f in func)
-                        {
-                            if (r.funcionalidades.Find(i => i.nombre == f.nombre) == null)
+                        
+                            foreach (FuncionalidadUsuario f in func)
                             {
-                                f.lote = lote;
-                                r.funcionalidades.Add(f);
+                                if (r.funcionalidades.Find(i => i.nombre == f.nombre) == null)
+                                {
+                                    FuncionalidadUsuario funcio = new FuncionalidadUsuario(f.nombre);
+                                    funcio.lote = lote;
+                                    r.funcionalidades.Add(funcio);
+                                }
                             }
-                        }
+                        
                     }
 
                     log.finalizarProceso("Exito");
@@ -66,8 +71,10 @@ namespace TPDDSGrupo44.Models
                 foreach (Rol r in roles)
                 {
                     int lote = r.funcionalidades.Aggregate((i1, i2) => i1.lote > i2.lote ? i1 : i2).lote;
-                    List<FuncionalidadUsuario> ultimasFuncAgregadas = r.funcionalidades.Where(f => f.lote == lote).ToList();
-                    r.funcionalidades = r.funcionalidades.Except(ultimasFuncAgregadas).ToList();
+                    if (lote > 1) { 
+                        List<FuncionalidadUsuario> ultimasFuncAgregadas = r.funcionalidades.Where(f => f.lote == lote).ToList();
+                        r.funcionalidades = r.funcionalidades.Except(ultimasFuncAgregadas).ToList();
+                    }
                 }
 
                 db.SaveChanges();
