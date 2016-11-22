@@ -239,7 +239,8 @@ namespace TPDDSGrupo44.Migrations
                     new FuncionalidadDispositivoTactil("Parada"),
                     new FuncionalidadDispositivoTactil("Banco"),
                     new FuncionalidadDispositivoTactil("CGP"),
-                    new FuncionalidadDispositivoTactil("Locales")
+                    new FuncionalidadDispositivoTactil("Locales"),
+                           new FuncionalidadDispositivoTactil("Loggear Búsquedas")
                 }
             },
 new DispositivoTactil

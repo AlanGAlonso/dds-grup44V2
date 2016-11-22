@@ -34,14 +34,11 @@ namespace TPDDSGrupo44.Models
                         {
                             palabrasClave.Add(new PalabraClave(p));
                         }
-                    
-                            LocalComercial local = (from l in db.Locales
-                                                    where l.nombreDePOI == nombre
-                                                    select l).Single();
+                        LocalComercial local;
                             // si el local ya existe, lo actualizo
-                            if (local != null)
+                            if (db.Locales.Where(l=> l.nombreDePOI == nombre).Count() > 0)
                             {
-                                local.palabrasClave = palabrasClave;
+                            db.Locales.Where(l => l.nombreDePOI == nombre).Single().palabrasClave = palabrasClave;
                             } else
                             {
                                 //si el local no existe, lo agrego

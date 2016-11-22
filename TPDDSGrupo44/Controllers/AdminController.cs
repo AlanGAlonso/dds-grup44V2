@@ -6,6 +6,7 @@ using TPDDSGrupo44.Models;
 using System.Data.Entity.Spatial;
 using TPDDSGrupo44.DataModels;
 using TPDDSGrupo44.ViewModels;
+using System.IO;
 
 namespace TPDDSGrupo44.Controllers
 {
@@ -91,7 +92,17 @@ namespace TPDDSGrupo44.Controllers
             {
                 if (form["process"] == "Actualizar Local Comercial Asinc")
                 {
-                    actualizacion.actualizar(form["file"]);
+                    if (Request.Files.Count > 0)
+                    {
+                        var file = Request.Files[0];
+
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            var path = Path.Combine(Server.MapPath("~/Content"), "Actualizacion De Locales.txt");
+                            file.SaveAs(path);
+                            actualizacion.actualizar(path);
+                        }
+                    }
                 }
                 else if (form["process"] == "Proceso Múltiple Asinc")
                 {

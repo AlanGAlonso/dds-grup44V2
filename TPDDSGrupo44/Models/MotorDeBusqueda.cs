@@ -21,7 +21,7 @@ namespace TPDDSGrupo44.Models
             {
 
                 //Defino ubicación actual (UTN/CAMPUS)
-                DispositivoTactil dispositivoTactil = BaseViewModel.terminal;
+                DispositivoTactil dispositivoTactil = db.Terminales.Where(t => t.Id == BaseViewModel.terminal.Id).Single();
                 
                 List<string> palabrasClave = palabraBusqueda.Split(new char[] { ',' }).ToList();
                 foreach (string p in palabrasClave)
