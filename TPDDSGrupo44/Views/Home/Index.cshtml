@@ -133,13 +133,13 @@
                                 {
                                     <h4><span class="ion-android-time"></span> Horarios</h4>
                                     <ul>
-                                        @{ CultureInfo ci = new CultureInfo("Es-Es");}
-
+                                        @{CultureInfo ci1 = new CultureInfo("Es-Es");}
+                                        @{TextInfo myTI = new CultureInfo("Es-Es", false).TextInfo;}
                                       
 
                                         @foreach (var horario in punto.horarioAbierto)
                                         {
-                                            <li>ci.DateTimeFormat.GetDayName(@horario.dia) abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                            <li>@(myTI.ToTitleCase((ci1.DateTimeFormat.GetDayName(horario.dia)).ToString())) abierto de @horario.horarioInicio a @horario.horarioFin</li>
                                         }
                                     </ul>
                                 }
