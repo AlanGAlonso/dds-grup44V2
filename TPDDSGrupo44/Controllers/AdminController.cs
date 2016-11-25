@@ -132,7 +132,7 @@ namespace TPDDSGrupo44.Controllers
                                     {
                                         var path = Path.Combine(Server.MapPath("~/Content"), "Actualizacion De Locales.txt");
                                         file.SaveAs(path);
-                                        a.actualizar(path);
+                                        proceso.actualizaciones.Add(a, path);
                                     }
                                 }
                             }
@@ -152,15 +152,18 @@ namespace TPDDSGrupo44.Controllers
                                 {
                                     p.deshacer();
                                 }
-                                p.actualizar(funcionalidadesUsuarios);
+
+                                proceso.actualizaciones.Add(a, funcionalidadesUsuarios);
 
                             }
                             else
                             {
-                                proceso.actualizaciones.Add(a, ""); 
+                                proceso.actualizaciones.Add(a, "");
                             }
                         }
                     }
+
+                    proceso.actualizar();
 
                 }
                 else
