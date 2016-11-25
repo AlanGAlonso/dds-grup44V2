@@ -124,11 +124,21 @@ namespace TPDDSGrupo44.Controllers
                         {
                             if (a.nombre == "Actualizar Local Comercial Asinc")
                             {
-                                proceso.actualizaciones.Add(a, form["file2"]);
+                                if (Request.Files.Count > 0)
+                                {
+                                    var file = Request.Files[1];
+
+                                    if (file != null && file.ContentLength > 0)
+                                    {
+                                        var path = Path.Combine(Server.MapPath("~/Content"), "Actualizacion De Locales.txt");
+                                        file.SaveAs(path);
+                                        a.actualizar(path);
+                                    }
+                                }
                             }
                             else if (a.nombre == "Agregar Acciones Asinc")
                             {
-                                AgregarAcciones p = ViewModels.BaseViewModel.usuario.rol.funcionalidades.OfType<AgregarAcciones>().Where(f => f == actualizacion).Single();
+                                AgregarAcciones p = ViewModels.BaseViewModel.usuario.rol.funcionalidades.OfType<AgregarAcciones>().Single();
                                 string funcionalidadesUsuarios = "";
                                 foreach (FuncionalidadUsuario f in viewModel.funcionalidadesUsuarios)
                                 {
