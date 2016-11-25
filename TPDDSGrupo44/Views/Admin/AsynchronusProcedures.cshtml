@@ -12,7 +12,7 @@
 	}
 
 	function selectLabel(id) {
-	    $("." + id).slideDown(500);
+	    $("." + id).slideToggle(500);
 	}
 </script>
 
@@ -101,7 +101,7 @@
                                 <input type="checkbox" name="mp-@p.nombre.Replace(" ","")" value="@p.nombre" id="process-@p.id" onchange="selectLabel('process-@p.id')"/> <label for="process-@p.id">@p.nombre</label><br />
                                 if (p.nombre == "Actualizar Local Comercial Asinc")
                                 {
-                                    <div class="row process-@p.id" style="display: none;">
+                                    <div class="row process process-@p.id" style="display: none;">
                                         <div class="col-md-3">
                                             <label class="control-label">Selecciona un archivo:</label>
                                         </div>
@@ -110,33 +110,34 @@
                                         </div>
                                     </div>
                                 }
-                                else if (proceso.nombre == "Agregar Acciones Asinc")
+                                else if (p.nombre == "Agregar Acciones Asinc")
                                 {
-                                    <p>Cuidado: ejecutar este proceso agregará las acciones seleccionadas a todos los usuarios.</p>
-                                    foreach (var f in Model.funcionalidadesUsuarios)
-                                    {
-                                        <input type="checkbox" name="fu-@f.nombre.Replace(" ","")-2" value="@f.nombre" id="functionality-@f.id-2" /> <label for="functionality-@f.id-2">@f.nombre</label><br />
-                                    }
-                                    <div class="form-group">
-                                        <div class="col-md-offset-8 col-md-4">
-                                            <input type="checkbox" name="undo2" id="undo" /> <label for="undo2">Deshacer la última acción</label><br />
+                                    <div class="row process process-@p.id" style="display: none;">
+                                        <p>Cuidado: ejecutar este proceso agregará las acciones seleccionadas a todos los usuarios.</p>
+                                        @foreach (var f in Model.funcionalidadesUsuarios)
+                                        {
+                                            <input type="checkbox" name="fu-@f.nombre.Replace(" ","")-2" value="@f.nombre" id="functionality-@f.id-2" /> <label for="functionality-@f.id-2">@f.nombre</label><br />
+                                        }
+                                        <div class="form-group">
+                                            <div class="col-md-offset-8 col-md-4">
+                                                <input type="checkbox" name="undo2" id="undo" /> <label for="undo2">Deshacer la última acción</label><br />
+                                            </div>
                                         </div>
                                     </div>
+                                    }
+                                    }
 
+                                    }
+                                    <div class="form-group">
+                                            <div class="col-md-offset-10 col-md-2">
+                                                <button type="submit">Ejecutar</button>
+                                            </div>
+                                        </div>
+                                        }
+
+                                    </div>
                                 }
                             }
-
-                        }
-						<div class="form-group">
-							<div class="col-md-offset-10 col-md-2">
-								<button type="submit">Ejecutar</button>
-							</div>
-						</div>
-                    }
-
-							</div>
-            }
-        }
 
 						</div>
 
